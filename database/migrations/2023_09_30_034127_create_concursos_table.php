@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('concursos', function (Blueprint $table) {
             // $table->id();
-            $table->unsignedBigInteger('id')->unique();
+            $table->bigInteger('id')->unique()->primary();
             $table->unsignedBigInteger('resultado_id')->nullable();
             $table->date('data_apuracao')->nullable();
             // $table->timestamps();

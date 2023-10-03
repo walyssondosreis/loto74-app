@@ -97,6 +97,7 @@ class LotoService
             $data_apuracao = Carbon::createFromFormat('d/m/Y', $r[1]);
             $numerosInput = implode(',', array_slice($r, 2, 15));
             $ret = $nums->registrar($numerosInput);
+<<<<<<< HEAD
 
             $buscaCCexists = ($tbl_concursos->where('id', '=', $r[0])->count());
             if ($ret['numero_id'] !== null &&  $buscaCCexists == 0) {
@@ -105,6 +106,12 @@ class LotoService
                 $rst_id = $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['numero_id']]);
 
                 $dados_cc = [
+=======
+            $buscaCCtbl = $tbl_concursos->where('id','=',$r[0])->count();
+            if($ret['numero_id']!=null && ($buscaCCtbl == 0)){
+                $rst_id=$tbl_resultados->insertGetId(['numero_id'=>$ret['numero_id']]);        
+                $tbl_concursos->insert([
+>>>>>>> ca60996ea67da053b9022ff2ee62a85291604c74
                     'id' => $r[0],
                     'data_apuracao' => $data_apuracao->format('Y-m-d'),
                     'resultado_id' => $rst_id
