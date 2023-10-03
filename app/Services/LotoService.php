@@ -97,7 +97,8 @@ class LotoService
 
             $numerosInput = implode(',',array_slice($r, 2, 15));
             $ret = $nums->registrar($numerosInput);
-            if($ret['numero_id']!=null && (($xx=$tbl_concursos->where('id','=',$r[0])->count()) == 0)){
+            $buscaCCtbl = $tbl_concursos->where('id','=',$r[0])->count();
+            if($ret['numero_id']!=null && ($buscaCCtbl == 0)){
                 $rst_id=$tbl_resultados->insertGetId(['numero_id'=>$ret['numero_id']]);        
                 $tbl_concursos->insert([
                     'id' => $r[0],
