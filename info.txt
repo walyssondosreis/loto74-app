@@ -1,0 +1,68 @@
+
+
+- Sobe servidor PHP direto possibilitando o uso do Xdebug
+php -S localhost:8000 -t public
+
+/**************
+ETAPAS DO PROJETO:
+ok - Fazer método da classe Numeros para calculo de sequencia
+ok - Fazer método da classe Numeros para validação de numeros
+ok - Fazer método da classe Numeros para registro de numeros
+- Fazer função da classe Resultado que grava resultado
+- Fazer função de atualização de banco com carga de dados via arq e API
+** A API Suporta no MAX 30 requisições simultâneas; portanto caso numero seja maior fazer carga de dados no sistema;
+
+OBJETIVOS
+- Analisar sequencias que mais saem
+- Dentro dessas sequencias pegar os números que mais ocorrem com porcentagem mínima de repetição
+- Dentro dessas sequencias pegar os números que menos ocorrem com porcentagem maxima de repetição
+- Gerar jogos baseado nesse criterio: Jogos que mais saem e recorrentes dentro da sequencia
+
+JOGO
+
+- Pode marcar de 15 a 20 Numeros dos 25 disponíveis
+- Teimosinha voce pode concorrer a 3,6,12,18, ou 24 concursos consecutivos
+- Ganha se acertar 11,12,13,14, ou 15 Numeros
+- Aposta mínima de 15 numeros custa R$ 3,00
+- Aposta de 16 numeros R$ 48,00, 17  numeros R$ 408,00, 18 numeros R$2.448,00, 19 numeros R$ 11.628,00 e 20 numeros R$ 46.512,00
+- Sorteios realizados de Seg a Sex as 20h
+- Prêmio para 11pts R$6,00 , 12pts R$ 12,00 - isso representa 43,35%
+- Prêmio para 14pts 13% do restante total, 15pts 62% do restante total
+
+
+API
+
+https://servicebus2.caixa.gov.br/portaldeloterias/api/quina
+https://servicebus2.caixa.gov.br/portaldeloterias/api/megasena
+https://servicebus2.caixa.gov.br/portaldeloterias/api/duplasena
+https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil
+https://servicebus2.caixa.gov.br/portaldeloterias/api/lotomania
+https://servicebus2.caixa.gov.br/portaldeloterias/api/diadesorte
+https://servicebus2.caixa.gov.br/portaldeloterias/api/timemania
+https://servicebus2.caixa.gov.br/portaldeloterias/api/federal
+https://servicebus2.caixa.gov.br/portaldeloterias/api/loteca
+https://servicebus2.caixa.gov.br/portaldeloterias/api/supersete
+
+
+Banco de Dados 
+
+- Tabela de Números: 
+- Tabela de Concursos
+- Tabela de Acertos x Numeros
+- Tabela de Concurso x Numeros
+
+========= Informações do Codeigniter 4
+** Arquivos a serem trabalhados no CodeIgniter4 ficam no diretório ./writable/
+** As migrations são armazenadas em ./app/Database/Migrations
+php spark make:migration create_minhatabela_table
+php spark migrate
+php spark serve 
+php spark make:model MeuModel
+** No model a variavel $allowedFilds é responsavel por informar quais campos da tabela permito manipular
+
+
+
+=======================================
+
+Referências: 
+https://pt.stackoverflow.com/questions/167345/curl-resultado-da-mega-sena-por-numero-de-concurso

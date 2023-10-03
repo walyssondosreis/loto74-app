@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class LotoService
 {
-    function criarCSV():Void
+    function criarCSV(): Void
     {
         $inputFilePath = storage_path('Lotofácil.xlsx');
         $outputFilePath = storage_path('lotofacil.csv');
@@ -34,10 +34,11 @@ class LotoService
         }
     }
 
-    function getConcursoViaApi($cc='') {
+    function getConcursoViaApi($cc = '')
+    {
 
-        $url = 'https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/'.$cc;
-    
+        $url = 'https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/' . $cc;
+
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -47,21 +48,21 @@ class LotoService
         $response = curl_exec($curl);
 
         curl_close($curl);
-    
+
         if (curl_errno($curl)) {
             return ['erro' => 'Erro na requisição cURL: ' . curl_error($curl)];
         }
-    
+
         $apiData = json_decode($response);
-    
+
         if ($apiData === null) {
             return ['erro' => 'Erro ao decodificar JSON.'];
         }
-        
+
         return (object)[
-            'concurso'=> $apiData->numero,
-            'data'=> $apiData->dataApuracao,
-            'numeros'=>implode(',',$apiData->dezenasSorteadasOrdemSorteio),
+            'concurso' => $apiData->numero,
+            'data' => $apiData->dataApuracao,
+            'numeros' => implode(',', $apiData->dezenasSorteadasOrdemSorteio),
         ];
     }
 
@@ -87,29 +88,35 @@ class LotoService
         fclose($csvFile);
         array_shift($csvData);
 
-        $nums = new Numero();
-
-        $tbl_resultados = DB::table('resultados');
-        $tbl_concursos = DB::table('concursos');
-
         foreach ($csvData as $r) {
-            $data_apuracao = Carbon::createFromFormat('d/m/Y',$r[1]);
 
-            $numerosInput = implode(',',array_slice($r, 2, 15));
+            $nums = new Numero();
+            $tbl_resultados = DB::table('resultados');
+            $tbl_concursos = DB::table('concursos');
+
+            $data_apuracao = Carbon::createFromFormat('d/m/Y', $r[1]);
+            $numerosInput = implode(',', array_slice($r, 2, 15));
             $ret = $nums->registrar($numerosInput);
-            if($ret['numero_id']!=null && (($xx=$tbl_concursos->where('id','=',$r[0])->count()) == 0)){
-                $rst_id=$tbl_resultados->insertGetId(['numero_id'=>$ret['numero_id']]);        
-                $tbl_concursos->insert([
+
+            $buscaCCexists = ($tbl_concursos->where('id', '=', $r[0])->count());
+            if ($ret['numero_id'] !== null &&  $buscaCCexists == 0) {
+
+                // Verificar se existe alguma associação de numero x resultado já existente se sim retorna se não grava
+                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['numero_id']]);
+
+                $dados_cc = [
                     'id' => $r[0],
                     'data_apuracao' => $data_apuracao->format('Y-m-d'),
                     'resultado_id' => $rst_id
-                ]);
-                // Não ta gravando todos os concursos verificar
+                ];
+
+                $tbl_concursos->insert($dados_cc);
             }
-            echo $ret['mensagem'] .'<br>';
+            echo $r[0] . ' ' . $ret['mensagem'] . '<br>';
         }
     }
-    function carregarDBViaApi(){ 
+    function carregarDBViaApi()
+    {
         /**
          * Busca último concurso registrado do banco e na api, executa função
          * que atualiza os consursos restantes da diferença entre o que já tem cadastrado 
@@ -118,7 +125,7 @@ class LotoService
          * suporta mais de 5 requisições simuntâneas.
          */
 
-        $ccs= new ConcursoModel();
+        $ccs = new ConcursoModel();
         $nums = new NumerosModel();
         $rst = new ResultadoModel();
 
@@ -127,33 +134,33 @@ class LotoService
         $ultccAPI = $this->getConcursoViaApi()->concurso;
         // 2901 atual ... 2902 -- 2906
         // dd($ultccAPI);
-        if($ultccDB == $ultccAPI) 
+        if ($ultccDB == $ultccAPI)
             return [
                 'status' => 'sucesso',
                 'atualizado' => true,
-                'mensagem'=> 'Base de dados não requer atualização',
+                'mensagem' => 'Base de dados não requer atualização',
             ];
-        if(($ultccAPI-$ultccDB) > 5) 
+        if (($ultccAPI - $ultccDB) > 5)
             return [
                 'status' => 'aviso',
                 'atualizado' => false,
                 'mensagem' => 'Base de dados requer carga manual',
             ];
-        for($i=$ultccDB+1;$i<=$ultccAPI;$i++){
+        for ($i = $ultccDB + 1; $i <= $ultccAPI; $i++) {
 
             // var_dump($i);
-            $r= $this->getConcursoViaApi($i);
+            $r = $this->getConcursoViaApi($i);
 
             $ret = $nums->registrar($r->numeros);
-            if($ret['numero_id']!=null && !$ccs->where('cc',$r->concurso)->first()){
-                $rst_id=$rst->insert(['numero_id'=>$ret['numero_id']]);        
+            if ($ret['numero_id'] != null && !$ccs->where('cc', $r->concurso)->first()) {
+                $rst_id = $rst->insert(['numero_id' => $ret['numero_id']]);
                 $ccs->insert([
-                    'cc'=> $r->concurso,
-                    'data_apuracao'=>converterData($r->data),
+                    'cc' => $r->concurso,
+                    'data_apuracao' => converterData($r->data),
                     'resultado_id' => $rst_id,
                 ]);
             }
-            echo $ret['mensagem'] .'<br>';
+            echo $ret['mensagem'] . '<br>';
         }
         return [
             'status' => 'sucesso',
@@ -161,5 +168,4 @@ class LotoService
             'mensagem' => 'Base de dados atualizada.',
         ];
     }
-    
 }
