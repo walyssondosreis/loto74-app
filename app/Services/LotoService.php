@@ -97,21 +97,14 @@ class LotoService
             $data_apuracao = Carbon::createFromFormat('d/m/Y', $r[1]);
             $numerosInput = implode(',', array_slice($r, 2, 15));
             $ret = $nums->registrar($numerosInput);
-<<<<<<< HEAD
 
             $buscaCCexists = ($tbl_concursos->where('id', '=', $r[0])->count());
-            if ($ret['numero_id'] !== null &&  $buscaCCexists == 0) {
+            if ($ret['numero_id'] != null &&  $buscaCCexists == 0) {
 
                 // Verificar se existe alguma associação de numero x resultado já existente se sim retorna se não grava
                 $rst_id = $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['numero_id']]);
 
                 $dados_cc = [
-=======
-            $buscaCCtbl = $tbl_concursos->where('id','=',$r[0])->count();
-            if($ret['numero_id']!=null && ($buscaCCtbl == 0)){
-                $rst_id=$tbl_resultados->insertGetId(['numero_id'=>$ret['numero_id']]);        
-                $tbl_concursos->insert([
->>>>>>> ca60996ea67da053b9022ff2ee62a85291604c74
                     'id' => $r[0],
                     'data_apuracao' => $data_apuracao->format('Y-m-d'),
                     'resultado_id' => $rst_id
@@ -132,15 +125,31 @@ class LotoService
          * suporta mais de 5 requisições simuntâneas.
          */
 
-        $ccs = new ConcursoModel();
-        $nums = new NumerosModel();
-        $rst = new ResultadoModel();
+        // $ccs = new ConcursoModel();
+        // $nums = new NumerosModel();
+        // $rst = new ResultadoModel();
+        
+        
 
-        $query = $ccs->db->query("SELECT max(cc) as max FROM concurso")->getRow();
-        $ultccDB = $query->max ? $query->max : 1;
+        $ccUltimo = new Concurso();
+
+        
+    
+        $ultimoCCnoDB = $ccUltimo->max('id');
+
+        $ultccDB = $ultimoCCnoDB ? $ultimoCCnoDB : 1;
         $ultccAPI = $this->getConcursoViaApi()->concurso;
-        // 2901 atual ... 2902 -- 2906
-        // dd($ultccAPI);
+
+        // Verificar gap no banco se falta CC e atualizar
+        $idsCCExistem = DB::table('concursos')->pluck('id')->toArray();
+        $interlavoCCTotal = range(1,$ultccDB);
+        $idsCCFaltantes = array_diff($interlavoCCTotal,$idsCCExistem);
+
+        if(!empty($idsCCFaltantes)){
+            // QUEBRAR PROCESSO DE INSERSÃO DO CONCURSO NO BANCO EM OUTRA FUNÇÃO
+            // TRATAR AQUI PARA INSERIR OS CC LACUNAS QUE NÃO FORAM GARREGADOS MANUALMENTE
+        }
+
         if ($ultccDB == $ultccAPI)
             return [
                 'status' => 'sucesso',
@@ -154,20 +163,31 @@ class LotoService
                 'mensagem' => 'Base de dados requer carga manual',
             ];
         for ($i = $ultccDB + 1; $i <= $ultccAPI; $i++) {
+            
+            $nums = new Numero();
+            $tbl_resultados = DB::table('resultados');
+            $tbl_concursos = DB::table('concursos');
 
-            // var_dump($i);
+        
             $r = $this->getConcursoViaApi($i);
-
+            $data_apuracao = Carbon::createFromFormat('d/m/Y', $r->data);
+        
             $ret = $nums->registrar($r->numeros);
-            if ($ret['numero_id'] != null && !$ccs->where('cc', $r->concurso)->first()) {
-                $rst_id = $rst->insert(['numero_id' => $ret['numero_id']]);
-                $ccs->insert([
-                    'cc' => $r->concurso,
-                    'data_apuracao' => converterData($r->data),
+            $buscaCCexists = ($tbl_concursos->where('id', '=', $r->concurso)->count());
+            if ($ret['numero_id'] != null &&  $buscaCCexists == 0) {
+
+                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['numero_id']]);
+    
+
+                $dados_cc = [
+                    'id' => $r->concurso,
+                    'data_apuracao' => $data_apuracao->format('Y-m-d'),
                     'resultado_id' => $rst_id,
-                ]);
+                ];
+
+                $tbl_concursos->insert($dados_cc);
             }
-            echo $ret['mensagem'] . '<br>';
+            echo $r->concurso . ' ' . $ret['mensagem'] . '<br>';
         }
         return [
             'status' => 'sucesso',
