@@ -16,71 +16,17 @@ class LotoController extends Controller
     public function index()
     {
         // echo 'chupa minha pica então seu vagabundo';
-        
+
         // $dadosView['jogos'] = [$resultadoApi->getResultadoApi(13)];
         // $dadosView['seqs'] = $this->rankearSequencia($dadosView['jogos']);
 
         // return view('v74', $dadosView);
-        $a = Concurso::find(2);
-        // $n = new Numero();
+        $a = Concurso::find(2908);
 
-    //    $dados = $n->registrar('1,2,3,4,5,6,7,8,9,10,11,12,13,14,17');
-    //    $x = $a->getConcursoViaApi();
-    $obj = new LotoService();
-    $obj2 = new Resultado();
-    // $a = $obj->carregarDBViaCSV();
-    // $a = $obj->carregarDBViaApi();
-    // var_dump($a->data_apuracao);      
-    // dd($a->resultado->numero->numeros);
-    dd($obj2->registrar(2103));
-    }
+        $obj = new LotoService();
+   
+        dd($a->resultado->numero->numeros);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function rankearSequencia($resultados = [])
@@ -99,6 +45,5 @@ class LotoController extends Controller
         }
         arsort($contagem);
         return $contagem;
-
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Resultado;
 use App\Models\Numero;
 use App\Models\Concurso;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class LotoService
@@ -59,7 +60,7 @@ class LotoService
             return ['erro' => 'Erro ao decodificar JSON.'];
         }
 
-        return (object)[
+        return [
             'concurso' => $apiData->numero,
             'data' => $apiData->dataApuracao,
             'numeros' => implode(',', $apiData->dezenasSorteadasOrdemSorteio),
@@ -88,33 +89,43 @@ class LotoService
         fclose($csvFile);
         array_shift($csvData);
 
-        foreach ($csvData as $r) {
+        foreach ($csvData as $linhaCSV) {
+            $resViaCSV = [
+                'concurso'=> $linhaCSV[0],
+                'data'=>$linhaCSV[1],
+                'numeros'=>implode(',', array_slice($linhaCSV, 2, 15)),
+            ];
+            // dd($resViaCSV);
 
             $nums = new Numero();
-            $tbl_resultados = DB::table('resultados');
-            $tbl_concursos = DB::table('concursos');
+            $res = new Resultado();
+            $ccs = new Concurso();
 
-            $data_apuracao = Carbon::createFromFormat('d/m/Y', $r[1]);
-            $numerosInput = implode(',', array_slice($r, 2, 15));
-            $ret = $nums->registrar($numerosInput);
-
-            $buscaCCexists = ($tbl_concursos->where('id', '=', $r[0])->count());
-            if ($ret['id'] != null &&  $buscaCCexists == 0) {
-
-                // Verificar se existe alguma associação de numero x resultado já existente se sim retorna se não grava
-                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['id']]);
-
-                $dados_cc = [
-                    'id' => $r[0],
-                    'data_apuracao' => $data_apuracao->format('Y-m-d'),
-                    'resultado_id' => $rst_id
+            try {
+                $retorno_numero = $nums->registrar($resViaCSV['numeros']);
+                $retorno_resultado = $res->registrar($retorno_numero['id']);
+                $retorno_concurso = $ccs->registrar([
+                    'id' => $resViaCSV['concurso'],
+                    'data_apuracao' => $resViaCSV['data'],
+                    'resultado_id' => $retorno_resultado['id'],
+                ]);
+                // var_dump($retorno_concurso);
+            } catch (Exception $e) {
+                return [
+                    'status' => 'error',
+                    'atualizado' => false,
+                    'mensagem' => 'Não foi possivel atualizar o banco via CSV.',
                 ];
-
-                $tbl_concursos->insert($dados_cc);
             }
-            echo $r[0] . ' ' . $ret['mensagem'] . '<br>';
+
         }
+        return [
+            'status' => 'sucesso',
+            'atualizado' => true,
+            'mensagem' => 'Base de dados atualizado.',
+        ];
     }
+
     function carregarDBViaApi()
     {
         /**
@@ -125,74 +136,64 @@ class LotoService
          * suporta mais de 5 requisições simuntâneas.
          */
 
-        // $ccs = new ConcursoModel();
-        // $nums = new NumerosModel();
-        // $rst = new ResultadoModel();
-        
-        
-
         $ccUltimo = new Concurso();
 
-        
-    
         $ultimoCCnoDB = $ccUltimo->max('id');
 
         $ultccDB = $ultimoCCnoDB ? $ultimoCCnoDB : 1;
-        $ultccAPI = $this->getConcursoViaApi()->concurso;
+        $ultccAPI = $this->getConcursoViaApi()['concurso'];
+
+        $ccParaAtualizar = $ultccDB != $ultccAPI ? range($ultccDB + 1, $ultccAPI) : [];
 
         // Verificar gap no banco se falta CC e atualizar
         $idsCCExistem = DB::table('concursos')->pluck('id')->toArray();
-        $interlavoCCTotal = range(1,$ultccDB);
-        $idsCCFaltantes = array_diff($interlavoCCTotal,$idsCCExistem);
+        $interlavoCCTotal = range(1, $ultccDB);
+        $idsCCFaltantes = array_diff($interlavoCCTotal, $idsCCExistem);
 
-        if(!empty($idsCCFaltantes)){
-            // QUEBRAR PROCESSO DE INSERSÃO DO CONCURSO NO BANCO EM OUTRA FUNÇÃO
-            // TRATAR AQUI PARA INSERIR OS CC LACUNAS QUE NÃO FORAM GARREGADOS MANUALMENTE
-        }
-        dd($idsCCFaltantes);
-        if ($ultccDB == $ultccAPI)
+        $ccParaAtualizar = array_merge($ccParaAtualizar, $idsCCFaltantes);
+        sort($ccParaAtualizar);
+        // dd($ccParaAtualizar);
+        if (empty($ccParaAtualizar))
             return [
                 'status' => 'sucesso',
                 'atualizado' => true,
                 'mensagem' => 'Base de dados não requer atualização',
             ];
-        if (($ultccAPI - $ultccDB) > 5)
+        if (count($ccParaAtualizar) > 5)
             return [
                 'status' => 'aviso',
                 'atualizado' => false,
                 'mensagem' => 'Base de dados requer carga manual',
             ];
-        for ($i = $ultccDB + 1; $i <= $ultccAPI; $i++) {
-            
+
+        foreach ($ccParaAtualizar as $i) {
+
             $nums = new Numero();
-            $tbl_resultados = DB::table('resultados');
-            $tbl_concursos = DB::table('concursos');
+            $res = new Resultado();
+            $ccs = new Concurso();
 
-        
-            $r = $this->getConcursoViaApi($i);
-            $data_apuracao = Carbon::createFromFormat('d/m/Y', $r->data);
-        
-            $ret = $nums->registrar($r->numeros);
-            $buscaCCexists = ($tbl_concursos->where('id', '=', $r->concurso)->count());
-            if ($ret['id'] != null &&  $buscaCCexists == 0) {
-
-                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['id']]);
-    
-
-                $dados_cc = [
-                    'id' => $r->concurso,
-                    'data_apuracao' => $data_apuracao->format('Y-m-d'),
-                    'resultado_id' => $rst_id,
+            try {
+                $resViaApi = $this->getConcursoViaApi($i);
+                $retorno_numero = $nums->registrar($resViaApi['numeros']);
+                $retorno_resultado = $res->registrar($retorno_numero['id']);
+                $retorno_concurso = $ccs->registrar([
+                    'id' => $resViaApi['concurso'],
+                    'data_apuracao' => $resViaApi['data'],
+                    'resultado_id' => $retorno_resultado['id'],
+                ]);
+                var_dump($retorno_concurso);
+            } catch (Exception $e) {
+                return [
+                    'status' => 'error',
+                    'atualizado' => false,
+                    'mensagem' => 'Não foi possivel atualizar o banco via API.',
                 ];
-
-                $tbl_concursos->insert($dados_cc);
             }
-            echo $r->concurso . ' ' . $ret['mensagem'] . '<br>';
         }
         return [
             'status' => 'sucesso',
             'atualizado' => true,
-            'mensagem' => 'Base de dados atualizada.',
+            'mensagem' => 'Base de dados atualizado.',
         ];
     }
 }

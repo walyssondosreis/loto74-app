@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Concurso extends Model
 {
@@ -30,7 +32,7 @@ class Concurso extends Model
             ];
         }
         try{
-            // validar os dados de concurso antes de inserir se não lançar excessão
+            $dreg['data_apuracao'] = Carbon::createFromFormat('d/m/Y', $dreg['data_apuracao'])->format('Y-m-d');
             $id =  $tbl->insertGetId( $dreg);
             return [
                 'status' => 'sucesso',
