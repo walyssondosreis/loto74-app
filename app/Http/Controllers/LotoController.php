@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Concurso;
 use App\Models\Numero;
+use App\Models\Resultado;
 use Illuminate\Http\Request;
 use App\Services\LotoService;
 
@@ -19,15 +21,18 @@ class LotoController extends Controller
         // $dadosView['seqs'] = $this->rankearSequencia($dadosView['jogos']);
 
         // return view('v74', $dadosView);
-        // $a = new LotoService();
+        $a = Concurso::find(2);
         // $n = new Numero();
 
     //    $dados = $n->registrar('1,2,3,4,5,6,7,8,9,10,11,12,13,14,17');
     //    $x = $a->getConcursoViaApi();
     $obj = new LotoService();
+    $obj2 = new Resultado();
     // $a = $obj->carregarDBViaCSV();
-    $a = $obj->carregarDBViaApi();       
-    dd($a);
+    // $a = $obj->carregarDBViaApi();
+    // var_dump($a->data_apuracao);      
+    // dd($a->resultado->numero->numeros);
+    dd($obj2->registrar(2103));
     }
 
     /**

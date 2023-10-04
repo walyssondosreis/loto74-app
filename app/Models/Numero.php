@@ -90,14 +90,14 @@ class Numero extends Model
         $sequencia = implode(',',$sequencia);
         return $sequencia;
     }
-    public function registrar(String $numerosInput)
+    public function registrar(String $numerosInput):Array
     {
         if(!$this->validar($numerosInput))
             return[
                 'status'=>'error',
                 'novo_registro'=>false,
-                'numero_id'=> null,
-                'mensagem' => 'Entrada de números não passou na validação.',
+                'id'=> null,
+                'mensagem' => 'Registro de numeros não passou na validação.',
             ];
         
         
@@ -107,25 +107,25 @@ class Numero extends Model
             return [
                 'status' => 'sucesso',
                 'novo_registro' => false,
-                'numero_id' => $existeNumeros->id,
-                'mensagem' => 'Entrada de números já existe no banco de dados.',
+                'id' => $existeNumeros->id,
+                'mensagem' => 'Registro de números já existe no banco de dados.',
             ];
         }
         try {
-            $tbl_numeros = DB::table('numeros');
-            $numero_id = $tbl_numeros->insertGetId(['numeros' => $this->tratar($numerosInput), 'sequencia' => $this->calcularSequencia($numerosInput)]);
+            $tbl = DB::table('numeros');
+            $id = $tbl->insertGetId(['numeros' => $this->tratar($numerosInput), 'sequencia' => $this->calcularSequencia($numerosInput)]);
             return [
                 'status' => 'sucesso',
                 'novo_registro' => true,
-                'numero_id' => $numero_id,
-                'mensagem' => 'Entrada de números foi cadastrada no banco de dados.',
+                'id' => $id,
+                'mensagem' => 'Registro de números foi cadastrada no banco de dados.',
             ];
         } catch (Exception $e) {
             return [
                 'status' => 'error',
                 'novo_registro'=>false,
-                'numero_id'=>null,
-                'mensagem' => 'Não foi possível registrar números.'. $e->getMessage(),
+                'id'=>null,
+                'mensagem' => 'Não foi possível registrar numero no bando de dados.'. $e->getMessage(),
             ];
         }
     }

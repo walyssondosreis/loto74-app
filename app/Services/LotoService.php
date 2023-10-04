@@ -99,10 +99,10 @@ class LotoService
             $ret = $nums->registrar($numerosInput);
 
             $buscaCCexists = ($tbl_concursos->where('id', '=', $r[0])->count());
-            if ($ret['numero_id'] != null &&  $buscaCCexists == 0) {
+            if ($ret['id'] != null &&  $buscaCCexists == 0) {
 
                 // Verificar se existe alguma associação de numero x resultado já existente se sim retorna se não grava
-                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['numero_id']]);
+                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['id']]);
 
                 $dados_cc = [
                     'id' => $r[0],
@@ -149,7 +149,7 @@ class LotoService
             // QUEBRAR PROCESSO DE INSERSÃO DO CONCURSO NO BANCO EM OUTRA FUNÇÃO
             // TRATAR AQUI PARA INSERIR OS CC LACUNAS QUE NÃO FORAM GARREGADOS MANUALMENTE
         }
-
+        dd($idsCCFaltantes);
         if ($ultccDB == $ultccAPI)
             return [
                 'status' => 'sucesso',
@@ -174,9 +174,9 @@ class LotoService
         
             $ret = $nums->registrar($r->numeros);
             $buscaCCexists = ($tbl_concursos->where('id', '=', $r->concurso)->count());
-            if ($ret['numero_id'] != null &&  $buscaCCexists == 0) {
+            if ($ret['id'] != null &&  $buscaCCexists == 0) {
 
-                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['numero_id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['numero_id']]);
+                $rst_id = $tbl_resultados->where('numero_id', '=', $ret['id'])->exists() ? $tbl_resultados->where('numero_id', '=', $ret['id'])->first()->id : $tbl_resultados->insertGetId(['numero_id' => $ret['id']]);
     
 
                 $dados_cc = [
