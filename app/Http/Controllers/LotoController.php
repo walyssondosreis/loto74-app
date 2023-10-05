@@ -15,17 +15,19 @@ class LotoController extends Controller
      */
     public function index()
     {
-        // echo 'chupa minha pica então seu vagabundo';
-
         // $dadosView['jogos'] = [$resultadoApi->getResultadoApi(13)];
         // $dadosView['seqs'] = $this->rankearSequencia($dadosView['jogos']);
 
         // return view('v74', $dadosView);
-        $a = Concurso::find(2908);
+        $a = Concurso::with('resultado.numero')->find(2908);
 
         $obj = new LotoService();
    
-        dd($a->resultado->numero->numeros);
+        var_dump($a->data_apuracao);
+        var_dump($a->toArray());
+        // var_dump($a->resultado->toArray());
+        // var_dump($a->resultado->numero->toArray());
+        
 
     }
 
