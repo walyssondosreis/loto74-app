@@ -8,8 +8,8 @@ ETAPAS DO PROJETO:
 ok - Fazer método da classe Numeros para calculo de sequencia
 ok - Fazer método da classe Numeros para validação de numeros
 ok - Fazer método da classe Numeros para registro de numeros
-- Fazer função da classe Resultado que grava resultado
-- Fazer função de atualização de banco com carga de dados via arq e API
+ok - Fazer função da classe Resultado que grava resultado
+ok - Fazer função de atualização de banco com carga de dados via arq e API
 ** A API Suporta no MAX 30 requisições simultâneas; portanto caso numero seja maior fazer carga de dados no sistema;
 
 OBJETIVOS

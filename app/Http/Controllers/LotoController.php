@@ -28,7 +28,7 @@ class LotoController extends Controller
         // var_dump($a->resultado->toArray());
         // var_dump($a->resultado->numero->toArray());
         
-
+        return view('welcome');
     }
 
     public function rankearSequencia($resultados = [])
