@@ -16,7 +16,7 @@ class LotoController extends Controller
     public function index()
     {
 
-        // $a = Concurso::with('resultado.numero')->find(2908);
+        // $a = Concurso::with('resultado.numero')->find(2808);
 
         // $obj = new LotoService();
    
