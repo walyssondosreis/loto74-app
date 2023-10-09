@@ -1,25 +1,23 @@
 
-
-- Sobe servidor PHP direto possibilitando o uso do Xdebug
-php -S localhost:8000 -t public
-
-/**************
-ETAPAS DO PROJETO:
+(1) Etapas do Projeto:___
 ok - Fazer método da classe Numeros para calculo de sequencia
 ok - Fazer método da classe Numeros para validação de numeros
 ok - Fazer método da classe Numeros para registro de numeros
 ok - Fazer função da classe Resultado que grava resultado
 ok - Fazer função de atualização de banco com carga de dados via arq e API
-** A API Suporta no MAX 30 requisições simultâneas; portanto caso numero seja maior fazer carga de dados no sistema;
+ok ** A API Suporta poucas requisições, tratar requisição automática e manual
+- Fazer interface view 
+- Ligar funções do model as views
+- Fazer gerenciamento de Usuarios, login, sessao etc
+- Implementar comportamentos JS 
 
-OBJETIVOS
+(2) Objetivos:___
 - Analisar sequencias que mais saem
 - Dentro dessas sequencias pegar os números que mais ocorrem com porcentagem mínima de repetição
 - Dentro dessas sequencias pegar os números que menos ocorrem com porcentagem maxima de repetição
 - Gerar jogos baseado nesse criterio: Jogos que mais saem e recorrentes dentro da sequencia
 
-JOGO
-
+(3) Jogo:__
 - Pode marcar de 15 a 20 Numeros dos 25 disponíveis
 - Teimosinha voce pode concorrer a 3,6,12,18, ou 24 concursos consecutivos
 - Ganha se acertar 11,12,13,14, ou 15 Numeros
@@ -29,9 +27,7 @@ JOGO
 - Prêmio para 11pts R$6,00 , 12pts R$ 12,00 - isso representa 43,35%
 - Prêmio para 14pts 13% do restante total, 15pts 62% do restante total
 
-
-API
-
+(4) API:___
 https://servicebus2.caixa.gov.br/portaldeloterias/api/quina
 https://servicebus2.caixa.gov.br/portaldeloterias/api/megasena
 https://servicebus2.caixa.gov.br/portaldeloterias/api/duplasena
@@ -43,26 +39,26 @@ https://servicebus2.caixa.gov.br/portaldeloterias/api/federal
 https://servicebus2.caixa.gov.br/portaldeloterias/api/loteca
 https://servicebus2.caixa.gov.br/portaldeloterias/api/supersete
 
+(5) Banco de Dados:___ 
 
-Banco de Dados 
-
-- Tabela de Números: 
+- Tabela de Números
 - Tabela de Concursos
 - Tabela de Acertos x Numeros
 - Tabela de Concurso x Numeros
 
-========= Informações do Codeigniter 4
-** Arquivos a serem trabalhados no CodeIgniter4 ficam no diretório ./writable/
-** As migrations são armazenadas em ./app/Database/Migrations
-php spark make:migration create_minhatabela_table
-php spark migrate
-php spark serve 
-php spark make:model MeuModel
+(6) Laravel 10x:___
+
+php artisan make:migration create_minhatabela_table
+php artisan migrate
+php artisan serve 
+php artisan make:model MeuModel
+php -S localhost:8000 -t public
+npm run dev 
+
+** As migrations são armazenadas em ./database/migrations
 ** No model a variavel $allowedFilds é responsavel por informar quais campos da tabela permito manipular
 
-
-
-=======================================
+____________________________________________________
 
 Referências: 
 https://pt.stackoverflow.com/questions/167345/curl-resultado-da-mega-sena-por-numero-de-concurso
