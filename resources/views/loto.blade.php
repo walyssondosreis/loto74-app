@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LotoFC</title>
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
-    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-82c87407.css') }}"> --}}
-    {{-- <script src="{{ asset('build/assets/app-a83ed21d.js') }}"></script> --}}
+
     <style>
         .loteria-ticket {
             width: 250px;
@@ -122,40 +121,13 @@
     </style>
 
 </head>
+{{-- {{ dd($concursos); }} --}}
 <?php
 // DADOS DE TESTE
 $seqs = [
     '3,3,3,3,3' => '256',
     '3,2,4,3,3' => '200',
 ];
-
-$jogos = [
-    [
-        'dt' => '23/08/2023',
-        'cc' => '2204',
-        'sq' => [3, 3, 3, 3, 3],
-        'ns' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    ],
-    [
-        'dt' => '28/08/2023',
-        'cc' => '2205',
-        'sq' => [3, 3, 2, 4, 3],
-        'ns' => [4, 6, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 22, 24],
-    ],
-    [
-        'dt' => '28/08/2023',
-        'cc' => '2205',
-        'sq' => [3, 3, 2, 4, 3],
-        'ns' => [4, 6, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 22, 24],
-    ],
-    [
-        'dt' => '28/08/2023',
-        'cc' => '2205',
-        'sq' => [3, 3, 2, 4, 3],
-        'ns' => [4, 6, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 22, 24],
-    ],
-];
-
 ?>
 
 <body>
@@ -255,13 +227,13 @@ $jogos = [
                 {{-- Cards de Jogos --}}
                 <div class="container-fluid">
                     <div class="row justify-content-center">
-                        <?php foreach ($jogos as $jogo) : ?>
+                        <?php foreach ($concursos as $cc) : ?>
                         <div class="loteria-ticket">
                             <div class="header">
-                                <div><?= $jogo['dt'] ?></div>
-                                <h2><?= 'Concurso ' . $jogo['cc'] ?></h2>
+                                <div>{{ $cc->data_apuracao }}</div>
+                                <h2>{{ 'Concurso '. $cc->id }}</h2>
 
-                                <?php foreach($jogo['sq'] as $sqp): ?>
+                                <?php foreach( explode(',',$cc->resultado->numero->sequencia)  as $sqp): ?>
                                 <span class="casa-seq"><?= $sqp ?></span>
                                 <?php endforeach;?>
 
@@ -273,7 +245,7 @@ $jogos = [
                             <div class="numbers">
                                 <?php for ($j = 0; $j < 5; $j++) : ?>
                                 <?php $numTotal += 1; ?>
-                                <div class="<?= in_array($numTotal, $jogo['ns']) ? 'number-check' : 'number' ?>"
+                                <div class="<?= in_array($numTotal, explode(',',$cc->resultado->numero->numeros)) ? 'number-check' : 'number' ?>"
                                     style="position: relative;"><?= $numTotal ?></div>
 
                                 <!-- <span class="number-indicator">10%</span> -->
@@ -286,6 +258,27 @@ $jogos = [
                         </div>
                         <?php endforeach; ?>
                     </div>
+
+                    {{-- {{ $concursos->links(); }} --}}
+
+
+                    {{-- Elemento de Paginação --}}
+                    <nav aria-label="Paginação de Cards" class="mt-2">
+                        <ul class="pagination justify-content-center">
+                          <li class="page-item disabled">
+                            <a class="page-link">Anterior</a>
+                          </li>
+                         
+                        @for ($i=1; $i < $concursos->perPage(); $i++)
+                          <li class="page-item"><a class="page-link" href="?page={{ $i }}">{{ $i }}</a></li>
+                            
+                        @endfor
+                    
+                          <li class="page-item">
+                            <a class="page-link" href="#">Próximo</a>
+                          </li>
+                        </ul>
+                      </nav>
 
 
                 </div>
