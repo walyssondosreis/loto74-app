@@ -71,28 +71,22 @@
             border-radius: 5px;
 
         }
+
         /* Analizador */
-        .loteria-ticket-analiz {
+        .ticket-analiz {
             width: 250px;
-            /* background-color: #301934; */
-            /* border-radius: 10px; */
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
             padding: 20px;
             text-align: center;
             margin: 5px;
         }
+
         .numbers-analiz {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-top: 20px;
             margin: 10px;
         }
-        .number-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+
         .indicador {
             width: 40px;
             height: 15px;
@@ -100,6 +94,21 @@
             font-size: 12px;
             line-height: 12px;
 
+        }
+
+        .indicador-seq {
+            width: 15px;
+            height: 52px;
+            font-size: 12px;
+            line-height: 15px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .indicador-seq-dir {
+            writing-mode: vertical-lr;
+        }
+        .indicador-seq-esq {
+            writing-mode:vertical-lr;
         }
         .number-analiz {
             width: 40px;
@@ -110,9 +119,7 @@
             line-height: 22px;
             border: 1px solid black;
         }
-/* teste---------------- */
-
-</style>
+    </style>
 
 </head>
 <?php
@@ -152,7 +159,7 @@ $jogos = [
 ?>
 
 <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar navbar-dark bg-dark mb-3">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">LotoV74</span>
         </div>
@@ -160,36 +167,28 @@ $jogos = [
 
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-sm-3">
                 {{-- Analisador de Sequencias --}}
                 <div class="mb-2">
                     <div class="row justify-content-center">
-                        <div class="loteria-ticket-analiz">
-                            <div class="header">
-                                <div>Mensagem 1</div>
-                                <h2>Mensagem 2</h2>
-
-                                <span class="casa-seq">3</span>
-                                <span class="casa-seq">3</span>
-                                <span class="casa-seq">3</span>
-                                <span class="casa-seq">3</span>
-                                <span class="casa-seq">3</span>
-
-                            </div>
+                        <div class="ticket-analiz">
                             <?php
                                 $numTotal = 0;
                                 for ($i = 0; $i < 5; $i++) :
                                 ?>
                             <div class="numbers-analiz">
-                                <?php for ($j = 0; $j < 5; $j++) : ?>
-                                <?php $numTotal += 1; ?>
-                                <div class="number-container">
-                                    <div class="indicador">1</div>
-                                    <div class="number-analiz" style="position: relative;"><?= $numTotal ?></div>
-                                    <div class="indicador">1</div>
+                                <div style="display: flex; flex-direction:row">
+                                    <div class="indicador-seq indicador-seq-esq">1</div>
+                                    <?php for ($j = 0; $j < 5; $j++) : ?>
+                                    <?php $numTotal += 1; ?>
+                                    <div style="display: flex; flex-direction:column">
+                                        <div class="indicador">1</div>
+                                        <div class="number-analiz"><?= $numTotal ?></div>
+                                        <div class="indicador">1</div>
+                                    </div>
+                                    <?php endfor; ?>
+                                    <div class="indicador-seq indicador-seq-dir">100%</div>
                                 </div>
-                                <?php endfor; ?>
                             </div>
                             <?php endfor; ?>
                         </div>
@@ -224,7 +223,7 @@ $jogos = [
 
             <div class="col-sm-9">
                 {{-- Filtros de Jogos --}}
-                <form action="" method="post">
+                <form action="" method="post" class="border p-2 rounded mb-3">
                     <div class="row mb-2">
                         <div class="row">
                             <div class="col-4 form-group">
