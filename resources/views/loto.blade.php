@@ -103,12 +103,15 @@
             text-align: center;
             border: 1px solid black;
         }
+
         .indicador-seq-dir {
             writing-mode: vertical-lr;
         }
+
         .indicador-seq-esq {
-            writing-mode:vertical-lr;
+            writing-mode: vertical-lr;
         }
+
         .number-analiz {
             width: 40px;
             height: 22px;
@@ -138,6 +141,37 @@ $seqs = [
     </nav>
 
     <div class="container-fluid">
+        <div class="row">
+            {{-- Filtros de Jogos --}}
+            <form action="" method="post" class="container" style="width:90%">
+                <div class="row mb-2">
+                    <div class="row">
+                        <div class="col-4 form-group">
+                            <label for="nome">Concurso:</label>
+                            <input type="text" class="form-control" id="nome"
+                                placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="seq">Sequência:</label>
+                            <input type="text" class="form-control" id="seq"
+                                placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label for="data_ini">Data de Início:</label>
+                            <input type="date" class="form-control" id="data_ini" name="data">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label for="data_fim">Data de Fim:</label>
+                            <input type="date" class="form-control" id="data_fim" name="data">
+                        </div>
+                    </div>
+                    <div class="text-center m-2">
+                        <button type="button" class="btn btn-secondary btn-sm " style="width: 100px">Cancelar</button>
+                        <button type="button" class="btn btn-primary btn-sm" style="width: 100px">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="row">
             <div class="col-sm-3">
                 {{-- Analisador de Sequencias --}}
@@ -194,44 +228,15 @@ $seqs = [
             </div>
 
             <div class="col-sm-9">
-                {{-- Filtros de Jogos --}}
-                <form action="" method="post" class="border p-2 rounded mb-3">
-                    <div class="row mb-2">
-                        <div class="row">
-                            <div class="col-4 form-group">
-                                <label for="nome">Concurso:</label>
-                                <input type="text" class="form-control" id="nome"
-                                    placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
-                            </div>
-                            <div class="col-4 form-group">
-                                <label for="seq">Sequência:</label>
-                                <input type="text" class="form-control" id="seq"
-                                    placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
-                            </div>
-                            <div class="col-2 form-group">
-                                <label for="data_ini">Data de Início:</label>
-                                <input type="date" class="form-control" id="data_ini" name="data">
-                            </div>
-                            <div class="col-2 form-group">
-                                <label for="data_fim">Data de Fim:</label>
-                                <input type="date" class="form-control" id="data_fim" name="data">
-                            </div>
-                        </div>
-                        <div class="text-center m-2">
-                            <button type="button" class="btn btn-secondary btn-sm "
-                                style="width: 100px">Cancelar</button>
-                            <button type="button" class="btn btn-primary btn-sm" style="width: 100px">Buscar</button>
-                        </div>
-                    </div>
-                </form>
+
                 {{-- Cards de Jogos --}}
                 <div class="container-fluid">
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center mb-2">
                         <?php foreach ($concursos as $cc) : ?>
                         <div class="loteria-ticket">
                             <div class="header">
-                                <div>{{ $cc->data_apuracao }}</div>
-                                <h2>{{ 'Concurso '. $cc->id }}</h2>
+                                <div>{{ \Carbon\Carbon::parse($cc->data_apuracao)->format('d/m/Y') }}</div>
+                                <h2>{{ 'Concurso ' . $cc->id }}</h2>
 
                                 <?php foreach( explode(',',$cc->resultado->numero->sequencia)  as $sqp): ?>
                                 <span class="casa-seq"><?= $sqp ?></span>
@@ -245,7 +250,7 @@ $seqs = [
                             <div class="numbers">
                                 <?php for ($j = 0; $j < 5; $j++) : ?>
                                 <?php $numTotal += 1; ?>
-                                <div class="<?= in_array($numTotal, explode(',',$cc->resultado->numero->numeros)) ? 'number-check' : 'number' ?>"
+                                <div class="<?= in_array($numTotal, explode(',', $cc->resultado->numero->numeros)) ? 'number-check' : 'number' ?>"
                                     style="position: relative;"><?= $numTotal ?></div>
 
                                 <!-- <span class="number-indicator">10%</span> -->
@@ -258,28 +263,10 @@ $seqs = [
                         </div>
                         <?php endforeach; ?>
                     </div>
+                    <div class="mb-5 justify-content-center">
+                        {{ $concursos->links() }}
 
-                    {{-- {{ $concursos->links(); }} --}}
-
-
-                    {{-- Elemento de Paginação --}}
-                    <nav aria-label="Paginação de Cards" class="mt-2">
-                        <ul class="pagination justify-content-center">
-                          <li class="page-item disabled">
-                            <a class="page-link">Anterior</a>
-                          </li>
-                         
-                        @for ($i=1; $i < $concursos->perPage(); $i++)
-                          <li class="page-item"><a class="page-link" href="?page={{ $i }}">{{ $i }}</a></li>
-                            
-                        @endfor
-                    
-                          <li class="page-item">
-                            <a class="page-link" href="#">Próximo</a>
-                          </li>
-                        </ul>
-                      </nav>
-
+                    </div>
 
                 </div>
             </div>

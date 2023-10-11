@@ -7,6 +7,7 @@ use App\Models\Numero;
 use App\Models\Resultado;
 use Illuminate\Http\Request;
 use App\Services\LotoService;
+use Illuminate\Support\Facades\DB;
 
 class LotoController extends Controller
 {
@@ -17,11 +18,17 @@ class LotoController extends Controller
     {
 
         // $a = Concurso::with('resultado.numero')->find(2808);
-        $concursos = Concurso::with('resultado.numero')->paginate(6);
+        // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
+        $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
         // $concursos = Concurso::paginate(10);
+        $sequencias = Resultado::with('numero')
+        ->select('sequencia', DB::raw('count(*) as qtd'))
+        ->groupBy('sequencia')
+        ->get();
 
-        // $obj = new LotoService();
-   
+
+        // $atualizador = new LotoService();
+        // var_dump($atualizador->carregarDBViaApi());
         // var_dump($a->data_apuracao);
         // var_dump($concursos);
         // var_dump($a->resultado->toArray());
