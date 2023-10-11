@@ -19,39 +19,42 @@ class LotoController extends Controller
 
         // $a = Concurso::with('resultado.numero')->find(2808);
         // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
-        $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
+
+        // Busca concursos completo na tabela com paginação
+        $concursos = Concurso::with('resultado.numero')->orderBy('id', 'desc')->simplePaginate(3);
         // $concursos = Concurso::paginate(10);
-        $sequencias = Resultado::with('numero')
-        ->select('sequencia', DB::raw('count(*) as qtd'))
-        ->groupBy('sequencia')
-        ->get();
 
+        // Busca ranqueamento de sequências dos resultados
+        $sequencias = DB::table('numeros')
+            ->join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+            ->select('sequencia', DB::raw('count(*) as qtd'))
+            ->groupBy('sequencia')
+            ->orderBy('qtd', 'desc')
+            ->get();
 
-        // $atualizador = new LotoService();
-        // var_dump($atualizador->carregarDBViaApi());
+        $numeros = DB::table('numeros')
+            ->join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+            ->select('sequencia', DB::raw('count(*) as qtd'))
+            ->groupBy('sequencia')
+            ->orderBy('qtd', 'desc')
+            ->get();
+
+            // SELECT id FROM numeros WHERE  FIND_IN_SET("1", numeros); 
+        // var_dump($concursos[0]->toArray());
+        // dd($sequencias);
+        // dd($concursos);
+        $atualizador = new LotoService();
+        var_dump($atualizador->carregarDBViaCSV());
         // var_dump($a->data_apuracao);
         // var_dump($concursos);
         // var_dump($a->resultado->toArray());
         // var_dump($a->resultado->numero->toArray());
-        
-        return view('loto',['concursos'=>$concursos]);
-    }
 
-    public function rankearSequencia($resultados = [])
-    {
+        $toView = [
+            'concursos' => $concursos,
+            'sequencias' => $sequencias,
+        ];
 
-        if ($resultados == []) $resultados = $this->resultados;
-        $contagem = array();
-
-        foreach ($resultados as $registro) {
-            $sqString = implode(',', $registro['sq']);
-            if (!isset($contagem[$sqString])) {
-                $contagem[$sqString] = 1;
-            } else {
-                $contagem[$sqString]++;
-            }
-        }
-        arsort($contagem);
-        return $contagem;
+        // return view('loto', $toView);
     }
 }

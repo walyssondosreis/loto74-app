@@ -212,15 +212,15 @@ $seqs = [
                     </thead>
                     <tbody>
 
-                        <?php $contx=1; foreach($seqs as $chv=>$sq):?>
+                        <?php $contx=1; foreach($sequencias as $sq):?>
                         <tr>
                             <td><?= $contx++ ?></td>
                             <td>
-                                <?php foreach(explode(',',$chv) as $sqp): ?>
+                                <?php foreach(explode(',',$sq->sequencia) as $sqp): ?>
                                 <span class="casa-seq"><?= $sqp ?></span>
                                 <?php endforeach;?>
                             </td>
-                            <td><?= $sq ?></td>
+                            <td><?= $sq->qtd ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
