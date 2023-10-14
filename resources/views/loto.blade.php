@@ -216,11 +216,11 @@ $seqs = [
                         <tr>
                             <td><?= $contx++ ?></td>
                             <td>
-                                <?php foreach(explode(',',$sq->sequencia) as $sqp): ?>
+                                <?php foreach(explode(',',$sq['sequencia']) as $sqp): ?>
                                 <span class="casa-seq"><?= $sqp ?></span>
                                 <?php endforeach;?>
                             </td>
-                            <td><?= $sq->qtd ?></td>
+                            <td><?= $sq['qtd'] ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
