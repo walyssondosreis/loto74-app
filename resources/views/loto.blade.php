@@ -174,7 +174,7 @@ $seqs = [
         </div>
         <div class="row">
             <div class="col-sm-3">
-                {{-- Analisador de Sequencias --}}
+                 {{-- Analisador de Sequencias --}}
                 <div class="mb-2">
                     <div class="row justify-content-center">
                         <div class="ticket-analiz">
@@ -188,9 +188,31 @@ $seqs = [
                                     <?php for ($j = 0; $j < 5; $j++) : ?>
                                     <?php $numTotal += 1; ?>
                                     <div style="display: flex; flex-direction:column">
-                                        <div class="indicador">1</div>
+                                        <div class="indicador"><?php 
+
+                                        $ind = array_map(function($item) use ($numTotal){
+                                            if($item['numero'] == $numTotal){
+                                                return  $item['qtd'];
+                                            }
+                                        },$numeros);
+
+                                        $qtd_total = array_reduce($numeros, function($total,$item){
+                                            $total += $item['qtd'];
+                                            return $total;
+                                        },0);
+
+                                        $ind = array_filter($ind,function($item){
+                                            return $item!== null;
+                                        });
+                                        $ind = implode($ind);   
+                                        echo $ind != '' ? $ind : 0;
+                                        // xdebug_break();
+                                        // dd($ind[0]);
+                                        ?></div>
                                         <div class="number-analiz"><?= $numTotal ?></div>
-                                        <div class="indicador">1</div>
+                                        <div class="indicador"><?php 
+                                        echo $ind!=0 ? number_format(($ind/$qtd_total)*100,2).'%' : '0 %';
+                                        ?></div>
                                     </div>
                                     <?php endfor; ?>
                                     <div class="indicador-seq indicador-seq-dir">100%</div>

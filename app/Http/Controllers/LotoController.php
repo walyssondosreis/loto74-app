@@ -23,6 +23,7 @@ class LotoController extends Controller
         // Busca concursos completo na tabela com paginação
         $concursos = Concurso::with('resultado.numero')->orderBy('id', 'desc')->simplePaginate(3);
         // $concursos = Concurso::paginate(10);
+        // var_dump($concursos[0]->resultado->numero->toArray());
 
         // Busca completo de concursos
         $concursos_completo = DB::table('numeros')
@@ -30,12 +31,14 @@ class LotoController extends Controller
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->orderBy('concursos.id', 'desc')
+            ->where('concursos.id','=','2900')
             ->get();
 
         $sequencias=[];
         $aux_1 = [];
         $numeros =[];
         $aux_2 = [];
+
         foreach($concursos_completo as $ccc){
             if(!in_array( $ccc->sequencia,$aux_1)){
                 array_push($aux_1,$ccc->sequencia);
@@ -50,17 +53,23 @@ class LotoController extends Controller
                     $numeros[$n]['numero'] = $n;
                     $numeros[$n]['qtd'] = 1;
                 }else{
-                    $numeros[$n]['numero'] += $n;
+                    $numeros[$n]['numero'] = $n;
                     $numeros[$n]['qtd'] += 1;
                 }
 
             }
+
+            
         }
         usort($sequencias, function ($a, $b) {
             return $b['qtd'] - $a['qtd'];
         });
 
-        var_dump($numeros);exit();
+        usort($numeros, function ($a, $b) {
+            return $a['numero'] - $b['numero'];
+        });
+
+        var_dump($numeros);
 // var_dump($concursos_completo->toArray());exit();
         // dd($concursos_completo->toArray());
         
@@ -82,6 +91,7 @@ class LotoController extends Controller
         $toView = [
             'concursos' => $concursos,
             'sequencias' => $sequencias,
+            'numeros' => $numeros,
         ];
 
         return view('loto', $toView);
