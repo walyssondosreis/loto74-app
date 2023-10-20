@@ -204,7 +204,7 @@ $seqs = [
                                         $ind = array_filter($ind,function($item){
                                             return $item!== null;
                                         });
-                                        $ind = implode($ind);   
+                                        $ind = intval(implode($ind));   
                                         echo $ind != '' ? $ind : 0;
                                         // xdebug_break();
                                         // dd($ind[0]);

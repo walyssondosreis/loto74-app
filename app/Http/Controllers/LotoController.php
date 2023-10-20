@@ -69,7 +69,7 @@ class LotoController extends Controller
             return $a['numero'] - $b['numero'];
         });
 
-        var_dump($numeros);
+        // var_dump($numeros);
 // var_dump($concursos_completo->toArray());exit();
         // dd($concursos_completo->toArray());
         
@@ -82,7 +82,7 @@ class LotoController extends Controller
         // dd($concursos);
         // $atualizador = new LotoService();
         // var_dump($atualizador->carregarDBViaCSV());
-        // var_dump($atualizador->carregarDBViaApi());
+        // var_dump($atualizador->carregarDBViaApi());exit();
         // var_dump($a->data_apuracao);
         // var_dump($concursos);
         // var_dump($a->resultado->toArray());
