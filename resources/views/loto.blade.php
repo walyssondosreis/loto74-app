@@ -180,10 +180,12 @@ $seqs = [
                         <div class="ticket-analiz">
                             <?php
                                 $numTotal = 0;
+                                
                                 for ($i = 0; $i < 5; $i++) :
                                 ?>
                             <div class="numbers-analiz">
                                 <div style="display: flex; flex-direction:row">
+                                    <?php $totalFaixa = 0; ?>
                                     <div class="indicador-seq indicador-seq-esq">1</div>
                                     <?php for ($j = 0; $j < 5; $j++) : ?>
                                     <?php $numTotal += 1; ?>
@@ -195,7 +197,7 @@ $seqs = [
                                                 return  $item['qtd'];
                                             }
                                         },$numeros);
-
+                                        $totalFaixa +=intval($ind);
                                         $qtd_total = array_reduce($numeros, function($total,$item){
                                             $total += $item['qtd'];
                                             return $total;
@@ -215,7 +217,7 @@ $seqs = [
                                         ?></div>
                                     </div>
                                     <?php endfor; ?>
-                                    <div class="indicador-seq indicador-seq-dir">100%</div>
+                                    <div class="indicador-seq indicador-seq-dir"><?= $totalFaixa; ?></div>
                                 </div>
                             </div>
                             <?php endfor; ?>

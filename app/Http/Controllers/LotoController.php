@@ -31,7 +31,7 @@ class LotoController extends Controller
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->orderBy('concursos.id', 'desc')
-            ->where('concursos.id','=','2900')
+            ->where('concursos.id','>=','2913')
             ->get();
 
         $sequencias=[];
@@ -80,8 +80,8 @@ class LotoController extends Controller
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
-        // $atualizador = new LotoService();
-        // var_dump($atualizador->carregarDBViaCSV());
+        $atualizador = new LotoService();
+        // var_dump($atualizador->carregarDBViaCSV());exit();
         // var_dump($atualizador->carregarDBViaApi());exit();
         // var_dump($a->data_apuracao);
         // var_dump($concursos);
