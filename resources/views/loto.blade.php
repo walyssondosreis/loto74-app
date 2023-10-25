@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LotoFC</title>
-    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+    @vite([
+        'resources/scss/app.scss', 
+        'resources/js/app.js', 
+        // 'node_modules/jquery/dist/jquery.min.js?commonjs-entry',
+        ])
 
     <style>
         .loteria-ticket {
@@ -198,6 +202,7 @@ $seqs = [
                                             }
                                         },$numeros);
                                         $totalFaixa +=intval($ind);
+                                        // xdebug_break();
                                         $qtd_total = array_reduce($numeros, function($total,$item){
                                             $total += $item['qtd'];
                                             return $total;
@@ -218,6 +223,13 @@ $seqs = [
                                     </div>
                                     <?php endfor; ?>
                                     <div class="indicador-seq indicador-seq-dir"><?= $totalFaixa; ?></div>
+                                   
+                                    <script> 
+
+                                    console.log( 'Utilizar AXIOS PARA FAZER ESSA MERDA');
+                                    
+                                    </script>
+                                    
                                 </div>
                             </div>
                             <?php endfor; ?>
