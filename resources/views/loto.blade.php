@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LotoFC</title>
-    @vite([
-        'resources/scss/app.scss', 
-        'resources/js/app.js', 
-        ])
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
     <style>
         .loteria-ticket {
@@ -177,7 +174,7 @@ $seqs = [
         </div>
         <div class="row">
             <div class="col-sm-3">
-                 {{-- Analisador de Sequencias --}}
+                {{-- Analisador de Sequencias --}}
                 <div class="mb-2">
                     <div class="row justify-content-center">
                         <div class="ticket-analiz">
@@ -193,41 +190,46 @@ $seqs = [
                                     <?php for ($j = 0; $j < 5; $j++) : ?>
                                     <?php $numTotal += 1; ?>
                                     <div style="display: flex; flex-direction:column">
-                                        <div class="indicador"><?php 
-
-                                        $ind= array_map(function($item) use ($numTotal){
-                                            if($item['numero'] == $numTotal){
-                                                return  $item['qtd'];
+                                        <div class="indicador"><?php
+                                        
+                                        $ind = array_map(function ($item) use ($numTotal) {
+                                            if ($item['numero'] == $numTotal) {
+                                                return $item['qtd'];
                                             }
-                                        },$numeros);
+                                        }, $numeros);
                                         // xdebug_break();
-                                        $qtd_total = array_reduce($numeros, function($total,$item){
-                                            $total += $item['qtd'];
-                                            return $total;
-                                        },0);
-
-                                        $ind = array_filter($ind,function($item){
-                                            return $item!== null;
+                                        $qtd_total = array_reduce(
+                                            $numeros,
+                                            function ($total, $item) {
+                                                $total += $item['qtd'];
+                                                return $total;
+                                            },
+                                            0,
+                                        );
+                                        
+                                        $ind = array_filter($ind, function ($item) {
+                                            return $item !== null;
                                         });
-                                        $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;   
-                                        $totalFaixa[$i] +=$ind;
-
+                                        $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;
+                                        $totalFaixa[$i] += $ind;
+                                        
                                         echo $ind;
                                         // xdebug_break();
                                         // dd($ind[0]);
                                         ?></div>
                                         <div class="number-analiz"><?= $numTotal ?></div>
-                                        <div class="indicador"><?php 
-                                        echo $ind!=0 ? number_format(($ind/$qtd_total)*100,2).'%' : '0 %';
+                                        <div class="indicador"><?php
+                                        echo $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %';
                                         ?></div>
                                     </div>
                                     <?php endfor; ?>
-                                    <div class="indicador-seq indicador-seq-dir"><?= $totalFaixa[$i]; ?></div>
-                                   
+                                    <div class="indicador-seq indicador-seq-dir" id="ind-dir<?= $i ?>">
+                                        <?= $totalFaixa[$i] ?></div>
+
                                     <script type="module">
-                                        $('#ind-esq<?= $i ?>').text((( <?= $totalFaixa[$i] ?> / <?= $qtd_total ?>)*100).toFixed(2)+'%');
+                                        $('#ind-esq<?= $i ?>').text(((<?= $totalFaixa[$i] ?> / <?= $qtd_total ?>) * 100).toFixed(2) + '%');
                                     </script>
-                                    
+
                                 </div>
                             </div>
                             <?php endfor; ?>
@@ -306,10 +308,62 @@ $seqs = [
             </div>
         </div>
     </div>
-<script type="module">
-    $('#ind-esq1').css('background-color','lightred');
-    
-</script>
+    <script type="module">
+        function adicionarCoresDeFundo(objeto) {
+            const arrayDePares = Object.entries(objeto);
+
+            // Classificar a matriz com base nos valores numéricos
+            arrayDePares.sort((a, b) => {
+                const valorA = parseInt(a[1]);
+                const valorB = parseInt(b[1]);
+                return valorA - valorB;
+            });
+
+            const menorValor = parseInt(arrayDePares[0][1]);
+            const maiorValor = parseInt(arrayDePares[arrayDePares.length - 1][1]);
+
+            // Função para mapear um valor para uma cor entre vermelho, amarelo e verde
+            function mapearValorParaCor(valor) {
+                if (valor === menorValor) {
+                    return "red"; // Menor valor em vermelho
+                } else if (valor === maiorValor) {
+                    return "green"; // Maior valor em verde
+                } else {
+                    const corBase = Math.round((valor - menorValor) / (maiorValor - menorValor) * 255);
+                    console.log(corBase);
+                    return `rgb(255-${corBase}, 255-${corBase}, 0)`; // Valores intermediários em amarelo
+                }
+            }
+
+            const objetoComCores = {};
+            for (const [chave, valor] of arrayDePares) {
+                const corDeFundo = mapearValorParaCor(parseInt(valor));
+                objetoComCores[chave] = {
+                    valor,
+                    corDeFundo
+                };
+            }
+
+            return objetoComCores;
+        }
+
+        var fxs = {
+            '#ind-dir0': $('#ind-dir0').text(),
+            '#ind-dir1': $('#ind-dir1').text(),
+            '#ind-dir2': $('#ind-dir2').text(),
+            '#ind-dir3': $('#ind-dir3').text(),
+            '#ind-dir4': $('#ind-dir4').text(),
+
+        };
+        var indColor = adicionarCoresDeFundo(fxs);
+        console.log(indColor);
+
+        $('#ind-dir0').css('background-color', indColor['#ind-dir0']['corDeFundo']);
+        $('#ind-dir1').css('background-color', indColor['#ind-dir1']['corDeFundo']);
+        $('#ind-dir2').css('background-color', indColor['#ind-dir2']['corDeFundo']);
+        $('#ind-dir3').css('background-color', indColor['#ind-dir3']['corDeFundo']);
+        $('#ind-dir4').css('background-color', indColor['#ind-dir4']['corDeFundo']);
+    </script>
 </body>
 
 </html>
