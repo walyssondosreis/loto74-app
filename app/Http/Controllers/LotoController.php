@@ -31,7 +31,7 @@ class LotoController extends Controller
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->orderBy('concursos.id', 'desc')
-            ->where('concursos.id','>=','2913')
+            // ->where('concursos.id','>=','2913')
             ->get();
 
         $sequencias=[];

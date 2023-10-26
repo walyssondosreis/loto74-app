@@ -189,19 +189,18 @@ $seqs = [
                                 ?>
                             <div class="numbers-analiz">
                                 <div style="display: flex; flex-direction:row">
-                                    <?php $totalFaixa = 0; ?>
-                                    <div class="indicador-seq indicador-seq-esq">1</div>
+                                    <?php $totalFaixa[$i] = 0; ?>
+                                    <div class="indicador-seq indicador-seq-esq" id="ind-esq<?= $i ?>">1</div>
                                     <?php for ($j = 0; $j < 5; $j++) : ?>
                                     <?php $numTotal += 1; ?>
                                     <div style="display: flex; flex-direction:column">
                                         <div class="indicador"><?php 
 
-                                        $ind = array_map(function($item) use ($numTotal){
+                                        $ind= array_map(function($item) use ($numTotal){
                                             if($item['numero'] == $numTotal){
                                                 return  $item['qtd'];
                                             }
                                         },$numeros);
-                                        $totalFaixa +=intval($ind);
                                         // xdebug_break();
                                         $qtd_total = array_reduce($numeros, function($total,$item){
                                             $total += $item['qtd'];
@@ -211,8 +210,10 @@ $seqs = [
                                         $ind = array_filter($ind,function($item){
                                             return $item!== null;
                                         });
-                                        $ind = intval(implode($ind));   
-                                        echo $ind != '' ? $ind : 0;
+                                        $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;   
+                                        $totalFaixa[$i] +=$ind;
+
+                                        echo $ind;
                                         // xdebug_break();
                                         // dd($ind[0]);
                                         ?></div>
@@ -222,12 +223,11 @@ $seqs = [
                                         ?></div>
                                     </div>
                                     <?php endfor; ?>
-                                    <div class="indicador-seq indicador-seq-dir"><?= $totalFaixa; ?></div>
+                                    <div class="indicador-seq indicador-seq-dir"><?= $totalFaixa[$i]; ?></div>
                                    
                                     <script> 
-
-                                    console.log( 'Utilizar AXIOS PARA FAZER ESSA MERDA');
-                                    
+                                    // document.querySelector('#ind-esq<?= $i ?>').textContent = <?= $totalFaixa[$i]; ?>;
+                                    document.querySelector('#ind-esq<?= $i ?>').textContent =(( <?= $totalFaixa[$i] ?> / <?= $qtd_total ?>)*100).toFixed(2)+'%' ;
                                     </script>
                                     
                                 </div>
