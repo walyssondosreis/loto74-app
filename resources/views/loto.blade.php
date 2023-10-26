@@ -8,7 +8,6 @@
     @vite([
         'resources/scss/app.scss', 
         'resources/js/app.js', 
-        // 'node_modules/jquery/dist/jquery.min.js?commonjs-entry',
         ])
 
     <style>
@@ -190,7 +189,7 @@ $seqs = [
                             <div class="numbers-analiz">
                                 <div style="display: flex; flex-direction:row">
                                     <?php $totalFaixa[$i] = 0; ?>
-                                    <div class="indicador-seq indicador-seq-esq" id="ind-esq<?= $i ?>">1</div>
+                                    <div class="indicador-seq indicador-seq-esq" id="ind-esq<?= $i ?>"></div>
                                     <?php for ($j = 0; $j < 5; $j++) : ?>
                                     <?php $numTotal += 1; ?>
                                     <div style="display: flex; flex-direction:column">
@@ -225,9 +224,8 @@ $seqs = [
                                     <?php endfor; ?>
                                     <div class="indicador-seq indicador-seq-dir"><?= $totalFaixa[$i]; ?></div>
                                    
-                                    <script> 
-                                    // document.querySelector('#ind-esq<?= $i ?>').textContent = <?= $totalFaixa[$i]; ?>;
-                                    document.querySelector('#ind-esq<?= $i ?>').textContent =(( <?= $totalFaixa[$i] ?> / <?= $qtd_total ?>)*100).toFixed(2)+'%' ;
+                                    <script type="module">
+                                        $('#ind-esq<?= $i ?>').text((( <?= $totalFaixa[$i] ?> / <?= $qtd_total ?>)*100).toFixed(2)+'%');
                                     </script>
                                     
                                 </div>
@@ -308,7 +306,10 @@ $seqs = [
             </div>
         </div>
     </div>
-
+<script type="module">
+    $('#ind-esq1').css('background-color','lightred');
+    
+</script>
 </body>
 
 </html>

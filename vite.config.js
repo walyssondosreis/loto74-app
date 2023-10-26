@@ -8,14 +8,14 @@ export default defineConfig({
             input: [
                 'resources/scss/app.scss', 
                 'resources/js/app.js', 
-                // 'node_modules/jquery/dist/jquery.min.js',
             ],
             refresh: true,
         }),
     ],
     resolve: {
         alias: {
-            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap')
+            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+            '$': 'jQuery',
         }
     },
 });
