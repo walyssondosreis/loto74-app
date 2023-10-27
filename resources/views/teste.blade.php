@@ -49,17 +49,56 @@
 
 <body>
     <div style="display: flex; flex-direction:row">
-        <div class=" number-container">
 
-            <div class="indicador">1</div>
-            <div class="numero">2</div>
-            <div class="indicador">3</div>
-        </div>
-        <div class="indicador-seq">2</div>
+
+        <div class="numero" id='n1'>1</div>
+        <div class="numero" id='n2'>2</div>
+        <div class="numero" id='n3'>3</div>
+        <div class="numero" id='n4'>4</div>
+        <div class="numero" id='n5'>5</div>
+
 
     </div>
 
     </div>
+    <script type="module">
+        function corGradiente(valores = [10,20,30,40,50],total) {
+            var vetorCores =[
+                '#ff0000', // Vermelho
+                '#ff8c00', // Laranja
+                '#ffff00', // Amarelo
+                '#5564eb', // Azul
+                '#7cfc00', // Verde
+            ];
+
+            if(total == null){
+                var total = valores.reduce(function(acc,ell){
+                return acc + ell;
+                },0);
+            }
+            
+
+            var coresVal = [];
+            valores.forEach(function(e){
+                console.log((e/total)*100);
+                if((e/total)*100 >= 80 )  coresVal.push(vetorCores[4]);
+                else if((e/total)*100 >= 60 && (e/total)*100 < 80 )  coresVal.push(vetorCores[3]);
+                else if((e/total)*100 >= 40 && (e/total)*100 < 60 )  coresVal.push(vetorCores[2]);
+                else if((e/total)*100 >= 20 && (e/total)*100 < 40 )  coresVal.push(vetorCores[1]);
+                else if((e/total)*100 >= 0 && (e/total)*100 < 20 )  coresVal.push(vetorCores[0]);
+                
+            });
+            console.log(coresVal);
+            return coresVal;
+        }
+
+        var cor = corGradiente([4,8,9,1,2]);
+        $('#n1').css('background-color', cor[0]);
+        $('#n2').css('background-color', cor[1]);
+        $('#n3').css('background-color', cor[2]);
+        $('#n4').css('background-color', cor[3]);
+        $('#n5').css('background-color', cor[4]);
+    </script>
 </body>
 
 </html>

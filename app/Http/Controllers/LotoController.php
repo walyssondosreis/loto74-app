@@ -94,6 +94,6 @@ class LotoController extends Controller
             'numeros' => $numeros,
         ];
 
-        return view('loto', $toView);
+        return view('teste', $toView);
     }
 }
