@@ -309,61 +309,72 @@ $seqs = [
         </div>
     </div>
     <script type="module">
-        function adicionarCoresDeFundo(objeto) {
-            const arrayDePares = Object.entries(objeto);
-
-            // Classificar a matriz com base nos valores numéricos
-            arrayDePares.sort((a, b) => {
-                const valorA = parseInt(a[1]);
-                const valorB = parseInt(b[1]);
-                return valorA - valorB;
-            });
-
-            const menorValor = parseInt(arrayDePares[0][1]);
-            const maiorValor = parseInt(arrayDePares[arrayDePares.length - 1][1]);
-
-            // Função para mapear um valor para uma cor entre vermelho, amarelo e verde
-            function mapearValorParaCor(valor) {
-                if (valor === menorValor) {
-                    return "red"; // Menor valor em vermelho
-                } else if (valor === maiorValor) {
-                    return "green"; // Maior valor em verde
-                } else {
-                    const corBase = Math.round((valor - menorValor) / (maiorValor - menorValor) * 255);
-                    console.log(corBase);
-                    return `rgb(255-${corBase}, 255-${corBase}, 0)`; // Valores intermediários em amarelo
-                }
-            }
-
-            const objetoComCores = {};
-            for (const [chave, valor] of arrayDePares) {
-                const corDeFundo = mapearValorParaCor(parseInt(valor));
-                objetoComCores[chave] = {
-                    valor,
-                    corDeFundo
+        // Define uma função para calcular a cor gradiente entre duas cores
+        function gradientColor(color1, color2, ratio) {
+            // Converte as cores em formato hexadecimal para formato RGB
+            let r1 = parseInt(color1.substring(1, 3), 16);
+            let g1 = parseInt(color1.substring(3, 5), 16);
+            let b1 = parseInt(color1.substring(5, 7), 16);
+            let r2 = parseInt(color2.substring(1, 3), 16);
+            let g2 = parseInt(color2.substring(3, 5), 16);
+            let b2 = parseInt(color2.substring(5, 7), 16);
+            // Calcula a cor intermediária usando a fórmula de interpolação linear
+            let r = Math.round(r1 + (r2 - r1) * ratio);
+            let g = Math.round(g1 + (g2 - g1) * ratio);
+            let b = Math.round(b1 + (b2 - b1) * ratio);
+            // Converte a cor em formato RGB para formato hexadecimal
+            let color = '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2,
+                '0');
+            // Retorna a cor gradiente
+            return color;
+        }
+        // Define as cores que serão usadas como extremos do gradiente
+        const minColor = '#FF0000'; // vermelho
+        const maxColor = '#00FF00'; // verde
+        // Define a função que recebe um objeto com valores e retorna um objeto com valores e cores
+        function formatValues(obj) {
+            // Cria um novo objeto vazio para armazenar os resultados
+            let result = {};
+            // Obtém o valor mínimo e máximo do objeto recebido
+            let min = Math.min(...Object.values(obj));
+            let max = Math.max(...Object.values(obj));
+            // Percorre as propriedades do objeto recebido
+            for (let key in obj) {
+                // Obtém o valor da propriedade atual
+         
+                let value = obj[key];
+                // Calcula o ratio entre o valor atual e o intervalo de valores
+                let ratio = (value - min) / (max - min);
+                // Calcula a cor gradiente usando a função definida anteriormente
+                let color = gradientColor(minColor, maxColor, ratio);
+                // Adiciona a propriedade, o valor e a cor ao objeto resultado
+                result[key] = {
+                    value,
+                    color
                 };
             }
-
-            return objetoComCores;
+            // Retorna o objeto resultado
+            return result;
         }
 
-        var fxs = {
-            '#ind-dir0': $('#ind-dir0').text(),
-            '#ind-dir1': $('#ind-dir1').text(),
-            '#ind-dir2': $('#ind-dir2').text(),
-            '#ind-dir3': $('#ind-dir3').text(),
-            '#ind-dir4': $('#ind-dir4').text(),
-
+        const data = {
+            dir0: $('#ind-dir0').text(),
+            dir1: $('#ind-dir1').text(),
+            dir2: $('#ind-dir2').text(),
+            dir3: $('#ind-dir3').text(),
+            dir4: $('#ind-dir4').text(),
         };
-        var indColor = adicionarCoresDeFundo(fxs);
+
+        const indColor = formatValues(data);
         console.log(indColor);
 
-        $('#ind-dir0').css('background-color', indColor['#ind-dir0']['corDeFundo']);
-        $('#ind-dir1').css('background-color', indColor['#ind-dir1']['corDeFundo']);
-        $('#ind-dir2').css('background-color', indColor['#ind-dir2']['corDeFundo']);
-        $('#ind-dir3').css('background-color', indColor['#ind-dir3']['corDeFundo']);
-        $('#ind-dir4').css('background-color', indColor['#ind-dir4']['corDeFundo']);
+        $('#ind-dir0,#ind-esq0').css('background-color', indColor['dir0']['color']);
+        $('#ind-dir1,#ind-esq1').css('background-color', indColor['dir1']['color']);
+        $('#ind-dir2,#ind-esq2').css('background-color', indColor['dir2']['color']);
+        $('#ind-dir3,#ind-esq3').css('background-color', indColor['dir3']['color']);
+        $('#ind-dir4,#ind-esq4').css('background-color', indColor['dir4']['color']);
     </script>
 </body>
+
 
 </html>
