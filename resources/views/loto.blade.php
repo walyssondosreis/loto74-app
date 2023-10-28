@@ -190,7 +190,7 @@ $seqs = [
                                     <?php for ($j = 0; $j < 5; $j++) : ?>
                                     <?php $numTotal += 1; ?>
                                     <div style="display: flex; flex-direction:column">
-                                        <div class="indicador"><?php
+                                        <div class="indicador" id="ind-top<?= $i . $j ?>"><?php
                                         
                                         $ind = array_map(function ($item) use ($numTotal) {
                                             if ($item['numero'] == $numTotal) {
@@ -218,7 +218,7 @@ $seqs = [
                                         // dd($ind[0]);
                                         ?></div>
                                         <div class="number-analiz"><?= $numTotal ?></div>
-                                        <div class="indicador"><?php
+                                        <div class="indicador" id="ind-bas<?= $i . $j ?>"><?php
                                         echo $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %';
                                         ?></div>
                                     </div>
@@ -309,70 +309,72 @@ $seqs = [
         </div>
     </div>
     <script type="module">
-        // Define uma função para calcular a cor gradiente entre duas cores
-        function gradientColor(color1, color2, ratio) {
-            // Converte as cores em formato hexadecimal para formato RGB
-            let r1 = parseInt(color1.substring(1, 3), 16);
-            let g1 = parseInt(color1.substring(3, 5), 16);
-            let b1 = parseInt(color1.substring(5, 7), 16);
-            let r2 = parseInt(color2.substring(1, 3), 16);
-            let g2 = parseInt(color2.substring(3, 5), 16);
-            let b2 = parseInt(color2.substring(5, 7), 16);
-            // Calcula a cor intermediária usando a fórmula de interpolação linear
-            let r = Math.round(r1 + (r2 - r1) * ratio);
-            let g = Math.round(g1 + (g2 - g1) * ratio);
-            let b = Math.round(b1 + (b2 - b1) * ratio);
-            // Converte a cor em formato RGB para formato hexadecimal
-            let color = '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2,
-                '0');
-            // Retorna a cor gradiente
-            return color;
-        }
-        // Define as cores que serão usadas como extremos do gradiente
-        const minColor = '#FF0000'; // vermelho
-        const maxColor = '#00FF00'; // verde
-        // Define a função que recebe um objeto com valores e retorna um objeto com valores e cores
-        function formatValues(obj) {
-            // Cria um novo objeto vazio para armazenar os resultados
-            let result = {};
-            // Obtém o valor mínimo e máximo do objeto recebido
-            let min = Math.min(...Object.values(obj));
-            let max = Math.max(...Object.values(obj));
-            // Percorre as propriedades do objeto recebido
-            for (let key in obj) {
-                // Obtém o valor da propriedade atual
-         
-                let value = obj[key];
-                // Calcula o ratio entre o valor atual e o intervalo de valores
-                let ratio = (value - min) / (max - min);
-                // Calcula a cor gradiente usando a função definida anteriormente
-                let color = gradientColor(minColor, maxColor, ratio);
-                // Adiciona a propriedade, o valor e a cor ao objeto resultado
-                result[key] = {
-                    value,
-                    color
-                };
+        // Função que recebe vetor calcula cor e retorna vetor de cores
+        function corGradiente(valores, tema = null) {
+            if(tema==null){
+                var vetorCores = [
+                '#ff0000', // Vermelho
+                '#ff8c00', // Laranja
+                '#ffff00', // Amarelo
+                '#5564eb', // Azul
+                '#7cfc00', // Verde
+            ];
+            }else{
+                var vetorCores = tema;
             }
-            // Retorna o objeto resultado
-            return result;
+            
+
+            var total = Math.max(...valores);
+            // console.log(total);
+
+            var coresVal = [];
+            valores.forEach(function(e) {
+                // console.log((e / total) * 100);
+                if ((e / total) * 100 >= 80) coresVal.push(vetorCores[4]);
+                else if ((e / total) * 100 >= 60 && (e / total) * 100 < 80) coresVal.push(vetorCores[3]);
+                else if ((e / total) * 100 >= 40 && (e / total) * 100 < 60) coresVal.push(vetorCores[2]);
+                else if ((e / total) * 100 >= 20 && (e / total) * 100 < 40) coresVal.push(vetorCores[1]);
+                else if ((e / total) * 100 >= 0 && (e / total) * 100 < 20) coresVal.push(vetorCores[0]);
+
+            });
+            // console.log(coresVal);
+            return coresVal;
         }
 
-        const data = {
-            dir0: $('#ind-dir0').text(),
-            dir1: $('#ind-dir1').text(),
-            dir2: $('#ind-dir2').text(),
-            dir3: $('#ind-dir3').text(),
-            dir4: $('#ind-dir4').text(),
-        };
+        var tema = [
+                '#d8b1d4', // Fraco
+                '#c38bbf', 
+                '#ad66a9', 
+                '#973e95', 
+                '#800080', // Forte
+            ];
 
-        const indColor = formatValues(data);
-        console.log(indColor);
-
-        $('#ind-dir0,#ind-esq0').css('background-color', indColor['dir0']['color']);
-        $('#ind-dir1,#ind-esq1').css('background-color', indColor['dir1']['color']);
-        $('#ind-dir2,#ind-esq2').css('background-color', indColor['dir2']['color']);
-        $('#ind-dir3,#ind-esq3').css('background-color', indColor['dir3']['color']);
-        $('#ind-dir4,#ind-esq4').css('background-color', indColor['dir4']['color']);
+        // Colore os indicadores dos lados esq e dir
+        let vet =[];
+        
+        for (let i = 0; i < 5; i++) {
+                vet.push($('#ind-dir'+i).text().trim());
+        }
+        var indColor = corGradiente(vet,tema);
+        for (let i = 0; i < 5; i++) {
+                vet.push($('#ind-dir'+i+',#ind-esq'+i).css('background-color', indColor[i]));
+        }
+        
+        // Colore os indicadores do topo e base
+        for (let i = 0; i < 5; i++) {
+            let vet =[];
+            $('[id^="ind-top'+i+'"]').each(function() {
+                vet.push($(this).text());
+            });
+            var indColor = corGradiente(vet,tema);
+            $('[id^="ind-top'+i+'"]').each(function(idx) {
+                $(this).css('background-color',indColor[idx]);
+            });
+            $('[id^="ind-bas'+i+'"]').each(function(idx) {
+                $(this).css('background-color',indColor[idx]);
+            });
+            // console.log(vet);
+        }
     </script>
 </body>
 

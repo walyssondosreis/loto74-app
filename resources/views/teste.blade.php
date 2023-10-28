@@ -62,7 +62,7 @@
 
     </div>
     <script type="module">
-        function corGradiente(valores = [10,20,30,40,50],total) {
+        function corGradiente(valores = [10,20,30,40,50]) {
             var vetorCores =[
                 '#ff0000', // Vermelho
                 '#ff8c00', // Laranja
@@ -71,12 +71,8 @@
                 '#7cfc00', // Verde
             ];
 
-            if(total == null){
-                var total = valores.reduce(function(acc,ell){
-                return acc + ell;
-                },0);
-            }
-            
+            var total = Math.max(...valores);
+            console.log(total);
 
             var coresVal = [];
             valores.forEach(function(e){
@@ -91,13 +87,13 @@
             console.log(coresVal);
             return coresVal;
         }
-
-        var cor = corGradiente([4,8,9,1,2]);
-        $('#n1').css('background-color', cor[0]);
-        $('#n2').css('background-color', cor[1]);
-        $('#n3').css('background-color', cor[2]);
-        $('#n4').css('background-color', cor[3]);
-        $('#n5').css('background-color', cor[4]);
+        var input = [4,8,9,1,2];
+        var cor = corGradiente(input);
+        $('#n1').css('background-color', cor[0]).text(input[0]);
+        $('#n2').css('background-color', cor[1]).text(input[1]);
+        $('#n3').css('background-color', cor[2]).text(input[2]);
+        $('#n4').css('background-color', cor[3]).text(input[3]);
+        $('#n5').css('background-color', cor[4]).text(input[4]);
     </script>
 </body>
 
