@@ -73,10 +73,14 @@
 
         /* Analizador */
         .ticket-analiz {
-            width: 250px;
-            padding: 20px;
-            text-align: center;
+            width: 200px;
+            height: 320px;
+            /* padding: 20px; */
+            /* text-align: center; */
             margin: 5px;
+            border: 1px solid black;
+            /* border-radius: 5px; */
+            background-color: black;
         }
 
         .numbers-analiz {
@@ -84,12 +88,14 @@
             justify-content: center;
             margin-top: 20px;
             margin: 10px;
+            text-align: center;
+            /* border: 1px solid white; */
         }
 
         .indicador {
             width: 40px;
             height: 15px;
-            border: 1px solid black;
+            /* border: 1px solid white; */
             font-size: 12px;
             line-height: 12px;
 
@@ -119,7 +125,7 @@
             background-color: black;
             color: white;
             line-height: 22px;
-            border: 1px solid black;
+            /* border: 1px solid white; */
         }
     </style>
 
@@ -143,31 +149,32 @@ $seqs = [
     <div class="container-fluid">
         <div class="row">
             {{-- Filtros de Jogos --}}
-            <form action="" method="post" class="container" style="width:90%">
+            <form action="/loto" method="POST" class="container" style="width:90%">
+                @csrf
                 <div class="row mb-2">
                     <div class="row">
                         <div class="col-4 form-group">
-                            <label for="nome">Concurso:</label>
-                            <input type="text" class="form-control" id="nome"
+                            <label for="concursos">Concurso:</label>
+                            <input type="text" class="form-control" id="corcursos" name="concursos"
                                 placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
                         </div>
                         <div class="col-4 form-group">
-                            <label for="seq">Sequência:</label>
-                            <input type="text" class="form-control" id="seq"
+                            <label for="sequencias">Sequência:</label>
+                            <input type="text" class="form-control" id="sequencias" name="sequencias" 
                                 placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_ini">Data de Início:</label>
-                            <input type="date" class="form-control" id="data_ini" name="data">
+                            <input type="date" class="form-control" id="data_ini" name="data_ini" >
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_fim">Data de Fim:</label>
-                            <input type="date" class="form-control" id="data_fim" name="data">
+                            <input type="date" class="form-control" id="data_fim" name="data_fim">
                         </div>
                     </div>
                     <div class="text-center m-2">
-                        <button type="button" class="btn btn-secondary btn-sm " style="width: 100px">Cancelar</button>
-                        <button type="button" class="btn btn-primary btn-sm" style="width: 100px">Buscar</button>
+                        <button type="reset" class="btn btn-secondary btn-sm " style="width: 100px">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-sm" style="width: 100px">Buscar</button>
                     </div>
                 </div>
             </form>
@@ -311,18 +318,38 @@ $seqs = [
     <script type="module">
         // Função que recebe vetor calcula cor e retorna vetor de cores
         function corGradiente(valores, tema = null) {
-            if(tema==null){
-                var vetorCores = [
-                '#ff0000', // Vermelho
-                '#ff8c00', // Laranja
-                '#ffff00', // Amarelo
-                '#5564eb', // Azul
-                '#7cfc00', // Verde
-            ];
-            }else{
-                var vetorCores = tema;
+            if (tema == null) {
+                var tema = [
+                    { // 1
+                        'background': '#ffffff',
+                        'color': 'black',
+                    },
+                    { // 2
+                        'background': '#ddd3e3',
+                        'color': 'black',
+                    },
+                    { // 3
+                        'background': '#bba8c7',
+                        'color': 'black',
+                    },
+                    { // 4
+                        'background': '#9a7fab',
+                        'color': 'black',
+                    },
+                    { // 5
+                        'background': '#795890',
+                        'color': 'white',
+                    },
+                    { // 6
+                        'background': '#583276',
+                        'color': 'white',
+                    },
+                    { // 7
+                        'background': '#360a5c',
+                        'color': 'white',
+                    },
+                ];
             }
-            
 
             var total = Math.max(...valores);
             // console.log(total);
@@ -330,11 +357,13 @@ $seqs = [
             var coresVal = [];
             valores.forEach(function(e) {
                 // console.log((e / total) * 100);
-                if ((e / total) * 100 >= 80) coresVal.push(vetorCores[4]);
-                else if ((e / total) * 100 >= 60 && (e / total) * 100 < 80) coresVal.push(vetorCores[3]);
-                else if ((e / total) * 100 >= 40 && (e / total) * 100 < 60) coresVal.push(vetorCores[2]);
-                else if ((e / total) * 100 >= 20 && (e / total) * 100 < 40) coresVal.push(vetorCores[1]);
-                else if ((e / total) * 100 >= 0 && (e / total) * 100 < 20) coresVal.push(vetorCores[0]);
+                if ((e / total) * 100 >= 85.80) coresVal.push(tema[6]);
+                else if ((e / total) * 100 >= 71.50 && (e / total) * 100 < 85.80) coresVal.push(tema[5]);
+                else if ((e / total) * 100 >= 57.20 && (e / total) * 100 < 71.50) coresVal.push(tema[4]);
+                else if ((e / total) * 100 >= 42.90 && (e / total) * 100 < 57.20) coresVal.push(tema[3]);
+                else if ((e / total) * 100 >= 28.60 && (e / total) * 100 < 42.90) coresVal.push(tema[2]);
+                else if ((e / total) * 100 >= 14.30 && (e / total) * 100 < 28.60) coresVal.push(tema[1]);
+                else if ((e / total) * 100 >= 0 && (e / total) * 100 < 14.30) coresVal.push(tema[0]);
 
             });
             // console.log(coresVal);
@@ -342,36 +371,52 @@ $seqs = [
         }
 
         var tema = [
-                '#d8b1d4', // Fraco
-                '#c38bbf', 
-                '#ad66a9', 
-                '#973e95', 
-                '#800080', // Forte
-            ];
+            '#ffffff', // 1
+            '#ec6053', // 2
+            '#ff8c00', // 3
+            '#d0d015', // 4
+            '#ffff00', // 5
+            '#00913f', // 6
+            '#164723', // 7
+        ];
+
 
         // Colore os indicadores dos lados esq e dir
-        let vet =[];
-        
+        let vet = [];
+
         for (let i = 0; i < 5; i++) {
-                vet.push($('#ind-dir'+i).text().trim());
+            vet.push($('#ind-dir' + i).text().trim());
         }
-        var indColor = corGradiente(vet,tema);
+
+        var indColor = corGradiente(vet);
+
         for (let i = 0; i < 5; i++) {
-                vet.push($('#ind-dir'+i+',#ind-esq'+i).css('background-color', indColor[i]));
+            vet.push($('#ind-dir' + i + ',#ind-esq' + i).css({
+                'background-color': indColor[i]['background'],
+                'color': indColor[i]['color'],
+            }));
         }
-        
+
         // Colore os indicadores do topo e base
         for (let i = 0; i < 5; i++) {
-            let vet =[];
-            $('[id^="ind-top'+i+'"]').each(function() {
+            let vet = [];
+            $('[id^="ind-top' + i + '"]').each(function() {
                 vet.push($(this).text());
             });
-            var indColor = corGradiente(vet,tema);
-            $('[id^="ind-top'+i+'"]').each(function(idx) {
-                $(this).css('background-color',indColor[idx]);
+
+            var indColor = corGradiente(vet);
+
+            $('[id^="ind-top' + i + '"]').each(function(idx) {
+                $(this).css({
+                    'background-color': indColor[idx]['background'],
+                    'color': indColor[idx]['color'],
+                });
             });
-            $('[id^="ind-bas'+i+'"]').each(function(idx) {
-                $(this).css('background-color',indColor[idx]);
+            $('[id^="ind-bas' + i + '"]').each(function(idx) {
+                $(this).css({
+                    'background-color': indColor[idx]['background'],
+                    'color': indColor[idx]['color'],
+                });
             });
             // console.log(vet);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LotoRequest;
 use App\Models\Concurso;
 use App\Models\Numero;
 use App\Models\Resultado;
@@ -14,14 +15,21 @@ class LotoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(LotoRequest $request)
     {
-
+        if(!empty($request->input())){
+            // var_dump('Entrou nessa casseta');
+            var_dump('Entrou nessa buceta');
+            var_dump($request->input());
+            // dd();
+        }
         // $a = Concurso::with('resultado.numero')->find(2808);
         // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
 
         // Busca concursos completo na tabela com paginação
-        $concursos = Concurso::with('resultado.numero')->orderBy('id', 'desc')->simplePaginate(3);
+        $concursos = Concurso::with('resultado.numero')
+            ->orderBy('id', 'desc')
+            ->simplePaginate(3);
         // $concursos = Concurso::paginate(10);
         // var_dump($concursos[0]->resultado->numero->toArray());
 
@@ -31,7 +39,8 @@ class LotoController extends Controller
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->orderBy('concursos.id', 'desc')
-            // ->where('concursos.id','=','2913')
+            ->where('concursos.id','=','2500')
+            // ->where('concursos.id','<=','2599')
             ->get();
 
         $sequencias=[];
@@ -92,8 +101,19 @@ class LotoController extends Controller
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
+           
         ];
 
         return view('loto', $toView);
+    }
+    public function teste(LotoRequest $request)
+    {
+        echo 'Chupa meu pinto en~tao';
+        if($request){
+            var_dump('Entrou nessa buceta');
+            var_dump($request->input());
+            dd();
+        }
+
     }
 }

@@ -18,6 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resources([
-    'loto'=> LotoController::class,
-]);
+// Route::resources([
+//     'loto'=> LotoController::class,
+// ]);
+
+Route::get('/loto',[LotoController::class,'index']);
+Route::post('/loto',[LotoController::class,'index']);
+
+
+
