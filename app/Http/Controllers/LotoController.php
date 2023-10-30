@@ -106,14 +106,5 @@ class LotoController extends Controller
 
         return view('loto', $toView);
     }
-    public function teste(LotoRequest $request)
-    {
-        echo 'Chupa meu pinto en~tao';
-        if($request){
-            var_dump('Entrou nessa buceta');
-            var_dump($request->input());
-            dd();
-        }
 
-    }
 }

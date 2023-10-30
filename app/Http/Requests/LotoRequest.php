@@ -22,7 +22,14 @@ class LotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            // 'concursos' => ['nullable','regex:/^\d+(,\d+)?$|^\d+(\s+\d+)?$/'],
+            'concursos' => ['nullable','regex:/^(?!0)\d+(,\s*?(?!0)\d+)*$/'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            // 'concursos.regex'=>'O campo concursos é inválido para pesquisa',
         ];
     }
 }
