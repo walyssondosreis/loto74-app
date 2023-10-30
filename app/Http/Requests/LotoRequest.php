@@ -23,7 +23,9 @@ class LotoRequest extends FormRequest
     {
         return [
             // 'concursos' => ['nullable','regex:/^\d+(,\d+)?$|^\d+(\s+\d+)?$/'],
-            'concursos' => ['nullable','regex:/^(?!0)\d+(,\s*?(?!0)\d+)*$/'],
+            // 'concursos' => ['nullable','regex:/^\d*\s*\,{0,1}\s*\d*\s*$/'],
+            // 'concursos' => ['nullable'],
+            // falar que não pode ser 0
         ];
     }
     public function messages()

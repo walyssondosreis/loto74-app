@@ -19,9 +19,34 @@ class LotoController extends Controller
     {
         if(!empty($request->input())){
             // var_dump('Entrou nessa casseta');
-            var_dump('Entrou nessa buceta');
-            var_dump($request->input());
-            // dd();
+            $dadosForm = $request->input();
+            unset($dadosForm['_token']);
+
+            // Entrada de Concursos Tratamento
+
+            if (preg_match('/[,\;]/', $dadosForm['concursos'])) {
+                // echo "Contem virgula ou ponto e virgula";
+                $form_concursos_tipo = 'pontual';
+            } else if (preg_match('/[\s*]/', $dadosForm['concursos'])){
+                $form_concursos_tipo = 'faixa';
+            } else{
+                $form_concursos_tipo = 'pontual';
+            }
+
+            $pattern = '/\d*/';
+            if(preg_match_all($pattern,trim($dadosForm['concursos']),$matches)) {
+                // var_dump($matches);
+                $form_concursos = array_filter($matches[0],function($ell){
+                    if($ell != '' || $ell != ',') return $ell;
+                });
+                sort($form_concursos);
+            }
+            var_dump($form_concursos_tipo);
+            var_dump($form_concursos);
+            
+
+            var_dump($dadosForm);
+
         }
         // $a = Concurso::with('resultado.numero')->find(2808);
         // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
