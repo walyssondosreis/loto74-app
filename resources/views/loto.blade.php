@@ -147,13 +147,13 @@ $seqs = [
     </nav>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <div class="container-fluid">
@@ -170,12 +170,12 @@ $seqs = [
                         </div>
                         <div class="col-4 form-group">
                             <label for="sequencias">Sequência:</label>
-                            <input type="text" class="form-control" id="sequencias" name="sequencias" 
+                            <input type="text" class="form-control" id="sequencias" name="sequencias"
                                 placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_ini">Data de Início:</label>
-                            <input type="date" class="form-control" id="data_ini" name="data_ini" >
+                            <input type="date" class="form-control" id="data_ini" name="data_ini">
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_fim">Data de Fim:</label>
@@ -188,6 +188,9 @@ $seqs = [
                     </div>
                 </div>
             </form>
+
+            <a href="{{ route('limparFiltros') }}" style="text-align: center">Limpar Filtros</a>
+
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -329,8 +332,7 @@ $seqs = [
         // Função que recebe vetor calcula cor e retorna vetor de cores
         function corGradiente(valores, tema = null) {
             if (tema == null) {
-                var tema = [
-                    { // 1
+                var tema = [{ // 1
                         'background': '#ffffff',
                         'color': 'black',
                     },

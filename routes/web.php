@@ -23,6 +23,7 @@ Route::get('/', function () {
 // ]);
 
 Route::get('/loto',[LotoController::class,'index']);
+Route::get('/loto/limparFiltros',[LotoController::class,'limparFiltros'])->name('limparFiltros');
 Route::post('/loto',[LotoController::class,'index']);
 
 

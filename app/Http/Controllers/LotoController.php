@@ -17,44 +17,14 @@ class LotoController extends Controller
      */
     public function index(LotoRequest $request)
     {
-        if(!empty($request->input())){
-            // var_dump('Entrou nessa casseta');
-            $dadosForm = $request->input();
-            unset($dadosForm['_token']);
 
-            // Entrada de Concursos Tratamento
-
-            if (preg_match('/[,\;]/', $dadosForm['concursos'])) {
-                // echo "Contem virgula ou ponto e virgula";
-                $form_concursos_tipo = 'pontual';
-            } else if (preg_match('/[\s*]/', $dadosForm['concursos'])){
-                $form_concursos_tipo = 'faixa';
-            } else{
-                $form_concursos_tipo = 'pontual';
-            }
-
-            $pattern = '/\d*/';
-            if(preg_match_all($pattern,trim($dadosForm['concursos']),$matches)) {
-                // var_dump($matches);
-                $form_concursos = array_filter($matches[0],function($ell){
-                    if($ell != '' || $ell != ',') return $ell;
-                });
-                sort($form_concursos);
-            }
-            var_dump($form_concursos_tipo);
-            var_dump($form_concursos);
-            
-
-            var_dump($dadosForm);
-
-        }
         // $a = Concurso::with('resultado.numero')->find(2808);
         // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
 
         // Busca concursos completo na tabela com paginação
         $concursos = Concurso::with('resultado.numero')
-            ->orderBy('id', 'desc')
-            ->simplePaginate(3);
+            ->orderBy('id', 'desc');
+        // ->simplePaginate(3);
         // $concursos = Concurso::paginate(10);
         // var_dump($concursos[0]->resultado->numero->toArray());
 
@@ -63,37 +33,66 @@ class LotoController extends Controller
             ->join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            ->orderBy('concursos.id', 'desc')
-            ->where('concursos.id','=','2500')
-            // ->where('concursos.id','<=','2599')
-            ->get();
+            ->orderBy('concursos.id', 'desc');
+        // ->where('concursos.id', '=', '2500');
+        // ->where('concursos.id','<=','2599')
+        // ->get();
 
-        $sequencias=[];
+        if (!empty($request->input())) {
+            // var_dump('Entrou nessa casseta');
+            $dadosForm = $request->input();
+            unset($dadosForm['_token']);
+            $filtro_intervalo = [];
+            $filtro_pontual = [];
+            if(!(session('inputSalvo'))){
+                $request->session()->put('inputSalvo',$request->input());
+            }
+            var_dump(session('inputSalvo'));
+            // Entrada de Concursos Tratamento
+            if (isset($dadosForm['concursos'])) {
+                $form_concursos = explode(' ', $dadosForm['concursos']);
+                foreach ($form_concursos as $fcc) {
+                    if (strpos($fcc, '-')) {
+                        $concursos->whereBetween('concursos.id',explode('-',$fcc));
+                        $concursos_completo->whereBetween('concursos.id',explode('-',$fcc));
+                    } else {
+                        $concursos->whereIn('concursos.id',explode(',',$fcc));
+                        $concursos_completo->whereIn('concursos.id',explode(',',$fcc));
+                    }
+                }
+
+                var_dump($form_concursos);
+            }
+
+            var_dump($dadosForm);
+        }
+
+        $concursos = $concursos->simplePaginate(3);
+        $concursos_completo = $concursos_completo->get();
+
+        $sequencias = [];
         $aux_1 = [];
-        $numeros =[];
+        $numeros = [];
         $aux_2 = [];
 
-        foreach($concursos_completo as $ccc){
-            if(!in_array( $ccc->sequencia,$aux_1)){
-                array_push($aux_1,$ccc->sequencia);
+        foreach ($concursos_completo as $ccc) {
+            if (!in_array($ccc->sequencia, $aux_1)) {
+                array_push($aux_1, $ccc->sequencia);
                 $sequencias[$ccc->sequencia]['sequencia'] = $ccc->sequencia;
                 $sequencias[$ccc->sequencia]['qtd'] = 1;
-            }else{
+            } else {
                 $sequencias[$ccc->sequencia]['qtd'] += 1;
             }
-            foreach(explode(',',$ccc->numeros) as $n){
-                if(!in_array($n,$aux_2)){
-                    array_push($aux_2,$n);
+            foreach (explode(',', $ccc->numeros) as $n) {
+                if (!in_array($n, $aux_2)) {
+                    array_push($aux_2, $n);
                     $numeros[$n]['numero'] = $n;
                     $numeros[$n]['qtd'] = 1;
-                }else{
+                } else {
                     $numeros[$n]['numero'] = $n;
                     $numeros[$n]['qtd'] += 1;
                 }
-
             }
-
-            
         }
         usort($sequencias, function ($a, $b) {
             return $b['qtd'] - $a['qtd'];
@@ -104,9 +103,9 @@ class LotoController extends Controller
         });
 
         // var_dump($numeros);
-// var_dump($concursos_completo->toArray());exit();
+        // var_dump($concursos_completo->toArray());exit();
         // dd($concursos_completo->toArray());
-        
+
         // foreach($sequencias)
 
 
@@ -126,10 +125,13 @@ class LotoController extends Controller
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
-           
+
         ];
 
         return view('loto', $toView);
     }
-
+    public function limparFiltros(){
+        session()->forget('inputSalvo');
+        return back();
+    }
 }
