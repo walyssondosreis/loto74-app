@@ -38,36 +38,37 @@ class LotoController extends Controller
         // ->where('concursos.id','<=','2599')
         // ->get();
 
-        if (!empty($request->input())) {
-            // var_dump('Entrou nessa casseta');
-            $dadosForm = $request->input();
-            unset($dadosForm['_token']);
-            $filtro_intervalo = [];
-            $filtro_pontual = [];
-            if(!(session('inputSalvo'))){
-                $request->session()->put('inputSalvo',$request->input());
+        if ($request->has('_token') || session('inputSalvo') ) {
+
+            if(session('inputSalvo')){
+                $dadosForm = session('inputSalvo');
             }
-            var_dump(session('inputSalvo'));
+            if($request->has('_token')){
+                // $dadosForm = $request->except(['_token','page']);
+                $dadosForm = $request->input();
+                $request->session()->put('inputSalvo',$request->except(['_token','page']));
+            }
+            
             // Entrada de Concursos Tratamento
             if (isset($dadosForm['concursos'])) {
                 $form_concursos = explode(' ', $dadosForm['concursos']);
                 foreach ($form_concursos as $fcc) {
                     if (strpos($fcc, '-')) {
-                        $concursos->whereBetween('concursos.id',explode('-',$fcc));
-                        $concursos_completo->whereBetween('concursos.id',explode('-',$fcc));
+                        $concursos->whereBetween('concursos.id', explode('-', $fcc));
+                        $concursos_completo->whereBetween('concursos.id', explode('-', $fcc));
                     } else {
-                        $concursos->whereIn('concursos.id',explode(',',$fcc));
-                        $concursos_completo->whereIn('concursos.id',explode(',',$fcc));
+                        $concursos->whereIn('concursos.id', explode(',', $fcc));
+                        $concursos_completo->whereIn('concursos.id', explode(',', $fcc));
                     }
                 }
 
-                var_dump($form_concursos);
+                // var_dump($form_concursos);
             }
 
-            var_dump($dadosForm);
+            // var_dump($dadosForm);
         }
 
-        $concursos = $concursos->simplePaginate(3);
+        $concursos = $concursos->simplePaginate(10);
         $concursos_completo = $concursos_completo->get();
 
         $sequencias = [];
@@ -130,8 +131,10 @@ class LotoController extends Controller
 
         return view('loto', $toView);
     }
-    public function limparFiltros(){
+    public function limparFiltros()
+    {
         session()->forget('inputSalvo');
-        return back();
+        return to_route('loto');
+        // return back();
     }
 }
