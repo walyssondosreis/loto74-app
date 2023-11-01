@@ -38,32 +38,31 @@ class LotoController extends Controller
         // ->where('concursos.id','<=','2599')
         // ->get();
 
-        if ($request->has('_token') || session('inputSalvo') ) {
+        if ($request->has('_token') || session('inputSalvo')) {
 
-            if(session('inputSalvo')){
+    
+            if (session('inputSalvo')) {
                 $dadosForm = session('inputSalvo');
             }
-            if($request->has('_token')){
+            if ($request->has('_token')) {
                 // $dadosForm = $request->except(['_token','page']);
                 $dadosForm = $request->input();
-                $request->session()->put('inputSalvo',$request->except(['_token','page']));
+                $request->session()->put('inputSalvo', $request->except(['_token', 'page']));
             }
-            
-            // Entrada de Concursos Tratamento
-            if (isset($dadosForm['concursos'])) {
-                $form_concursos = explode(' ', $dadosForm['concursos']);
-                foreach ($form_concursos as $fcc) {
-                    if (strpos($fcc, '-')) {
-                        $concursos->whereBetween('concursos.id', explode('-', $fcc));
-                        $concursos_completo->whereBetween('concursos.id', explode('-', $fcc));
-                    } else {
-                        $concursos->whereIn('concursos.id', explode(',', $fcc));
-                        $concursos_completo->whereIn('concursos.id', explode(',', $fcc));
-                    }
-                }
 
-                // var_dump($form_concursos);
-            }
+            // Entrada de Concursos Tratamento
+
+                if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
+                    $ccn = explode('-', $dadosForm['concursos']);
+                    sort($ccn);
+                    $concursos->whereBetween('concursos.id', $ccn);
+                    $concursos_completo->whereBetween('concursos.id', $ccn);
+                } else if($dadosForm['concursos']){
+                    $ccn = explode(',', $dadosForm['concursos']);
+                    sort($ccn);
+                    $concursos->whereIn('concursos.id', $ccn);
+                    $concursos_completo->whereIn('concursos.id', $ccn);
+                }
 
             // var_dump($dadosForm);
         }

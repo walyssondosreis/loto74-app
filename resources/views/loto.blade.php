@@ -166,12 +166,12 @@ $seqs = [
                         <div class="col-4 form-group">
                             <label for="concursos">Concurso:</label>
                             <input type="text" class="form-control" id="corcursos" name="concursos"
-                                placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
+                                placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209">
                         </div>
                         <div class="col-4 form-group">
                             <label for="sequencias">Sequência:</label>
                             <input type="text" class="form-control" id="sequencias" name="sequencias"
-                                placeholder="Ex.: 2204 ou 2204,2205 ou 2204 2209">
+                                placeholder="Ex.: 33423 ou 33423,33324,33333,n">
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_ini">Data de Início:</label>
