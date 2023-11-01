@@ -23,8 +23,10 @@ class LotoController extends Controller
 
         // Busca concursos completo na tabela com paginação
         $concursos = Concurso::with('resultado.numero')
-            ->orderBy('id', 'desc');
+            ->orderBy('concursos.id', 'desc');
         // ->simplePaginate(3);
+
+        // dd($concursos[0]->toArray());
         // $concursos = Concurso::paginate(10);
         // var_dump($concursos[0]->resultado->numero->toArray());
 
@@ -37,6 +39,7 @@ class LotoController extends Controller
         // ->where('concursos.id', '=', '2500');
         // ->where('concursos.id','<=','2599')
         // ->get();
+        $filtros = [];
 
         if ($request->has('_token') || session('inputSalvo')) {
 
@@ -46,7 +49,7 @@ class LotoController extends Controller
             }
             if ($request->has('_token')) {
                 // $dadosForm = $request->except(['_token','page']);
-                $dadosForm = $request->input();
+                $dadosForm = $request->except(['_token', 'page']);
                 $request->session()->put('inputSalvo', $request->except(['_token', 'page']));
             }
 
@@ -64,7 +67,22 @@ class LotoController extends Controller
                     $concursos_completo->whereIn('concursos.id', $ccn);
                 }
 
-            // var_dump($dadosForm);
+                // Entrada de Sequencias Tratamento
+
+                if($dadosForm['sequencias']){
+                    $seqs = explode(',', $dadosForm['sequencias']);
+                    foreach($seqs as $ch => $seq){
+                        $seqs[$ch] = implode(',',str_split($seq));
+                    }
+                    
+                    $concursos->whereHas('resultado.numero', function ($query) use ($seqs) {
+                        $query->whereIn('numeros.sequencia', $seqs);
+                    });
+                    $concursos_completo->whereIn('numeros.sequencia',$seqs );
+                }
+
+            var_dump($dadosForm);
+            $filtros = $dadosForm;
         }
 
         $concursos = $concursos->simplePaginate(10);
@@ -125,6 +143,7 @@ class LotoController extends Controller
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
+            'filtros'=> $filtros,
 
         ];
 

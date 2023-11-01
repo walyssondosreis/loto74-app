@@ -127,6 +127,11 @@
             line-height: 22px;
             /* border: 1px solid white; */
         }
+
+        .info-rotulo {
+            font-size: 9pt;
+            padding-left: 5px;
+        }
     </style>
 
 </head>
@@ -165,21 +170,49 @@ $seqs = [
                     <div class="row">
                         <div class="col-4 form-group">
                             <label for="concursos">Concurso:</label>
-                            <input type="text" class="form-control" id="corcursos" name="concursos"
+                            <input type="text" class="form-control" id="concursos" name="concursos"
                                 placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209">
+                            <span class="info-rotulo">
+                                @php
+                                    if (!empty($filtros)) {
+                                        echo $filtros['concursos'];
+                                    }
+                                @endphp
+                            </span>
                         </div>
                         <div class="col-4 form-group">
                             <label for="sequencias">Sequência:</label>
                             <input type="text" class="form-control" id="sequencias" name="sequencias"
                                 placeholder="Ex.: 33423 ou 33423,33324,33333,n">
+                            <span class="info-rotulo">
+                                @php
+                                    if (!empty($filtros)) {
+                                        echo $filtros['sequencias'];
+                                    }
+                                @endphp
+                            </span>
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_ini">Data de Início:</label>
                             <input type="date" class="form-control" id="data_ini" name="data_ini">
+                            <span class="info-rotulo">
+                                @php
+                                    if (!empty($filtros)) {
+                                        echo \Carbon\Carbon::parse($filtros['data_ini'])->format('d/m/Y');
+                                    }
+                                @endphp
+                            </span>
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_fim">Data de Fim:</label>
                             <input type="date" class="form-control" id="data_fim" name="data_fim">
+                            <span class="info-rotulo">
+                                @php
+                                    if (!empty($filtros)) {
+                                        echo \Carbon\Carbon::parse($filtros['data_fim'])->format('d/m/Y');
+                                    }
+                                @endphp
+                            </span>
                         </div>
                     </div>
                     <div class="text-center m-2">
