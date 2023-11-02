@@ -43,7 +43,7 @@ class LotoController extends Controller
 
         if ($request->has('_token') || session('inputSalvo')) {
 
-    
+
             if (session('inputSalvo')) {
                 $dadosForm = session('inputSalvo');
             }
@@ -74,13 +74,20 @@ class LotoController extends Controller
                     foreach($seqs as $ch => $seq){
                         $seqs[$ch] = implode(',',str_split($seq));
                     }
-                    
+
                     $concursos->whereHas('resultado.numero', function ($query) use ($seqs) {
                         $query->whereIn('numeros.sequencia', $seqs);
                     });
                     $concursos_completo->whereIn('numeros.sequencia',$seqs );
                 }
+                // Entrada de Data Inicio e Data Fim Tratamento
+                if ($dadosForm['data_ini'] || $dadosForm['data_fim'] ){
 
+                        $dadosForm['data_ini'] = $dadosForm['data_ini'] ? $dadosForm['data_ini'] : '2003-09-29';
+                        $dadosForm['data_fim'] = $dadosForm['data_fim'] ? $dadosForm['data_fim'] : now()->toDateString();
+                        $concursos->whereBetween('concursos.data_apuracao',[$dadosForm['data_ini'],$dadosForm['data_fim']]);
+                        $concursos_completo->whereBetween('concursos.data_apuracao',[$dadosForm['data_ini'],$dadosForm['data_fim']]);
+                }
             var_dump($dadosForm);
             $filtros = $dadosForm;
         }
@@ -127,7 +134,7 @@ class LotoController extends Controller
         // foreach($sequencias)
 
 
-        // SELECT id FROM numeros WHERE  FIND_IN_SET("1", numeros); 
+        // SELECT id FROM numeros WHERE  FIND_IN_SET("1", numeros);
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
