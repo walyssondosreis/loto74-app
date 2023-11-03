@@ -145,9 +145,26 @@ $seqs = [
 ?>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark mb-3">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark mb-3">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">LotoV74</span>
+            <a class="navbar-brand" href="#">
+                {{-- <img src="{{ asset('images/logo_74.png') }}" alt="Logo74" width="80" height="80"> --}}
+                LotoV74
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Atualizar
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{{ route('atualizar',['modo'=>'api']) }}">Via API</a></li>
+                          <li><a class="dropdown-item" href="{{ route('atualizar',['modo'=>'csv']) }}">Via Arquivo CSV</a></li>
+                          {{-- <li><hr class="dropdown-divider"></li> --}}
+                        </ul>
+                      </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -160,7 +177,11 @@ $seqs = [
             </ul>
         </div>
     @endif
-
+    @if (session('mensagem'))
+        <div class="alert alert-success">
+            {{ session('mensagem') }}
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             {{-- Filtros de Jogos --}}
@@ -172,37 +193,25 @@ $seqs = [
                             <label for="concursos">Concurso:</label>
                             <input type="text" class="form-control" id="concursos" name="concursos"
                                 placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209"
-                                @if (!empty($filtros) && $filtros['concursos'])
-                                    value="{{$filtros['concursos']}}";
-                                @endif
-                                >
+                                @if (!empty($filtros) && $filtros['concursos']) value="{{ $filtros['concursos'] }}"; @endif>
                         </div>
                         <div class="col-4 form-group">
                             <label for="sequencias">Sequência:</label>
                             <input type="text" class="form-control" id="sequencias" name="sequencias"
                                 placeholder="Ex.: 33423 ou 33423,33324,33333,n"
-                                @if (!empty($filtros) && $filtros['sequencias'])
-                                value="{{$filtros['sequencias']}}";
-                            @endif
-                            >
-                                
+                                @if (!empty($filtros) && $filtros['sequencias']) value="{{ $filtros['sequencias'] }}"; @endif>
+
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_ini">Data de Início:</label>
                             <input type="date" class="form-control" id="data_ini" name="data_ini"
-                            @if (!empty($filtros) && $filtros['data_ini'])
-                                    value="{{ $filtros['data_ini'] }}";
-                                @endif
-                                >
+                                @if (!empty($filtros) && $filtros['data_ini']) value="{{ $filtros['data_ini'] }}"; @endif>
                         </div>
                         <div class="col-2 form-group">
                             <label for="data_fim">Data de Fim:</label>
                             <input type="date" class="form-control" id="data_fim" name="data_fim"
-                            @if (!empty($filtros) && $filtros['data_fim'])
-                                    value="{{ $filtros['data_fim'] }}";
-                                @endif
-                                >
-                            
+                                @if (!empty($filtros) && $filtros['data_fim']) value="{{ $filtros['data_fim'] }}"; @endif>
+
                         </div>
                     </div>
                     <div class="text-center m-2">
@@ -223,7 +232,7 @@ $seqs = [
                         <div class="ticket-analiz">
                             <?php
                                 $numTotal = 0;
-                                
+
                                 for ($i = 0; $i < 5; $i++) :
                                 ?>
                             <div class="numbers-analiz">
@@ -234,7 +243,7 @@ $seqs = [
                                     <?php $numTotal += 1; ?>
                                     <div style="display: flex; flex-direction:column">
                                         <div class="indicador" id="ind-top<?= $i . $j ?>"><?php
-                                        
+
                                         $ind = array_map(function ($item) use ($numTotal) {
                                             if ($item['numero'] == $numTotal) {
                                                 return $item['qtd'];
@@ -249,13 +258,13 @@ $seqs = [
                                             },
                                             0,
                                         );
-                                        
+
                                         $ind = array_filter($ind, function ($item) {
                                             return $item !== null;
                                         });
                                         $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;
                                         $totalFaixa[$i] += $ind;
-                                        
+
                                         echo $ind;
                                         // xdebug_break();
                                         // dd($ind[0]);
@@ -390,9 +399,11 @@ $seqs = [
             // console.log(total);
 
             var coresVal = [];
+
             valores.forEach(function(e) {
                 // console.log((e / total) * 100);
-                if ((e / total) * 100 >= 85.80) coresVal.push(tema[6]);
+                if(total == 0) coresVal.push(tema[0]);
+                else if ((e / total) * 100 >= 85.80) coresVal.push(tema[6]);
                 else if ((e / total) * 100 >= 71.50 && (e / total) * 100 < 85.80) coresVal.push(tema[5]);
                 else if ((e / total) * 100 >= 57.20 && (e / total) * 100 < 71.50) coresVal.push(tema[4]);
                 else if ((e / total) * 100 >= 42.90 && (e / total) * 100 < 57.20) coresVal.push(tema[3]);

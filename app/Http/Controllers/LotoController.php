@@ -88,7 +88,7 @@ class LotoController extends Controller
                         $concursos->whereBetween('concursos.data_apuracao',[$dadosForm['data_ini'],$dadosForm['data_fim']]);
                         $concursos_completo->whereBetween('concursos.data_apuracao',[$dadosForm['data_ini'],$dadosForm['data_fim']]);
                 }
-            var_dump($dadosForm);
+            // var_dump($dadosForm);
             $filtros = $dadosForm;
         }
 
@@ -130,6 +130,10 @@ class LotoController extends Controller
         // var_dump($numeros);
         // var_dump($concursos_completo->toArray());exit();
         // dd($concursos_completo->toArray());
+        // var_dump($a->data_apuracao);
+        // var_dump($concursos);
+        // var_dump($a->resultado->toArray());
+        // var_dump($a->resultado->numero->toArray());
 
         // foreach($sequencias)
 
@@ -138,13 +142,6 @@ class LotoController extends Controller
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
-        $atualizador = new LotoService();
-        // var_dump($atualizador->carregarDBViaCSV());exit();
-        // var_dump($atualizador->carregarDBViaApi());exit();
-        // var_dump($a->data_apuracao);
-        // var_dump($concursos);
-        // var_dump($a->resultado->toArray());
-        // var_dump($a->resultado->numero->toArray());
 
         $toView = [
             'concursos' => $concursos,
@@ -156,10 +153,27 @@ class LotoController extends Controller
 
         return view('loto', $toView);
     }
+    public function atualizarBase(LotoRequest $request){
+
+        $atualizador = new LotoService();
+        if($request->get('modo')=='api'){
+            $update_retorno = $atualizador->carregarDBViaApi();
+        }
+        if($request->get('modo')=='csv'){
+            $update_retorno = $atualizador->carregarDBViaCSV();
+        }
+
+        return redirect()->route('loto')
+        ->with('mensagem',$update_retorno['mensagem']);
+
+
+
+    }
     public function limparFiltros()
     {
         session()->forget('inputSalvo');
-        return to_route('loto');
+        // return to_route('loto');
+        return redirect()->route('loto')->with('mensagem','Os filtros foram redefinidos');
         // return back();
     }
 }

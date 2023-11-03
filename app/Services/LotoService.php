@@ -130,7 +130,7 @@ class LotoService
     {
         /**
          * Busca último concurso registrado do banco e na api, executa função
-         * que atualiza os consursos restantes da diferença entre o que já tem cadastrado 
+         * que atualiza os consursos restantes da diferença entre o que já tem cadastrado
          * e o que falta. Lembrando se a quantidade de concursos para buscar for maior que 5
          * ele retorna a flag que indica a necessidade de carga manual do banco, pois a API não
          * suporta mais de 5 requisições simuntâneas.
@@ -159,7 +159,7 @@ class LotoService
                 'atualizado' => true,
                 'mensagem' => 'Base de dados não requer atualização',
             ];
-        if (count($ccParaAtualizar) > 5)
+        if (count($ccParaAtualizar) > 7)
             return [
                 'status' => 'aviso',
                 'atualizado' => false,

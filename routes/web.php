@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return to_route('loto');
 });
 
 // Route::resources([
@@ -25,6 +26,7 @@ Route::get('/', function () {
 Route::get('/loto',[LotoController::class,'index'])->name('loto');
 Route::get('/loto/limparFiltros',[LotoController::class,'limparFiltros'])->name('limparFiltros');
 Route::post('/loto',[LotoController::class,'index']);
+Route::get('/atualizar',[LotoController::class,'atualizarBase'])->name('atualizar');
 
 
 
