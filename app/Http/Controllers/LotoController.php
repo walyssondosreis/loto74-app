@@ -8,6 +8,7 @@ use App\Models\Numero;
 use App\Models\Resultado;
 use Illuminate\Http\Request;
 use App\Services\LotoService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LotoController extends Controller
@@ -142,13 +143,17 @@ class LotoController extends Controller
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
+        if(Auth::check()){
+
+        $usuario = Auth::user()->name;
+        }
 
         $toView = [
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
             'filtros'=> $filtros,
-
+            'usuario'=>$usuario,
         ];
 
         return view('loto', $toView);

@@ -8,6 +8,11 @@
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
     <style>
+        body {
+            padding-top: 120px;
+            /* Ajuste este valor para a altura da sua navbar */
+        }
+
         .loteria-ticket {
             width: 250px;
             background-color: #301934;
@@ -132,6 +137,22 @@
             font-size: 9pt;
             padding-left: 5px;
         }
+
+        .icone-usuario {
+            border-radius: 50%;
+            border: 4px solid gray;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            padding: 1px;
+            display: inline-block;
+            /* background-color: white; */
+        }
+
+        .nome-usuario {
+            color: white;
+            margin: 5px;
+        }
     </style>
 
 </head>
@@ -145,7 +166,7 @@ $seqs = [
 ?>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg bg-dark mb-3">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 {{-- <img src="{{ asset('images/logo_74.png') }}" alt="Logo74" width="80" height="80"> --}}
@@ -155,7 +176,7 @@ $seqs = [
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="#">Início</a>
-                      </li>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -166,19 +187,47 @@ $seqs = [
                             </li>
                             <li><a class="dropdown-item" href="{{ route('atualizar', ['modo' => 'csv']) }}">Via Arquivo
                                     CSV</a></li>
-                            {{-- <li><hr class="dropdown-divider"></li> --}}
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle">
-                            Aposta
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Painel
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="" data-bs-toggle="dropdown" class="dropdown-item">Conferidor</a></li>
+                            <li><a class="dropdown-item" href="">Conferidor</a></li>
+                            <li><a class="dropdown-item" href="">Analisador</a></li>
+                            <li><a class="dropdown-item" href="">Comparador</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Apostar
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Configurar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="">Usuários</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <span class="nome-usuario">{{ $usuario }}</span>
+                    <li class="nav-item dropdown ">
+
+                        <a class="nav-link " role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="icone-usuario" src="{{ asset('images/gambit.jpg') }}">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('deslogar') }}">Sair</a></li>
                         </ul>
                     </li>
 
-                </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -230,7 +279,8 @@ $seqs = [
                         </div>
                     </div>
                     <div class="text-center m-2">
-                        <button type="reset" class="btn btn-secondary btn-sm " style="width: 100px">Cancelar</button>
+                        <button type="reset" class="btn btn-secondary btn-sm "
+                            style="width: 100px">Cancelar</button>
                         <button type="submit" class="btn btn-primary btn-sm" style="width: 100px">Buscar</button>
                     </div>
                 </div>
