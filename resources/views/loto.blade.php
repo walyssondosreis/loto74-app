@@ -153,16 +153,31 @@ $seqs = [
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">Início</a>
+                      </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Atualizar
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Atualizar
                         </a>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="{{ route('atualizar',['modo'=>'api']) }}">Via API</a></li>
-                          <li><a class="dropdown-item" href="{{ route('atualizar',['modo'=>'csv']) }}">Via Arquivo CSV</a></li>
-                          {{-- <li><hr class="dropdown-divider"></li> --}}
+                            <li><a class="dropdown-item" href="{{ route('atualizar', ['modo' => 'api']) }}">Via API</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('atualizar', ['modo' => 'csv']) }}">Via Arquivo
+                                    CSV</a></li>
+                            {{-- <li><hr class="dropdown-divider"></li> --}}
                         </ul>
-                      </li>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle">
+                            Aposta
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="" data-bs-toggle="dropdown" class="dropdown-item">Conferidor</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -402,7 +417,7 @@ $seqs = [
 
             valores.forEach(function(e) {
                 // console.log((e / total) * 100);
-                if(total == 0) coresVal.push(tema[0]);
+                if (total == 0) coresVal.push(tema[0]);
                 else if ((e / total) * 100 >= 85.80) coresVal.push(tema[6]);
                 else if ((e / total) * 100 >= 71.50 && (e / total) * 100 < 85.80) coresVal.push(tema[5]);
                 else if ((e / total) * 100 >= 57.20 && (e / total) * 100 < 71.50) coresVal.push(tema[4]);
@@ -416,14 +431,34 @@ $seqs = [
             return coresVal;
         }
 
-        var tema = [
-            '#ffffff', // 1
-            '#ec6053', // 2
-            '#ff8c00', // 3
-            '#d0d015', // 4
-            '#ffff00', // 5
-            '#00913f', // 6
-            '#164723', // 7
+        var tema = [{ // 1
+                'background': '#ff0000',
+                'color': 'white',
+            },
+            { // 2
+                'background': '#ff7f00',
+                'color': 'black',
+            },
+            { // 3
+                'background': '#ffaa00',
+                'color': 'black',
+            },
+            { // 4
+                'background': '#ffff00',
+                'color': 'black',
+            },
+            { // 5
+                'background': '#bfdf00',
+                'color': 'black',
+            },
+            { // 6
+                'background': '#7fbf00',
+                'color': 'black',
+            },
+            { // 7
+                'background': '#3f9f00',
+                'color': 'black',
+            },
         ];
 
 
@@ -434,7 +469,7 @@ $seqs = [
             vet.push($('#ind-dir' + i).text().trim());
         }
 
-        var indColor = corGradiente(vet);
+        var indColor = corGradiente(vet, tema);
 
         for (let i = 0; i < 5; i++) {
             vet.push($('#ind-dir' + i + ',#ind-esq' + i).css({
@@ -450,7 +485,7 @@ $seqs = [
                 vet.push($(this).text());
             });
 
-            var indColor = corGradiente(vet);
+            var indColor = corGradiente(vet, tema);
 
             $('[id^="ind-top' + i + '"]').each(function(idx) {
                 $(this).css({

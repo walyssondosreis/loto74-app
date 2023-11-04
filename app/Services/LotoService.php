@@ -159,11 +159,11 @@ class LotoService
                 'atualizado' => true,
                 'mensagem' => 'Base de dados não requer atualização',
             ];
-        if (count($ccParaAtualizar) > 7)
+        if (count($ccParaAtualizar) > 10)
             return [
                 'status' => 'aviso',
                 'atualizado' => false,
-                'mensagem' => 'Base de dados requer carga manual',
+                'mensagem' => 'Base de dados requer carga manual. Concursos faltantes: '.implode(',',$ccParaAtualizar),
             ];
 
         foreach ($ccParaAtualizar as $i) {

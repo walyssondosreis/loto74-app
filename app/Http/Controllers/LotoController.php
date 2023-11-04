@@ -173,7 +173,7 @@ class LotoController extends Controller
     {
         session()->forget('inputSalvo');
         // return to_route('loto');
-        return redirect()->route('loto')->with('mensagem','Os filtros foram redefinidos');
+        return redirect()->route('loto');
         // return back();
     }
 }

@@ -6,16 +6,12 @@ ok - Fazer método da classe Numeros para registro de numeros
 ok - Fazer função da classe Resultado que grava resultado
 ok - Fazer função de atualização de banco com carga de dados via arq e API
 ok ** A API Suporta poucas requisições, tratar requisição automática e manual
-ok - Fazer interface view
-ok - Ligar funções do model as views
-- Fazer gerenciamento de Usuarios, login, sessao etc
-- Implementar comportamentos JS
+- Conferidor de apostas
+- Comparador de resultados
+- Analisador de apostas
+- Registro de apostas
+- Registro de usuarios
 
-(2) Objetivos:___
-- Analisar sequencias que mais saem
-- Dentro dessas sequencias pegar os números que mais ocorrem com porcentagem mínima de repetição
-- Dentro dessas sequencias pegar os números que menos ocorrem com porcentagem maxima de repetição
-- Gerar jogos baseado nesse criterio: Jogos que mais saem e recorrentes dentro da sequencia
 
 (3) Jogo:__
 - Pode marcar de 15 a 20 Numeros dos 25 disponíveis
