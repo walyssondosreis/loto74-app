@@ -6,14 +6,14 @@ ok - Fazer método da classe Numeros para registro de numeros
 ok - Fazer função da classe Resultado que grava resultado
 ok - Fazer função de atualização de banco com carga de dados via arq e API
 ok ** A API Suporta poucas requisições, tratar requisição automática e manual
-- Componentizar :
-    - header
-    - Navbar
-    - footer
-    - Bilhete
-    - formulario
-    - analizador
-    - ranksequencias
+ok - Componentizar :
+    ok - header
+    ok - Navbar
+    ok - footer
+    ok - Bilhete
+    ok - formulario
+    ok - analisador
+    ok - sequencias
 - Conferidor de apostas
 - Comparador de resultados
 - Analisador de apostas

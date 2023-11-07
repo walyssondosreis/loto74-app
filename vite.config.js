@@ -6,8 +6,10 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/scss/app.scss', 
-                'resources/js/app.js', 
+                'resources/scss/app.scss',
+                'resources/css/loto.css',
+                'resources/js/app.js',
+                'resources/js/loto.js',
             ],
             refresh: true,
         }),

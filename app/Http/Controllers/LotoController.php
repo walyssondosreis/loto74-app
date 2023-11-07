@@ -146,6 +146,7 @@ class LotoController extends Controller
         if(Auth::check()){
 
         $usuario = Auth::user()->name;
+
         }
 
         $toView = [
