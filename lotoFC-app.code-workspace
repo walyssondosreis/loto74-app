@@ -4,5 +4,15 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"driver": "SQLite",
+				"database": "${workspaceFolder:lotoFC-app}/database/database.sqlite",
+				"name": "LotoSQLite"
+			}
+		],
+		"sqltools.useNodeRuntime": true
+	}
 }
