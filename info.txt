@@ -6,6 +6,14 @@ ok - Fazer método da classe Numeros para registro de numeros
 ok - Fazer função da classe Resultado que grava resultado
 ok - Fazer função de atualização de banco com carga de dados via arq e API
 ok ** A API Suporta poucas requisições, tratar requisição automática e manual
+- Componentizar :
+    - header
+    - Navbar
+    - footer
+    - Bilhete
+    - formulario
+    - analizador
+    - ranksequencias
 - Conferidor de apostas
 - Comparador de resultados
 - Analisador de apostas
@@ -54,6 +62,16 @@ npm run dev
 ** As migrations são armazenadas em ./database/migrations
 ** No model a variavel $allowedFilds é responsavel por informar quais campos da tabela permito manipular
 
+VS CODE :: Treinamento
+
+Crt + espaco = Abre caixa de sugestões
+Crt + . = Sugere ações a serem feitas para a linha
+Alt+Z = Quebra de linhas
+Alt + seta = Move a linha do cursor para sima ou para baixo
+F8 = Atalho para ir direto ao erro explicito no arquivo
+Crt + D = Seleciona palavra para ser alterado uma a uma; Cada Crt+D soma uma palavra
+Crt + F2 = Seleciona palavra para ser alterado; todas as ocorrẽncias dessa palavra no arquivo
+Crt * ; = Comenta ou descomenta linhas no codigo
 ____________________________________________________
 
 Referências:

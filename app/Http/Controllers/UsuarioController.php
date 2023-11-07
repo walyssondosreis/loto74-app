@@ -10,6 +10,9 @@ class UsuarioController extends Controller
 {
     //
     public function login(){
+        if(Auth::check()){
+            return redirect()->route('loto');
+        }
 
         return view('login');
     }

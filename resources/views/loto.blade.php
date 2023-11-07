@@ -215,12 +215,14 @@ $seqs = [
                         </ul>
                     </li>
                 </ul>
+                @auth
+
                 <div class="d-flex align-items-center">
                     <span class="nome-usuario">{{ $usuario }}</span>
                     <li class="nav-item dropdown ">
 
                         <a class="nav-link " role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="icone-usuario" src="{{ asset('images/gambit.jpg') }}">
+                            <img class="icone-usuario" src="{{ asset('images/pika.jpg') }}">
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('deslogar') }}">Sair</a></li>
@@ -228,6 +230,7 @@ $seqs = [
                     </li>
 
                 </div>
+                @endauth
             </div>
         </div>
     </nav>
