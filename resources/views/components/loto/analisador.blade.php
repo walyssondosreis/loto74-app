@@ -50,7 +50,6 @@
                     <?php endfor; ?>
                     <div class="indicador-seq indicador-seq-dir" id="ind-dir<?= $i ?>">
                         <?= $totalFaixa[$i] ?></div>
-
                 </div>
             </div>
             <?php endfor; ?>
