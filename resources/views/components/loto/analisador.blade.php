@@ -1,4 +1,3 @@
-
 <div class="mb-2">
     <div class="row justify-content-center">
         <div class="ticket-analiz">
@@ -51,10 +50,6 @@
                     <?php endfor; ?>
                     <div class="indicador-seq indicador-seq-dir" id="ind-dir<?= $i ?>">
                         <?= $totalFaixa[$i] ?></div>
-
-                    <script type="module">
-                        $('#ind-esq<?= $i ?>').text(((<?= $totalFaixa[$i] ?> / <?= $qtd_total ?>) * 100).toFixed(2) + '%');
-                    </script>
 
                 </div>
             </div>
