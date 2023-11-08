@@ -5,7 +5,9 @@
     <div class="container">
         <div class="row justify-content-center align-items-center" style="height:100vh;">
             <div class="col-4">
-
+                <div class="bg-red-500">
+                    TESTE
+                </div>
                 <div class="card-body">
                     <form action="{{ route('logar') }}" method="POST">
                         @csrf <!-- Token CSRF para segurança -->

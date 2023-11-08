@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', (event) => {
     // Envolver o script nesta função DOM garante que o script só seja executado após o carregamento da página
     // Função que recebe vetor calcula cor e retorna vetor de cores
@@ -125,4 +126,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         // console.log(vet);
     }
+
+    // Declara função após execução do evento para esconder dropdown
+    window.toggleDropdown = function(){
+        let dropdown = document.querySelector('#dropdown-profile');
+        dropdown.classList.toggle('hidden');
+    };
+
 });
+
+
+
+
+

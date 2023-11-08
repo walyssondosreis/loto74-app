@@ -51,11 +51,6 @@
                     <?php endfor; ?>
                     <div class="indicador-seq indicador-seq-dir" id="ind-dir<?= $i ?>">
                         <?= $totalFaixa[$i] ?></div>
-
-                    <script type="module">
-                        $('#ind-esq<?= $i ?>').text(((<?= $totalFaixa[$i] ?> / <?= $qtd_total ?>) * 100).toFixed(2) + '%');
-                    </script>
-
                 </div>
             </div>
             <?php endfor; ?>
