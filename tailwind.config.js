@@ -6,7 +6,18 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+        colors: {
+            roxo: {
+                claro: '#6b4866',
+                escuro: '#361d33',
+                light: '#a48da0',
+            },
+        },
+        fontFamily: {
+            inter: ['Inter', 'sans-serif']
+        },
+    },
   },
   plugins: [],
 }
