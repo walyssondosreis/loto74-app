@@ -10,8 +10,11 @@
     ">
 
         <main class="flex px-6 drop-shadow-2xl">
-            <section class="bg-green-500 hidden lg:block mr-3 rounded-lg">
-                <span>Minha Logo Vai Aqui</span>
+            <section class=" hidden lg:block mr-3 rounded-lg justify-center bg-roxo-claro text-center">
+                {{-- <span>Minha Logo Vai Aqui</span> --}}
+                <div class="glitch w-5 h-5 flex justify-center text-center"></div>
+
+
             </section>
 
             <section class="text-center p-10 flex gap-6 rounded-lg bg-white">
