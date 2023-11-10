@@ -10,9 +10,9 @@
     ">
 
         <main class="flex px-6 drop-shadow-2xl">
-            <section class=" hidden lg:block mr-3 rounded-lg justify-center bg-roxo-claro text-center">
-                {{-- <span>Minha Logo Vai Aqui</span> --}}
-                <div class="glitch w-5 h-5 flex justify-center text-center"></div>
+            <section class=" w-full hidden lg:block mr-3 rounded-lg justify-center bg-roxo-claro text-center">
+
+                <img class="logo-animation w-80" src="{{ asset('images/logo-loto/logo-loto-0.png') }}" alt="">
 
 
             </section>
@@ -20,7 +20,7 @@
             <section class="text-center p-10 flex gap-6 rounded-lg bg-white">
                 <form action="{{ route('logar') }}" method="POST">
                     @csrf <!-- Token CSRF para segurança -->
-                    <h2 class="text-4xl mb-2">{{ $loto74 }}</h2>
+                    <h2 class="text-4xl mb-2 logo-titulo">{{ $loto74 }}</h2>
                     <div class="mb-2">
                         <label class="text-sm text-gray-700 font-bold mb-1 justify-left flex" for="email">E-mail:</label>
                         <input class="w-80 border rounded pl-3 py-2 shadow focus:outline-none hover:border-roxo-claro hover:ring-1 hover:ring-roxo-escuro focus:border-roxo-escuro focus:ring-1 focus:ring-roxo-escuro duration-200" type="email" id="email" placeholder="Digite seu e-mail" name="email"

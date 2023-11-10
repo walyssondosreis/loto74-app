@@ -1,4 +1,12 @@
- /* body {
+
+@font-face {
+    font-family: 'tt-barcad';
+    src: url('../../public/fonts/barcad.ttf') format('ttf'); /* Substitua com o caminho correto para o seu arquivo de fonte */
+    /* font-weight: bold; */
+    /* font-style: normal; */
+}
+
+/* body {
     padding-top: 120px;
 } */
 
@@ -62,7 +70,6 @@
     padding: 5px;
     border: 2px solid gray;
     border-radius: 5px;
-
 }
 
 /* Analizador */
@@ -92,7 +99,6 @@
     /* border: 1px solid white; */
     font-size: 12px;
     line-height: 12px;
-
 }
 
 .indicador-seq {
@@ -143,78 +149,37 @@
     margin: 5px;
 }
 
-
-.glitch {
-    width: 300px;
-    height: 300px;
-    background: url('../../public/images/logo-loto/logo-loto-0.png');
-    background-size: cover;
-    animation:
-        /* glitch 3.5s infinite steps(1), */
-        /* rotateLeft 1s ease-in-out infinite alternate, */
-        rotateRight 1s ease-in-out infinite alternate
-        /* shake 4s infinite */
-        ;
-
+.logo-animation {
+    animation: rotateLeft 1s ease-in-out infinite alternate,
+        rotateRight 1s ease-in-out infinite alternate;
 }
 
-@keyframes glitch {
-    0%, 100% {
-        background: url('../../public/images/logo-loto/logo-loto-0.png');
-        background-size: cover;
+.logo-titulo{
+    font-family: 'tt-barcad', sans-serif;
+    /* font-weight: bold; */
+}
+@keyframes rotateLeft {
+    0% {
+        transform: rotate(0deg);
     }
-
-    92.5% {
-        background: url('../../public/images/logo-loto/logo-loto-1.png');
-        background-size: cover;
-        opacity: 1;
+    90% {
+        transform: rotate(10deg);
     }
-
-    95% {
-        background: url('../../public/images/logo-loto/logo-loto-2.png');
-        background-size: cover;
-        opacity: 0;
-    }
-
-    97.5% {
-        background: url('../../public/images/logo-loto/logo-loto-3.png');
-        background-size: cover;
-        opacity: 1;
+    100% {
+        transform: rotate(0deg);
     }
 }
 
-@keyframes shake {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    10%, 30%, 50%, 70%, 90% {
-      transform: translateX(-2px);
-    }
-    20%, 40%, 60%, 80% {
-      transform: translateX(2px);
-    }
-  }
-
-  @keyframes rotateLeft {
+@keyframes rotateRight {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
-    50% {
-      transform: rotate(10deg);
+    10% {
+        transform: rotate(-10deg);
     }
     100% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
-  }
+}
 
-  @keyframes rotateRight {
-    0% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(-10deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
+
