@@ -1,9 +1,12 @@
 
 @font-face {
     font-family: 'tt-barcad';
-    src: url('../../public/fonts/barcad.ttf') format('ttf'); /* Substitua com o caminho correto para o seu arquivo de fonte */
-    /* font-weight: bold; */
-    /* font-style: normal; */
+    src: url('../../public/fonts/barcade.ttf') format('truetype'); /* Substitua com o caminho correto para o seu arquivo de fonte */
+}
+@font-face {
+    font-family: 'tt-barcad';
+    src: url('../../public/fonts/barcad-bold.ttf') format('truetype'); /* Substitua com o caminho correto para o seu arquivo de fonte */
+    font-weight: bold;
 }
 
 /* body {
@@ -152,10 +155,12 @@
 .logo-animation {
     animation: rotateLeft 1s ease-in-out infinite alternate,
         rotateRight 1s ease-in-out infinite alternate;
+    pointer-events: none;
 }
 
 .logo-titulo{
     font-family: 'tt-barcad', sans-serif;
+    color: #1E132A;
     /* font-weight: bold; */
 }
 @keyframes rotateLeft {

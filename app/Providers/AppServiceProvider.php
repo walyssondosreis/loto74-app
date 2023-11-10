@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Torna a variável disponível para ser utilizada em todas as views
-        View::share('loto74', 'Loto74');
+        View::share('loto74', '(Loto74)');
     }
 }
