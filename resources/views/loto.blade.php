@@ -26,6 +26,4 @@
             </div>
         </div>
     </div>
-
-    @vite(['resources/js/loto.js'])
 </x-page>

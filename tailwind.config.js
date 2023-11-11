@@ -1,24 +1,34 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.js",
-    "./resources/**/*.vue",
-  ],
-  theme: {
-    extend: {
-        colors: {
-            roxo: {
-                claro: '#6b4866',
-                escuro: '#361d33',
-                light: '#a48da0',
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                roxo: {
+                    claro: '#6b4866',
+                    escuro: '#361d33',
+                    light: '#a48da0',
+                },
             },
-        },
-        fontFamily: {
-            inter: ['Inter', 'sans-serif']
-        },
+            fontFamily: {
+                barcade: ['barcade', 'sans-serif']
+            },
+            keyframes: {
+                balanco_kf: {
+                    '0%': { transform: 'rotate(0deg)' },
+                    '50%': { transform: 'rotate(-4deg)' },
+                    '100%': { transform: 'rotate(0deg)' },
+                }
+            },
+            animation: {
+                'balanco': 'balanco_kf 1s ease-in-out infinite alternate',
+            }
+        }
     },
-  },
-  plugins: [],
+    plugins: [],
 }
 

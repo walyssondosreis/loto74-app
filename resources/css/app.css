@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: 'barcade';
+    src: url('../../public/fonts/barcade.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'barcade';
+    src: url('../../public/fonts/barcade-bold.ttf') format('truetype');
+    font-weight: bold;
+}
