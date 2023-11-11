@@ -25,7 +25,7 @@
                         <input class="w-full border rounded pl-3 py-2 shadow focus:outline-none hover:border-roxo-claro hover:ring-1 hover:ring-roxo-escuro focus:border-roxo-escuro focus:ring-1 focus:ring-roxo-escuro duration-200" type="password" id="password" placeholder="Digite sua senha" name="password" required>
                     </div>
                     <div class="text-sm font-bold ">
-                        <button class="w-1/2 bg-roxo-claro text-white py-2 rounded-lg shadow-2xl hover:bg-roxo-light duration-150 " type="submit" class="">Entrar</button>
+                        <button class="w-1/2 bg-roxo-claro text-white py-2 rounded-lg shadow-2xl hover:bg-roxo-light duration-150 " type="submit">Entrar</button>
                     </div>
                 </form>
             </section>

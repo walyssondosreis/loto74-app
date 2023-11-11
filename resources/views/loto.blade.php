@@ -9,17 +9,17 @@
             {{-- Componente de formulário --}}
             <x-loto.formulario :filtros='$filtros'></x-loto.formulario>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
+        <div class="flex flex-row">
+            <div class="w-3/12">
 
                 {{-- Componente analisador de concursos --}}
                 <x-loto.analisador :numeros='$numeros'></x-loto.analisador>
 
                 {{-- Ranking de Sequencias --}}
-                <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia>
+                {{-- <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia> --}}
             </div>
 
-            <div class="col-sm-9">
+            <div class="w-9/12">
 
                 {{-- Cards de Jogos --}}
                 <x-loto.bilhete :concursos='$concursos'></x-loto.bilhete>

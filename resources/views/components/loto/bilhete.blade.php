@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="row justify-content-center mb-2">
+<div class="flex justify-center bg-red-200">
+    <div class=" flex flex-row justify-center mb-2">
         <?php foreach ($concursos as $cc) : ?>
         <div class="loteria-ticket">
             <div class="header">

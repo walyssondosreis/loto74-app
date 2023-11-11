@@ -14,3 +14,7 @@
         </div>
     @endif
 </div>
+
+{{-- <script>
+    setTimeout(() => { document.querySelector('.alert').classList.add('translate-x-full'); }, 3000);
+</script> --}}
