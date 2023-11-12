@@ -86,14 +86,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     },
     ];
 
-    //  Preenche percentuais nos indicadores esquerdos
-    let totalInd = parseInt($('#ind-dir0').text()) + parseInt($('#ind-dir1').text()) + parseInt($('#ind-dir2').text()) + parseInt($('#ind-dir3').text()) + parseInt($('#ind-dir4').text());
-    console.log(totalInd)
-    for (let i = 0; i < 5; i++) {
-        let perIndEsq = (parseInt($('#ind-dir' + i).text()) / totalInd * 100).toFixed(2) + '%';
-        $('#ind-esq' + i).text(perIndEsq);
-    }
-
     // Pinta os indicadores dos lados esq e dir
     let vet = [];
 

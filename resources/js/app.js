@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 import jQuery from 'jquery';
-// import './loto';
+import './loto';
 
 window.axios = axios;
 

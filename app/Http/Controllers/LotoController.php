@@ -98,7 +98,7 @@ class LotoController extends Controller
 
         $sequencias = [];
         $aux_1 = [];
-        $numeros = [];
+        $numeros = array_fill(0,25,0);
         $aux_2 = [];
 
         foreach ($concursos_completo as $ccc) {
@@ -110,25 +110,14 @@ class LotoController extends Controller
                 $sequencias[$ccc->sequencia]['qtd'] += 1;
             }
             foreach (explode(',', $ccc->numeros) as $n) {
-                if (!in_array($n, $aux_2)) {
-                    array_push($aux_2, $n);
-                    $numeros[$n]['numero'] = $n;
-                    $numeros[$n]['qtd'] = 1;
-                } else {
-                    $numeros[$n]['numero'] = $n;
-                    $numeros[$n]['qtd'] += 1;
-                }
+                $numeros[$n-1] += 1;
             }
         }
+        // dd($numeros);
         usort($sequencias, function ($a, $b) {
             return $b['qtd'] - $a['qtd'];
         });
 
-        usort($numeros, function ($a, $b) {
-            return $a['numero'] - $b['numero'];
-        });
-
-        // var_dump($numeros);
         // var_dump($concursos_completo->toArray());exit();
         // dd($concursos_completo->toArray());
         // var_dump($a->data_apuracao);

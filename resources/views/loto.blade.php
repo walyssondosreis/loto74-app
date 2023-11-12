@@ -10,7 +10,7 @@
             <x-loto.formulario :filtros='$filtros'></x-loto.formulario>
         </div>
         <div class="">
-            <div class="">
+            <div class="p-4">
 
                 {{-- Componente analisador de concursos --}}
                 <x-loto.analisador :numeros='$numeros'></x-loto.analisador>
