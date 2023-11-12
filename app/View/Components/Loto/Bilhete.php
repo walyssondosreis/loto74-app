@@ -6,16 +6,31 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+
 class Bilhete extends Component
 {
     /**
      * Create a new component instance.
      */
+    public String $data;
+    public String $nome;
+    public Int $concurso;
+    public String $sequencia;
+    public String $numeros;
+
     public function __construct(
-        public $concursos
-    )
+        String $data = null,
+        String $nome = null,
+        Int $concurso = null,
+        String $sequencia,
+        String $numeros
+        )
     {
-        //
+        $this->data = $data;
+        $this->nome = $nome;
+        $this->concurso = $concurso;
+        $this->sequencia = $sequencia;
+        $this->numeros = $numeros;
     }
 
     /**

@@ -9,8 +9,8 @@
             {{-- Componente de formulário --}}
             <x-loto.formulario :filtros='$filtros'></x-loto.formulario>
         </div>
-        <div class="flex flex-row">
-            <div class="w-3/12">
+        <div class="">
+            <div class="">
 
                 {{-- Componente analisador de concursos --}}
                 <x-loto.analisador :numeros='$numeros'></x-loto.analisador>
@@ -19,10 +19,28 @@
                 {{-- <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia> --}}
             </div>
 
-            <div class="w-9/12">
+            <div class="">
 
                 {{-- Cards de Jogos --}}
-                <x-loto.bilhete :concursos='$concursos'></x-loto.bilhete>
+
+                <div class="">
+                    <div class="">
+                        <?php foreach ($concursos as $cc) : ?>
+                        {{-- Componente de bilhete --}}
+                        @component('components.loto.bilhete')
+                            @slot('concurso', $cc->id)
+                            @slot('numeros', $cc->resultado->numero->numeros)
+                            @slot('sequencia', $cc->resultado->numero->sequencia)
+                            @slot('data', $cc->data_apuracao)
+                        @endcomponent
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="">
+                        {{ $concursos->links() }}
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>

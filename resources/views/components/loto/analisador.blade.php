@@ -1,61 +1,61 @@
-<div class="mb-2">
-    <div class=" flex-row justify-content-center">
-        <div class="bg-green-400 border-2 border-black absolute
-        m-1">
-            <?php
-            $numTotal = 0;
+<div class="w-64 bg-white border-2 border-roxo-escuro rounded-md">
+    @php
+        $numTotal = 0;
+    @endphp
+    @for ($i = 0; $i < 5; $i++)
+        <div class="flex justify-center text-center p-2">
+            <div class="flex">
+                @php
+                    $totalFaixa[$i] = 0;
+                @endphp
 
-            for ($i = 0; $i < 5; $i++) :
-            ?>
-            <div class="relative flex justify-center mt-5 m-2 text-center">
-                <div class="flex flex-row">
-                    <?php $totalFaixa[$i] = 0; ?>
-                    {{-- COLOCAR TEXTO NA VERTICAL --}}
-                    <div class="w-4 h-14 text-xs leading-4 text-center border border-black" id="ind-esq<?= $i ?>">A</div>
-                    <?php for ($j = 0; $j < 5; $j++) : ?>
-                    <?php $numTotal += 1; ?>
-                    <div class="flex flex-col">
-                        <div class="w-10 h-4 text-xs leading-3 border border-black" id="ind-top<?= $i . $j ?>"><?php
+                <div class=" p-1 text-xs border border-roxo-escuro" id="ind-esq{{ $i }}">A</div>
+                @for ($j = 0; $j < 5; $j++)
+                    @php
+                        $numTotal += 1;
+                    @endphp
 
-                        $ind = array_map(function ($item) use ($numTotal) {
-                            if ($item['numero'] == $numTotal) {
-                                return $item['qtd'];
-                            }
-                        }, $numeros);
-                        // xdebug_break();
-                        $qtd_total = array_reduce(
-                            $numeros,
-                            function ($total, $item) {
-                                $total += $item['qtd'];
-                                return $total;
-                            },
-                            0,
-                        );
+                    <div class="">
+                        <div class=" text-xs border border-roxo-escuro" id="ind-top{{ $i . $j }}">
+                            @php
 
-                        $ind = array_filter($ind, function ($item) {
-                            return $item !== null;
-                        });
-                        $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;
-                        $totalFaixa[$i] += $ind;
+                                $ind = array_map(function ($item) use ($numTotal) {
+                                    if ($item['numero'] == $numTotal) {
+                                        return $item['qtd'];
+                                    }
+                                }, $numeros);
+                                // xdebug_break();
+                                $qtd_total = array_reduce(
+                                    $numeros,
+                                    function ($total, $item) {
+                                        $total += $item['qtd'];
+                                        return $total;
+                                    },
+                                    0,
+                                );
 
-                        echo $ind;
-                        // xdebug_break();
-                        // dd($ind[0]);
-                        ?>
+                                $ind = array_filter($ind, function ($item) {
+                                    return $item !== null;
+                                });
+                                $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;
+                                $totalFaixa[$i] += $ind;
+
+                                echo $ind;
+                                // xdebug_break();
+                                // dd($ind[0]);
+                            @endphp
+
                         </div>
-                        <div class="w-10 h-5 text-xl bg-black text-white leading-5"><?= $numTotal ?></div>
-                        <div class="w-10 h-4 text-xs leading-3 border border-black" id="ind-bas<?= $i . $j ?>"><?php
-                        echo $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %';
-                        ?>
+                        <div class="text-xl bg-roxo-escuro text-white">{{ $numTotal }}</div>
+                        <div class="p-1 text-xs border border-roxo-escuro" id="ind-bas{{ $i . $j }}">
+                            {{ $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %' }}
                         </div>
                     </div>
-                    <?php endfor; ?>
-                    <div class="w-4 h-14 text-xs leading-4 text-center border border-black" id="ind-dir<?= $i ?>">
-                        <?= $totalFaixa[$i] ?></div>
+                @endfor
+                <div class="p-1 text-xs border border-roxo-escuro" id="ind-dir{{ $i }}">
+                    {{ $totalFaixa[$i] }}
                 </div>
             </div>
-            <?php endfor; ?>
         </div>
-
-    </div>
+    @endfor
 </div>
