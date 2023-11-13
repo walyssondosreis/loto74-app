@@ -29,6 +29,24 @@ export default {
             }
         }
     },
-    plugins: [],
+    plugins: [
+        function ({ addUtilities }) {
+            const newUtilities = {
+                '.writing-mode-vertical-left': {
+                    writingMode: 'vertical-rl',
+                    textOrientation: 'sideways',
+                    whiteSpace: 'nowrap',
+                    transform: 'rotate(180deg)',
+                },
+                '.writing-mode-vertical-right': {
+                    writingMode: 'vertical-rl',
+                    textOrientation: 'sideways',
+                    whiteSpace: 'nowrap',
+                },
+            };
+
+            addUtilities(newUtilities, ['responsive', 'hover']);
+        },
+    ],
 }
 

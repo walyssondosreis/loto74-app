@@ -1,10 +1,10 @@
-<div class="w-64 bg-white border-2 border-roxo-escuro rounded-md">
+<div class="w-72 flex-col justify-center items-center text-center border-2 border-roxo-light rounded-md bg-white">
     @php
         $numTotal = 0;
     @endphp
     @for ($i = 0; $i < 5; $i++)
-        <div class="flex justify-center text-center p-2">
-            <div class="flex">
+        <div class="p-2">
+            <div class="flex justify-center items-stretch">
                 @php
                     $qtd_total = array_sum($numeros);
                     $totalFaixa[0] = array_sum(array_slice($numeros, 0, 5));
@@ -15,7 +15,7 @@
 
                 @endphp
 
-                <div class=" p-1 text-xs border border-roxo-escuro" id="ind-esq{{ $i }}">
+                <div class="writing-mode-vertical-left p-1 text-xs border border-roxo-escuro" id="ind-esq{{ $i }}">
                     @switch($i)
                         @case(0)
                         {{ $totalFaixa[0] != 0 ? number_format(($totalFaixa[0] / $qtd_total) * 100, 2) . '%' : '0 %' }}
@@ -50,7 +50,7 @@
                         $numTotal += 1;
                     @endphp
 
-                    <div class="">
+                    <div class="w-full">
                         <div class=" text-xs border border-roxo-escuro" id="ind-top{{ $i . $j }}">
                             @php
 
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 @endfor
-                <div class="p-1 text-xs border border-roxo-escuro" id="ind-dir{{ $i }}">
+                <div class="writing-mode-vertical-right p-1 text-xs border border-roxo-escuro" id="ind-dir{{ $i }}">
                     {{ $totalFaixa[$i] }}
                 </div>
             </div>
