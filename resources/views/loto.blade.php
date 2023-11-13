@@ -10,16 +10,15 @@
             <x-loto.formulario :filtros='$filtros'></x-loto.formulario>
         </div>
         <div class="">
-            <div class="inline-flex">
+            <div class="float-left sm:w-1/5 w-full">
 
                 {{-- Componente analisador de concursos --}}
                 <x-loto.analisador :numeros='$numeros'></x-loto.analisador>
 
-                {{-- Ranking de Sequencias --}}
-                <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia>
+
             </div>
 
-            <div class="">
+            <div class="float-right sm:w-4/5 w-full">
 
                 {{-- Cards de Jogos --}}
 
@@ -35,12 +34,19 @@
                         @endcomponent
                         <?php endforeach; ?>
                     </div>
+            <div class="clear-both"></div>
+
                     <div class="">
                         {{ $concursos->links() }}
                     </div>
 
                 </div>
 
+            </div>
+            <div class="clear-both"></div>
+            <div class="">
+                {{-- Ranking de Sequencias --}}
+                <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia>
             </div>
         </div>
     </div>

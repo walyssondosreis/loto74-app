@@ -1,4 +1,4 @@
-<div class="w-72 flex-col justify-center items-center text-center border-2 border-roxo-light rounded-md bg-white">
+<div class="flex-col justify-center items-center text-center border-2 border-roxo-light rounded-md bg-white">
     @php
         $numTotal = 0;
     @endphp
