@@ -4,7 +4,7 @@
 {{-- Componente de cabeçalho --}}
 <x-header></x-header>
 
-<body class="w-screen">
+<body class="">
 
     {{ $slot }}
 

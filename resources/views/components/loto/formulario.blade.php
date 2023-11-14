@@ -1,9 +1,9 @@
 <div>
     {{-- Filtros de Jogos --}}
-    <form action="{{ route('loto') }}" method="POST" class="">
+    <form action="{{ route('loto') }}" method="POST">
         @csrf
         <div class="m-2 text-center justify-center p-4 border-2 border-gray-300 rounded-lg">
-            <div class="justify-center mb-3 flex flex-wrap">
+            <div class="justify-center mb-3 flex flex-wrap lg:flex-nowrap">
                 <div class="w-full m-2">
                     <label class="form-label" for="concursos">Concurso:</label>
                     <input type="text" class="form-input" id="concursos" name="concursos"
