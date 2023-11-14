@@ -1,4 +1,4 @@
-    <div class="float-left bg-roxo-escuro border-2 border-roxo-light rounded-md shadow p-3 text-center">
+    <div class="bg-roxo-escuro border-2 border-roxo-light rounded-md shadow p-3 text-center">
         <div class="bg-black border-2 border-roxo-light rounded-lg text-white p-2">
             @isset($data)
                 <div>{{ \Carbon\Carbon::parse($data)->format('d/m/Y') }}</div>

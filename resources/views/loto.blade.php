@@ -4,26 +4,25 @@
 
     <x-notification :errors='$errors'></x-notification>
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="bg-red-600 flex flex-wrap">
+        <div class="bg-yellow-200 w-full">
             {{-- Componente de formulário --}}
             <x-loto.formulario :filtros='$filtros'></x-loto.formulario>
         </div>
-        <div class="">
-            <div class="float-left sm:w-1/5 w-full">
+        <div class="bg-red-200 flex flex-wrap lg:flex-nowrap md:flex-nowrap justify-center">
+            <div class="">
 
                 {{-- Componente analisador de concursos --}}
                 <x-loto.analisador :numeros='$numeros'></x-loto.analisador>
 
-
             </div>
 
-            <div class="float-right sm:w-4/5 w-full">
+            <div class="">
 
                 {{-- Cards de Jogos --}}
 
                 <div class="">
-                    <div class="">
+                    <div class="flex flex-wrap justify-center">
                         <?php foreach ($concursos as $cc) : ?>
                         {{-- Componente de bilhete --}}
                         @component('components.loto.bilhete')
@@ -34,20 +33,19 @@
                         @endcomponent
                         <?php endforeach; ?>
                     </div>
-            <div class="clear-both"></div>
 
-                    <div class="">
+                    <div class="bg-purple-300 flex justify-center">
                         {{ $concursos->links() }}
                     </div>
 
                 </div>
 
             </div>
-            <div class="clear-both"></div>
-            <div class="">
-                {{-- Ranking de Sequencias --}}
-                <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia>
-            </div>
+
+        </div>
+        <div class="bg-blue-300 flex">
+            {{-- Ranking de Sequencias --}}
+            <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia>
         </div>
     </div>
 </x-page>

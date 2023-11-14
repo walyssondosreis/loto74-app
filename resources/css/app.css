@@ -2,14 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-    font-family: 'barcade';
-    src: url('../../public/fonts/barcade.ttf') format('truetype');
+    font-family: "barcade";
+    src: url("../../public/fonts/barcade.ttf") format("truetype");
 }
 @font-face {
-    font-family: 'barcade';
-    src: url('../../public/fonts/barcade-bold.ttf') format('truetype');
+    font-family: "barcade";
+    src: url("../../public/fonts/barcade-bold.ttf") format("truetype");
     font-weight: bold;
 }
 
+@layer components {
+    .form-label {
+        @apply text-sm text-gray-700 font-bold mb-1 flex;
+    }
+    .form-input {
+        @apply w-full border rounded pl-3 py-2 shadow focus:outline-none hover:border-roxo-claro hover:ring-1 hover:ring-roxo-escuro focus:border-roxo-escuro focus:ring-1 focus:ring-roxo-escuro duration-200;
+    }
+}

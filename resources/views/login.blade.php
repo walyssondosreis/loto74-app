@@ -17,12 +17,12 @@
                     @csrf <!-- Token CSRF para segurança -->
                     <h2 class="text-4xl mb-6 font-barcade text-roxo-claro">{{ $loto74 }}</h2>
                     <div class="mb-2">
-                        <label class="text-sm text-gray-700 font-bold mb-1 justify-left flex" for="email">E-mail:</label>
-                        <input class="w-full border rounded pl-3 py-2 shadow focus:outline-none hover:border-roxo-claro hover:ring-1 hover:ring-roxo-escuro focus:border-roxo-escuro focus:ring-1 focus:ring-roxo-escuro duration-200" type="email" id="email" placeholder="Digite seu e-mail" name="email" required>
+                        <label class="form-label" for="email">E-mail:</label>
+                        <input class="form-input" type="email" id="email" placeholder="Digite seu e-mail" name="email" required>
                     </div>
                     <div class="mb-5">
-                        <label class="text-sm text-gray-700 font-bold mb-1 justify-left flex" for="password">Senha:</label>
-                        <input class="w-full border rounded pl-3 py-2 shadow focus:outline-none hover:border-roxo-claro hover:ring-1 hover:ring-roxo-escuro focus:border-roxo-escuro focus:ring-1 focus:ring-roxo-escuro duration-200" type="password" id="password" placeholder="Digite sua senha" name="password" required>
+                        <label class="form-label" for="password">Senha:</label>
+                        <input class="form-input" type="password" id="password" placeholder="Digite sua senha" name="password" required>
                     </div>
                     <div class="text-sm font-bold ">
                         <button class="w-1/2 bg-roxo-claro text-white py-2 rounded-lg shadow-2xl hover:bg-roxo-light duration-150 " type="submit">Entrar</button>
