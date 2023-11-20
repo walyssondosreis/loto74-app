@@ -3,8 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // Import components
 import App from './components/App.vue';
-import ExampleVue from './components/ExampleComponent.vue';
-import Arara from './components/MeuComponente.vue';
+
 // const router = createRouter({
 //     history: createWebHistory(),
 //     routes: [
@@ -14,6 +13,6 @@ import Arara from './components/MeuComponente.vue';
 //         { path: '/products/:id/edit', component: ProductForm },
 //     ]
 // });
-const app = createApp(Arara);
+const app = createApp(App);
 // app.use(router);
 app.mount('#app');

@@ -5,10 +5,8 @@
 <x-header></x-header>
 
 <body class="">
-    <div id="app">
-        @yield('content')
-    </div>
-
+    {{-- <div id="app"></div> --}}
+{{-- <x-teste></x-teste> --}}
     {{ $slot }}
 
 {{-- Componente de Rodapé --}}

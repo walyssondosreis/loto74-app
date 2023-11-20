@@ -1,23 +1,14 @@
-<template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+<script lang="ts">
+    export default {}
+</script>
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<template>
+
+COMPONENTE VUE WALYSSON
 </template>
 
-<script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
-</script>
+<style scoped>
+/*  Estilos aplicados aqui só valerão para este componente
+    Isso só é possivel devido ao uso do PostCSS
+*/
+</style>s
