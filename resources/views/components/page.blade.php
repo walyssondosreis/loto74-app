@@ -5,6 +5,9 @@
 <x-header></x-header>
 
 <body class="">
+    <div id="app">
+        @yield('content')
+    </div>
 
     {{ $slot }}
 
