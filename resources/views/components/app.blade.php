@@ -6,13 +6,13 @@
 
 <body class="">
     {{-- <div id="app"></div> --}}
-    {{-- <x-teste></x-teste> --}}
-    {{ $slot }}
 
-    @vite(['resources/js/app.js']);
+    {{ $slot }}
 
     {{-- Componente de Rodapé --}}
     <x-footer></x-footer>
+
+    @vite(['resources/js/app.js']);
 
 </body>
 

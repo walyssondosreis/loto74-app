@@ -15,34 +15,31 @@
 
                 @endphp
 
-                <div class="writing-mode-vertical-left p-1 text-xs border border-roxo-escuro" id="ind-esq{{ $i }}">
+                <div class="writing-mode-vertical-left p-1 text-xs border border-roxo-escuro"
+                    id="ind-esq{{ $i }}">
                     @switch($i)
                         @case(0)
-                        {{ $totalFaixa[0] != 0 ? number_format(($totalFaixa[0] / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            {{ $totalFaixa[0] != 0 ? number_format(($totalFaixa[0] / $qtd_total) * 100, 2) . '%' : '0 %' }}
                         @break
 
                         @case(1)
-                        {{ $totalFaixa[1] != 0 ? number_format(($totalFaixa[1] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-
+                            {{ $totalFaixa[1] != 0 ? number_format(($totalFaixa[1] / $qtd_total) * 100, 2) . '%' : '0 %' }}
                         @break
 
                         @case(2)
-                        {{ $totalFaixa[2] != 0 ? number_format(($totalFaixa[2] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-
+                            {{ $totalFaixa[2] != 0 ? number_format(($totalFaixa[2] / $qtd_total) * 100, 2) . '%' : '0 %' }}
                         @break
 
                         @case(3)
-                        {{ $totalFaixa[3] != 0 ? number_format(($totalFaixa[3] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-
+                            {{ $totalFaixa[3] != 0 ? number_format(($totalFaixa[3] / $qtd_total) * 100, 2) . '%' : '0 %' }}
                         @break
 
                         @case(4)
-                        {{ $totalFaixa[4] != 0 ? number_format(($totalFaixa[4] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-
+                            {{ $totalFaixa[4] != 0 ? number_format(($totalFaixa[4] / $qtd_total) * 100, 2) . '%' : '0 %' }}
                         @break
 
                         @default
-                          0 %
+                            0 %
                     @endswitch
                 </div>
                 @for ($j = 0; $j < 5; $j++)
@@ -82,10 +79,149 @@
                         </div>
                     </div>
                 @endfor
-                <div class="writing-mode-vertical-right p-1 text-xs border border-roxo-escuro" id="ind-dir{{ $i }}">
+                <div class="writing-mode-vertical-right p-1 text-xs border border-roxo-escuro"
+                    id="ind-dir{{ $i }}">
                     {{ $totalFaixa[$i] }}
                 </div>
             </div>
         </div>
     @endfor
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Envolver o script nesta função DOM garante que o script só seja executado após o carregamento da página
+        // Função que recebe vetor calcula cor e retorna vetor de cores
+        function corGradiente(valores, tema = null) {
+            if (tema == null) {
+                var tema = [{ // 1
+                        'background': '#ffffff',
+                        'color': 'black',
+                    },
+                    { // 2
+                        'background': '#ddd3e3',
+                        'color': 'black',
+                    },
+                    { // 3
+                        'background': '#bba8c7',
+                        'color': 'black',
+                    },
+                    { // 4
+                        'background': '#9a7fab',
+                        'color': 'black',
+                    },
+                    { // 5
+                        'background': '#795890',
+                        'color': 'white',
+                    },
+                    { // 6
+                        'background': '#583276',
+                        'color': 'white',
+                    },
+                    { // 7
+                        'background': '#360a5c',
+                        'color': 'white',
+                    },
+                ];
+            }
+
+            var total = Math.max(...valores);
+            // console.log(total);
+
+            var coresVal = [];
+
+            valores.forEach(function(e) {
+                // console.log((e / total) * 100);
+                if (total == 0) coresVal.push(tema[0]);
+                else if ((e / total) * 100 >= 85.80) coresVal.push(tema[6]);
+                else if ((e / total) * 100 >= 71.50 && (e / total) * 100 < 85.80) coresVal.push(tema[
+                    5]);
+                else if ((e / total) * 100 >= 57.20 && (e / total) * 100 < 71.50) coresVal.push(tema[
+                    4]);
+                else if ((e / total) * 100 >= 42.90 && (e / total) * 100 < 57.20) coresVal.push(tema[
+                    3]);
+                else if ((e / total) * 100 >= 28.60 && (e / total) * 100 < 42.90) coresVal.push(tema[
+                    2]);
+                else if ((e / total) * 100 >= 14.30 && (e / total) * 100 < 28.60) coresVal.push(tema[
+                    1]);
+                else if ((e / total) * 100 >= 0 && (e / total) * 100 < 14.30) coresVal.push(tema[0]);
+
+            });
+            // console.log(coresVal);
+            return coresVal;
+        }
+
+        var tema = [{ // 1
+                'background': '#ff0000',
+                'color': 'white',
+            },
+            { // 2
+                'background': '#ff7f00',
+                'color': 'black',
+            },
+            { // 3
+                'background': '#ffaa00',
+                'color': 'black',
+            },
+            { // 4
+                'background': '#ffff00',
+                'color': 'black',
+            },
+            { // 5
+                'background': '#bfdf00',
+                'color': 'black',
+            },
+            { // 6
+                'background': '#7fbf00',
+                'color': 'black',
+            },
+            { // 7
+                'background': '#3f9f00',
+                'color': 'black',
+            },
+        ];
+
+        // Pinta os indicadores dos lados esq e dir
+        let vet = [];
+
+        for (let i = 0; i < 5; i++) {
+            vet.push(document.querySelector('#ind-dir' + i).innerText);
+        }
+
+        var indColor = corGradiente(vet, tema);
+
+        for (let i = 0; i < 5; i++) {
+
+            document.querySelector('#ind-dir' + i).style.cssText =
+                'background-color:' + indColor[i]['background'] +
+                ';color:' + indColor[i]['color'];
+
+            document.querySelector('#ind-esq' + i).style.cssText =
+                'background-color:' + indColor[i]['background'] +
+                ';color:' + indColor[i]['color'];
+        }
+
+        // Pinta os indicadores do topo e base
+        for (let i = 0; i < 5; i++) {
+            let vet = [];
+
+            document.querySelectorAll('[id^="ind-top' + i + '"]').forEach(function(e) {
+                vet.push(e.innerText);
+            });
+
+            var indColor = corGradiente(vet, tema);
+
+            document.querySelectorAll('[id^="ind-top' + i + '"]').forEach(function(e, idx) {
+                e.style.cssText = 'background-color:' + indColor[idx]['background'] +
+                    ';color:' + indColor[idx]['color'];
+            });
+
+            document.querySelectorAll('[id^="ind-bas' + i + '"]').forEach(function(e, idx) {
+                e.style.cssText = 'background-color:' + indColor[idx]['background'] +
+                    ';color:' + indColor[idx]['color'];
+            });
+        }
+
+    });
+</script>

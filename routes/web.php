@@ -24,6 +24,9 @@ Route::get('/', function () {
 //     'loto'=> LotoController::class,
 // ]);
 
+Route::get('/teste',function(){
+        return view('teste');
+});
 
 Route::get('/login',[UsuarioController::class,'login'])->name('login');
 Route::get('/criarusuario',[UsuarioController::class,'criar_usuario']);
