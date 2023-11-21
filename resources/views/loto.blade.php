@@ -15,7 +15,7 @@
                 <x-loto.analisador :numeros='$numeros'></x-loto.analisador>
 
             </div>
-            <div class="border-2 border-roxo-light rounded-lg p-4 ">
+            <div class="border-2 border-roxo-light rounded-lg p-4 mt-4">
                 <div class="flex flex-wrap justify-evenly">
                     <?php foreach ($concursos as $cc) : ?>
                     {{-- Componente de bilhete --}}
