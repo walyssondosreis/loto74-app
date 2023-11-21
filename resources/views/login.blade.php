@@ -1,4 +1,4 @@
-<x-page>
+<x-app>
     <x-header></x-header>
     <x-notification></x-notification>
 
@@ -36,4 +36,4 @@
 
     </div>
 
-</x-page>
+</x-app>

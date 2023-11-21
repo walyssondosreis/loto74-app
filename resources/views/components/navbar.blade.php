@@ -110,27 +110,25 @@
 
                         this.open = false
 
-                        focusAfter && focusAfter.focus()
+                        {{-- focusAfter && focusAfter.focus() --}}
                     }
                 }" x-on:keydown.escape.prevent.stop="close($refs.button)"
                     x-on:focusin.window="! $refs.panel.contains($event.target) && close()" x-id="['dropdown-button']"
                     class="relative ml-3">
 
                     <button x-ref="button" x-on:click="toggle()" :aria-expanded="open"
-                        :aria-controls="$id('dropdown-button')" id="btn-dropdown-profile" onclick="toggleDropdown()"
-                        type="button"
-                        class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                        :aria-controls="$id('dropdown-button')" id="btn-dropdown-profile" type="button"
+                        class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-haspopup="true">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">Abrir menu do usuário</span>
                         <img class="h-8 w-8 rounded-full" src="{{ asset('images/pika.jpg') }}" alt="">
                     </button>
 
                     <div x-ref="panel" x-show="open" x-transition.origin.top.left
-                        x-on:click.outside="close($refs.button)" :id="$id('dropdown-button')" style="display: none;"
-                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        x-on:click.outside="close($refs.button)" :id="$id('dropdown-button')"
+                        class=" absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                        tabindex="-1">
+                        tabindex="-1" style="display: none">
                         <a href="{{ route('deslogar') }}" class="block px-4 py-2 text-sm text-gray-700"
                             role="menuitem" tabindex="-1" id="user-menu-item-2">Sair</a>
                     </div>
@@ -139,16 +137,6 @@
             </div>
         </div>
     </div>
-<div x-data="{
-    count: 0,
-    increment(){
-        this.count++
-    } ,
-}">
-    <span x-text="count" class="text-white"></span>
-    <button x-on:click="increment"></button>
-
-</div>
 
     <div class="sm:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2">

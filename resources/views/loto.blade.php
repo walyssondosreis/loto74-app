@@ -1,5 +1,5 @@
 {{-- Componente de pagina --}}
-<x-page>
+<x-app>
     <x-navbar :usuario='$usuario'></x-navbar>
 
     <x-notification :errors='$errors'></x-notification>
@@ -46,4 +46,4 @@
                 <x-loto.sequencia :sequencias='$sequencias'></x-loto.sequencia>
         </div>
     </div>
-</x-page>
+</x-app>

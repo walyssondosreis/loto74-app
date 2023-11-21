@@ -1,18 +1,22 @@
+// AXIOS
+import axios from 'axios';
+window.axios = axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// JQUERY
+import jQuery from 'jquery';
+window.$ = jQuery;
+
+// VUE
 import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
-
-// Import components
 import App from './components/App.vue';
+// const app = createApp(App);
+// app.mount('#app');
 
-// const router = createRouter({
-//     history: createWebHistory(),
-//     routes: [
-//         { path: '/', component: ProductList },
-//         { path: '/products/create', component: ProductForm },
-//         { path: '/products/:id', component: Product },
-//         { path: '/products/:id/edit', component: ProductForm },
-//     ]
-// });
-const app = createApp(App);
-// app.use(router);
-app.mount('#app');
+// ALPINE
+import Alpine from 'alpinejs';
+window.Alpine = Alpine;
+Alpine.start();
+
+// PERSONALIZADO
+import './loto';

@@ -123,17 +123,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 'color': indColor[idx]['color'],
             });
         });
-        // console.log(vet);
     }
 
-    // Declara função após execução do evento para esconder dropdown
-    window.toggleDropdown = function(){
-        let dropdown = document.querySelector('#dropdown-profile');
-        dropdown.classList.toggle('hidden');
-    };
-
 });
-
 
 
 
