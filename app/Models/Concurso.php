@@ -6,38 +6,35 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Concurso extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['resultado_id','data_apuracao'];
+    protected $fillable = ['id','resultado_id','data_apuracao'];
     public $timestamps = false;
 
     public function resultado()
     {
         return $this->belongsTo(Resultado::class,'resultado_id');
     }
-    public function registrar(Array $dreg):Array
+    public function registrar():Array
     {
-        $tbl = DB::table('concursos');
-        if($tbl->where('id', '=', $dreg['id'])->exists()){
-            $id = $tbl->where('id', '=', $dreg['id'])->first()->id;
+        $existe = $this->where('id', $this->id)->first();
+
+        if($existe){
             return [
                 'status' => 'sucesso',
                 'novo_registro' => false,
-                'id' => $id,
+                'id' => $existe->id,
                 'mensagem' => 'Registro de concurso já existe no banco de dados.',
             ];
         }
         try{
-            $dreg['data_apuracao'] = Carbon::createFromFormat('d/m/Y', $dreg['data_apuracao'])->format('Y-m-d');
-            $id =  $tbl->insertGetId( $dreg);
             return [
                 'status' => 'sucesso',
                 'novo_registro' => true,
-                'id' =>$id,
+                'id' =>$this->save(),
                 'mensagem' => 'Registro de concurso foi cadastrado no banco de dados.',
             ];
         }catch(Exception $e){

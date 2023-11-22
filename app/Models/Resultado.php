@@ -18,24 +18,23 @@ class Resultado extends Model
     {
         return $this->belongsTo(Numero::class,'numero_id');
     }
-    public function registrar(Int $bid):Array
+    public function registrar():Array
     {
-        $tbl = DB::table('resultados');
-        if($tbl->where('numero_id', '=', $bid)->exists()){
-            $id = $tbl->where('numero_id', '=', $bid)->first()->id;
+        $existe = $this->where('numero_id', $this->numero_id)->first();
+
+        if($existe){
             return [
                 'status' => 'sucesso',
                 'novo_registro' => false,
-                'id' => $id,
+                'id' => $existe->id,
                 'mensagem' => 'Registro de resultado já existe no banco de dados.',
             ];
         }
         try{
-            $id =  $tbl->insertGetId(['numero_id' => $bid]);
             return [
                 'status' => 'sucesso',
                 'novo_registro' => true,
-                'id' =>$id,
+                'id' =>$this->save(),
                 'mensagem' => 'Registro de resultado foi cadastrado no banco de dados.',
             ];
         }catch(Exception $e){

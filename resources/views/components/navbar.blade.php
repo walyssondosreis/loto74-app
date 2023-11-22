@@ -2,11 +2,11 @@
     // Declare os itens da Navbar
     $items = [
         'Inicio' => '#',
-        'Atualizar' => ['Online (API)' => route('atualizar', ['modo' => 'api']), 'Offline (CSV)' => '#'],
+        'Atualizar' => ['Online (API)' => route('atualizar', ['modo' => 'api']), 'Offline (CSV)' => route('atualizar', ['modo' => 'csv'])],
         'Painel' => [
-            'Analisador'=>'#',
-            'Conferidor'=>'#',
-            'Comparador'=>'#',
+            // 'Analisador'=>'#',
+            'Conferidor'=>route('conferidor'),
+            // 'Comparador'=>'#',
         ],
         'Apostar' => '#',
         'Configurar' => '#',

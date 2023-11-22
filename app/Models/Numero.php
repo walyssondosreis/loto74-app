@@ -2,15 +2,25 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Numero extends Model
 {
     use HasFactory;
     protected $fillable = ['numeros','sequencia'];
     public $timestamps = false;
+
+    public function __construct(String $numeros = null)
+    {
+        if($numeros){
+            parent::__construct(['numeros'=>$numeros]);
+            $this->validar();
+            $this->tratar();
+            $this->calcularSequencia();
+        }
+    }
 
     public function aposta()
     {
@@ -22,53 +32,48 @@ class Numero extends Model
         return $this->hasOne(Resultado::class);
     }
 
-    public function ordenar(String $numerosInput): String
+    public function ordenar(): Void
     {
-        // Exemplo.: " 0 , 1 , 2 , 5.. ]
-        $numerosVetOrdenados = explode(',', $numerosInput);
+        $numerosVetOrdenados = explode(',', $this->numeros);
         sort($numerosVetOrdenados);
-        $numerosOutput = implode(',', $numerosVetOrdenados);
-        return $numerosOutput;
+        $this->numeros = implode(',', $numerosVetOrdenados);
     }
 
-    public function validar(String $numerosInput):Bool
+    public function validar():Void
     {
-        $numerosInput = explode(',', $numerosInput);
-        $numerosInput = array_unique($numerosInput);
+        $numeros = explode(',', $this->numeros);
+        $numeros = array_unique($numeros);
 
-        if (count($numerosInput) < 15) {
-            return false;
+        if (count($numeros) < 15) {
+            throw new \InvalidArgumentException('Entrada de numeros não passou na validação. Quantidade de números inferior ao mínimo necessário (15).');
         }
 
-        foreach ($numerosInput as $ns) {
+        foreach ($numeros as $ns) {
             $ns = trim($ns);
             if (!is_numeric($ns) || is_float($ns+0) || $ns+0 < 1 || $ns+0> 25) {
-                return false;
+                throw new \InvalidArgumentException('Entrada de numeros não passou na validação. Há caracteres inválidos na sequência passada.');
             }
         }
-
-        return true;
     }
 
-    public function tratar(String $numerosInput):String
+    public function tratar():Void
     {
-        $numerosInput = explode(',', $numerosInput);
+        $numeros = explode(',', $this->numeros);
         $numerosTratados = [];
-        foreach ($numerosInput as $ns) {
+        foreach ($numeros as $ns) {
             array_push($numerosTratados,intval($ns));
         }
         sort($numerosTratados);
-        $numerosTratados = implode(',',$numerosTratados);
-        return $numerosTratados;
+        $this->numeros = implode(',',$numerosTratados);
     }
 
-    public function calcularSequencia(String $numerosInput):String
+    public function calcularSequencia():Void
     {
-        $numerosInput = explode(',',$numerosInput);
+        $numeros = explode(',',$this->numeros);
         $sequencia = [0, 0, 0, 0, 0];
-        
-        foreach ($numerosInput as $ns) {
-        
+
+        foreach ($numeros as $ns) {
+
             switch ($ns) {
                 case $ns<= 5:
                     $sequencia[0] += 1;
@@ -87,37 +92,26 @@ class Numero extends Model
                     break;
             }
         }
-        $sequencia = implode(',',$sequencia);
-        return $sequencia;
+        $this->sequencia = implode(',',$sequencia);
     }
-    public function registrar(String $numerosInput):Array
-    {
-        if(!$this->validar($numerosInput))
-            return[
-                'status'=>'error',
-                'novo_registro'=>false,
-                'id'=> null,
-                'mensagem' => 'Registro de numeros não passou na validação.',
-            ];
-        
-        
-        $existeNumeros = $this->where('numeros', $this->tratar($numerosInput))->first();
 
-        if ($existeNumeros) {
+    public function registrar():Array
+    {
+        $existe = $this->where('numeros', $this->numeros)->first();
+
+        if ($existe) {
             return [
                 'status' => 'sucesso',
                 'novo_registro' => false,
-                'id' => $existeNumeros->id,
+                'id' => $existe->id,
                 'mensagem' => 'Registro de números já existe no banco de dados.',
             ];
         }
         try {
-            $tbl = DB::table('numeros');
-            $id = $tbl->insertGetId(['numeros' => $this->tratar($numerosInput), 'sequencia' => $this->calcularSequencia($numerosInput)]);
             return [
                 'status' => 'sucesso',
                 'novo_registro' => true,
-                'id' => $id,
+                'id' => $this->save(),
                 'mensagem' => 'Registro de números foi cadastrada no banco de dados.',
             ];
         } catch (Exception $e) {
@@ -125,7 +119,7 @@ class Numero extends Model
                 'status' => 'error',
                 'novo_registro'=>false,
                 'id'=>null,
-                'mensagem' => 'Não foi possível registrar numero no bando de dados.'. $e->getMessage(),
+                'mensagem' => 'Não foi possível registrar numeros no banco de dados.'. $e->getMessage(),
             ];
         }
     }

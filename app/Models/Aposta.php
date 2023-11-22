@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Aposta extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['numero_id'];
     public $timestamps = false;
+
+    public function __construct(Numero $numero)
+    {
+        $attributes = ['numero_id'=>$numero->id];
+        $this->numero = $numero;
+        parent::__construct($attributes);
+    }
 
     public function numeros()
     {

@@ -3,7 +3,7 @@
     <x-notification></x-notification>
 
     {{-- div equivalente ao meu body --}}
-    <div class="flex justify-center items-center h-screen bg-gradient-to-l from-gray-900 to-roxo-escuro">
+    <div class="flex justify-center items-center bg-gradient-to-l from-gray-900 to-roxo-escuro h-full">
 
         <main class="flex px-6 drop-shadow-2xl lg:W-3/4 select-none">
             <section class="w-1/2 hidden lg:block rounded-full bg-roxo-claro rounded-r-none ">

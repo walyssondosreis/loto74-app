@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JogoController;
 use App\Http\Controllers\LotoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -27,19 +28,23 @@ Route::get('/', function () {
 Route::get('/teste',function(){
         return view('teste');
 });
-
+// Usuário Controller
 Route::get('/login',[UsuarioController::class,'login'])->name('login');
 Route::get('/criarusuario',[UsuarioController::class,'criar_usuario']);
 Route::post('/logar',[UsuarioController::class,'logar'])->name('logar');
 Route::get('/deslogar',[UsuarioController::class,'deslogar'])->name('deslogar');
 
+// Loto Controller
 Route::middleware('auth')->group(function(){
-
     Route::get('/loto',[LotoController::class,'index'])->name('loto');
     Route::get('/loto/limparFiltros',[LotoController::class,'limparFiltros'])->name('limparFiltros');
     Route::post('/loto',[LotoController::class,'index']);
     Route::get('/atualizar',[LotoController::class,'atualizarBase'])->name('atualizar');
 
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/conferidor',[JogoController::class,'conferidor'])->name('conferidor');
 });
 
 

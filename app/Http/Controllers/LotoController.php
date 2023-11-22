@@ -160,9 +160,6 @@ class LotoController extends Controller
 
         return redirect()->route('loto')
         ->with('mensagem',$update_retorno['mensagem']);
-
-
-
     }
     public function limparFiltros()
     {

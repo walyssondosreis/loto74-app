@@ -4,15 +4,14 @@
 {{-- Componente de cabeçalho --}}
 <x-header></x-header>
 
-<body class="">
-    {{-- <div id="app"></div> --}}
+<body class="h-screen">
 
     {{ $slot }}
 
     {{-- Componente de Rodapé --}}
     <x-footer></x-footer>
 
-    @vite(['resources/js/app.js']);
+    @vite(['resources/js/app.js'])
 
 </body>
 

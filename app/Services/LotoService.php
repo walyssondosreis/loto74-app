@@ -35,7 +35,7 @@ class LotoService
         }
     }
 
-    function getConcursoViaApi($cc = '')
+    function getConcursoViaApi($cc = ''): Array
     {
 
         $url = 'https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/' . $cc;
@@ -95,21 +95,19 @@ class LotoService
                 'data'=>$linhaCSV[1],
                 'numeros'=>implode(',', array_slice($linhaCSV, 2, 15)),
             ];
-            // dd($resViaCSV);
-
-            $nums = new Numero();
-            $res = new Resultado();
-            $ccs = new Concurso();
 
             try {
-                $retorno_numero = $nums->registrar($resViaCSV['numeros']);
-                $retorno_resultado = $res->registrar($retorno_numero['id']);
-                $retorno_concurso = $ccs->registrar([
-                    'id' => $resViaCSV['concurso'],
-                    'data_apuracao' => $resViaCSV['data'],
-                    'resultado_id' => $retorno_resultado['id'],
+                $nums = new Numero($resViaCSV['numeros']);
+                $retorno_numero = $nums->registrar();
+                $res = new Resultado(['numero_id'=>$retorno_numero['id']]);
+                $retorno_resultado = $res->registrar();
+                $ccs = new Concurso([
+                    'id'=>$resViaCSV['concurso'],
+                    'data_apuracao'=>Carbon::createFromFormat('d/m/Y', $resViaCSV['data'])->format('Y-m-d'),
+                    'resultado_id'=>$retorno_resultado['id']
                 ]);
-                // var_dump($retorno_concurso);
+                $ccs->registrar();
+
             } catch (Exception $e) {
                 return [
                     'status' => 'error',
@@ -174,14 +172,12 @@ class LotoService
 
             try {
                 $resViaApi = $this->getConcursoViaApi($i);
-                $retorno_numero = $nums->registrar($resViaApi['numeros']);
-                $retorno_resultado = $res->registrar($retorno_numero['id']);
-                $retorno_concurso = $ccs->registrar([
-                    'id' => $resViaApi['concurso'],
-                    'data_apuracao' => $resViaApi['data'],
-                    'resultado_id' => $retorno_resultado['id'],
-                ]);
-                var_dump($retorno_concurso);
+                $nums = new Numero($resViaApi['numeros']);
+                $retorno_numero = $nums->registrar();
+                $res = new Resultado(['numero_id'=>$retorno_numero['id']]);
+                $retorno_resultado = $res->registrar();
+                $ccs = new Concurso(['id'=>$resViaApi['concurso'],'data_apuracao'=>$resViaApi['data'],'resultado_id'=>$retorno_resultado['id']]);
+                $ccs->registrar();
             } catch (Exception $e) {
                 return [
                     'status' => 'error',

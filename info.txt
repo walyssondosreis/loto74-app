@@ -17,6 +17,7 @@ ok - Componentizar :
 - Conferidor de apostas
 - Comparador de resultados
 - Analisador de apostas
+
 - Registro de apostas
 - Registro de usuarios
 
