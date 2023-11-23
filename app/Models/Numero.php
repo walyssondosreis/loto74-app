@@ -14,8 +14,8 @@ class Numero extends Model
 
     public function __construct(String $numeros = null)
     {
+        parent::__construct(['numeros'=>$numeros]);
         if($numeros){
-            parent::__construct(['numeros'=>$numeros]);
             $this->validar();
             $this->tratar();
             $this->calcularSequencia();
@@ -98,7 +98,6 @@ class Numero extends Model
     public function registrar():Array
     {
         $existe = $this->where('numeros', $this->numeros)->first();
-
         if ($existe) {
             return [
                 'status' => 'sucesso',
@@ -108,10 +107,11 @@ class Numero extends Model
             ];
         }
         try {
+            $this->save();
             return [
                 'status' => 'sucesso',
                 'novo_registro' => true,
-                'id' => $this->save(),
+                'id' => $this->id,
                 'mensagem' => 'Registro de números foi cadastrada no banco de dados.',
             ];
         } catch (Exception $e) {

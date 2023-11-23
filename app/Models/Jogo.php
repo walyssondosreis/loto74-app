@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Jogo extends Model
 {
     use HasFactory;
-    protected $fillable = ['concurso_id','aposta_id'];
 
-    public function __construct(Aposta $aposta, Concurso $concurso = new Concurso())
+    protected $fillable = ['numero_id'];
+    public $timestamps = false;
+
+    public function numeros()
     {
-        $attributes = ['concurso_id'=>$concurso->id , 'aposta_id'=>$aposta->id];
-        parent::__construct($attributes);
-
+        return $this->belongsTo(Numero::class);
     }
 }

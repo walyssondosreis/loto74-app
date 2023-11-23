@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\JogoController;
+use App\Http\Controllers\ApostaController;
 use App\Http\Controllers\LotoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
-    Route::get('/conferidor',[JogoController::class,'conferidor'])->name('conferidor');
+    Route::get('/conferidor',[ApostaController::class,'conferidor'])->name('conferidor');
 });
 
 

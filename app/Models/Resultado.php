@@ -31,10 +31,11 @@ class Resultado extends Model
             ];
         }
         try{
+            $this->save();
             return [
                 'status' => 'sucesso',
                 'novo_registro' => true,
-                'id' =>$this->save(),
+                'id' =>$this->id,
                 'mensagem' => 'Registro de resultado foi cadastrado no banco de dados.',
             ];
         }catch(Exception $e){

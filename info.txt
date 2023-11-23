@@ -15,6 +15,16 @@ ok - Componentizar :
     ok - analisador
     ok - sequencias
 - Conferidor de apostas
+    Logica de Conferencia:
+
+    Padrão  = Jogo Apostado x Concurso concorrendo
+    Teimosinha  = Jogo Apostado x n Concursos concorrendo
+    Multiplo = n Jogos Apostados x Concurso concorrendo
+    Teimoso Multiplo =  n Jogos Apostados x n Concursos concorrendo
+    Estatistico Simples = Jogo Não Apostado x Concurso
+    Estatistico multiplo = n Jogos Não apostado x Concurso
+    Estatistico cast = n jogos não apostados x
+
 - Comparador de resultados
 - Analisador de apostas
 
