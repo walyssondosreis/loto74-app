@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aposta', function (Blueprint $table) {
+        Schema::create('apostas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('concurso_id');
+            $table->unsignedBigInteger('jogo_id');
+
+            $table->foreign('concurso_id')->references('id')->on('concursos');
+            $table->foreign('jogo_id')->references('id')->on('jogos');
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aposta');
+        Schema::dropIfExists('apostas');
     }
 };

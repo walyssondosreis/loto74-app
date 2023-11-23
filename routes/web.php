@@ -35,6 +35,7 @@ Route::post('/logar',[UsuarioController::class,'logar'])->name('logar');
 Route::get('/deslogar',[UsuarioController::class,'deslogar'])->name('deslogar');
 
 // Loto Controller
+Route::get('/cargateste',[LotoController::class,'cargateste']);
 Route::middleware('auth')->group(function(){
     Route::get('/loto',[LotoController::class,'index'])->name('loto');
     Route::get('/loto/limparFiltros',[LotoController::class,'limparFiltros'])->name('limparFiltros');

@@ -12,8 +12,8 @@ class Jogo extends Model
     protected $fillable = ['numero_id'];
     public $timestamps = false;
 
-    public function numeros()
+    public function numero()
     {
-        return $this->belongsTo(Numero::class);
+        return $this->belongsTo(Numero::class,'numero_id');
     }
 }

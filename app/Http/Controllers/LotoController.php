@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LotoRequest;
 use App\Models\Concurso;
+use App\Models\Jogo;
 use App\Models\Numero;
-use App\Models\Resultado;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Services\LotoService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class LotoController extends Controller
 {
@@ -32,8 +31,7 @@ class LotoController extends Controller
         // var_dump($concursos[0]->resultado->numero->toArray());
 
         // Busca completo de concursos
-        $concursos_completo = DB::table('numeros')
-            ->join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+        $concursos_completo = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->orderBy('concursos.id', 'desc');
@@ -56,39 +54,39 @@ class LotoController extends Controller
 
             // Entrada de Concursos Tratamento
 
-                if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
-                    $ccn = explode('-', $dadosForm['concursos']);
-                    sort($ccn);
-                    $concursos->whereBetween('concursos.id', $ccn);
-                    $concursos_completo->whereBetween('concursos.id', $ccn);
-                } else if($dadosForm['concursos']){
-                    $ccn = explode(',', $dadosForm['concursos']);
-                    sort($ccn);
-                    $concursos->whereIn('concursos.id', $ccn);
-                    $concursos_completo->whereIn('concursos.id', $ccn);
+            if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
+                $ccn = explode('-', $dadosForm['concursos']);
+                sort($ccn);
+                $concursos->whereBetween('concursos.id', $ccn);
+                $concursos_completo->whereBetween('concursos.id', $ccn);
+            } else if ($dadosForm['concursos']) {
+                $ccn = explode(',', $dadosForm['concursos']);
+                sort($ccn);
+                $concursos->whereIn('concursos.id', $ccn);
+                $concursos_completo->whereIn('concursos.id', $ccn);
+            }
+
+            // Entrada de Sequencias Tratamento
+
+            if ($dadosForm['sequencias']) {
+                $seqs = explode(',', $dadosForm['sequencias']);
+                foreach ($seqs as $ch => $seq) {
+                    $seqs[$ch] = implode(',', str_split($seq));
                 }
 
-                // Entrada de Sequencias Tratamento
+                $concursos->whereHas('resultado.numero', function ($query) use ($seqs) {
+                    $query->whereIn('numeros.sequencia', $seqs);
+                });
+                $concursos_completo->whereIn('numeros.sequencia', $seqs);
+            }
+            // Entrada de Data Inicio e Data Fim Tratamento
+            if ($dadosForm['data_ini'] || $dadosForm['data_fim']) {
 
-                if($dadosForm['sequencias']){
-                    $seqs = explode(',', $dadosForm['sequencias']);
-                    foreach($seqs as $ch => $seq){
-                        $seqs[$ch] = implode(',',str_split($seq));
-                    }
-
-                    $concursos->whereHas('resultado.numero', function ($query) use ($seqs) {
-                        $query->whereIn('numeros.sequencia', $seqs);
-                    });
-                    $concursos_completo->whereIn('numeros.sequencia',$seqs );
-                }
-                // Entrada de Data Inicio e Data Fim Tratamento
-                if ($dadosForm['data_ini'] || $dadosForm['data_fim'] ){
-
-                        $dadosForm['data_ini'] = $dadosForm['data_ini'] ? $dadosForm['data_ini'] : '2003-09-29';
-                        $dadosForm['data_fim'] = $dadosForm['data_fim'] ? $dadosForm['data_fim'] : now()->toDateString();
-                        $concursos->whereBetween('concursos.data_apuracao',[$dadosForm['data_ini'],$dadosForm['data_fim']]);
-                        $concursos_completo->whereBetween('concursos.data_apuracao',[$dadosForm['data_ini'],$dadosForm['data_fim']]);
-                }
+                $dadosForm['data_ini'] = $dadosForm['data_ini'] ? $dadosForm['data_ini'] : '2003-09-29';
+                $dadosForm['data_fim'] = $dadosForm['data_fim'] ? $dadosForm['data_fim'] : now()->toDateString();
+                $concursos->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
+                $concursos_completo->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
+            }
             // var_dump($dadosForm);
             $filtros = $dadosForm;
         }
@@ -98,7 +96,7 @@ class LotoController extends Controller
 
         $sequencias = [];
         $aux_1 = [];
-        $numeros = array_fill(0,25,0);
+        $numeros = array_fill(0, 25, 0);
         $aux_2 = [];
 
         foreach ($concursos_completo as $ccc) {
@@ -110,7 +108,7 @@ class LotoController extends Controller
                 $sequencias[$ccc->sequencia]['qtd'] += 1;
             }
             foreach (explode(',', $ccc->numeros) as $n) {
-                $numeros[$n-1] += 1;
+                $numeros[$n - 1] += 1;
             }
         }
         // dd($numeros);
@@ -132,34 +130,34 @@ class LotoController extends Controller
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
-        if(Auth::check()){
+        if (Auth::check()) {
 
-        $usuario = Auth::user()->name;
-
+            $usuario = Auth::user()->name;
         }
 
         $toView = [
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
-            'filtros'=> $filtros,
-            'usuario'=>$usuario,
+            'filtros' => $filtros,
+            'usuario' => $usuario,
         ];
 
         return view('loto', $toView);
     }
-    public function atualizarBase(LotoRequest $request){
+    public function atualizarBase(LotoRequest $request)
+    {
 
         $atualizador = new LotoService();
-        if($request->get('modo')=='api'){
+        if ($request->get('modo') == 'api') {
             $update_retorno = $atualizador->carregarDBViaApi();
         }
-        if($request->get('modo')=='csv'){
+        if ($request->get('modo') == 'csv') {
             $update_retorno = $atualizador->carregarDBViaCSV();
         }
 
         return redirect()->route('loto')
-        ->with('mensagem',$update_retorno['mensagem']);
+            ->with('mensagem', $update_retorno['mensagem']);
     }
     public function limparFiltros()
     {
@@ -167,5 +165,15 @@ class LotoController extends Controller
         // return to_route('loto');
         return redirect()->route('loto');
         // return back();
+    }
+
+    public function cargateste(){
+
+
+        $jogo = new Jogo(['numero_id'=>280]);
+        $jogo->save();
+        echo '<br> Jogo criado com sucesso!';
+
+
     }
 }
