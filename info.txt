@@ -14,9 +14,8 @@ ok - Componentizar :
     ok - formulario
     ok - analisador
     ok - sequencias
-- Conferidor de apostas
-    Logica de Conferencia:
 
+- Conferidor de apostas - Conferir de fato pontuação de um jogo
     Padrão  = Jogo Apostado x Concurso concorrendo
     Teimosinha  = Jogo Apostado x n Concursos concorrendo
     Multiplo = n Jogos Apostados x Concurso concorrendo
@@ -25,10 +24,19 @@ ok - Componentizar :
     Estatistico multiplo = n Jogos Não apostado x Concurso
     Estatistico cast = n jogos não apostados x
 
-- Comparador de resultados
-- Analisador de apostas
+- Comparador de números - Comparar jogos e resultados
+    > Jogo x Jogo
+    > Resultado x Resultado
+
+- Analisador de resultados - Analisa base em pontos específicos
+    > Lista de asserções:
+        Exemplo
+    > Graficos de asserções:
+        Exemplo
+- Gerador de Jogos
 
 - Registro de apostas
+
 - Registro de usuarios
 
 
