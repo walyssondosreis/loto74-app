@@ -157,7 +157,7 @@ class LotoService
                 'atualizado' => true,
                 'mensagem' => 'Base de dados não requer atualização',
             ];
-        if (count($ccParaAtualizar) > 10)
+        if (count($ccParaAtualizar) > 30)
             return [
                 'status' => 'aviso',
                 'atualizado' => false,
@@ -176,7 +176,11 @@ class LotoService
                 $retorno_numero = $nums->registrar();
                 $res = new Resultado(['numero_id'=>$retorno_numero['id']]);
                 $retorno_resultado = $res->registrar();
-                $ccs = new Concurso(['id'=>$resViaApi['concurso'],'data_apuracao'=>$resViaApi['data'],'resultado_id'=>$retorno_resultado['id']]);
+                $ccs = new Concurso([
+                    'id'=>$resViaApi['concurso'],
+                    'data_apuracao'=> Carbon::createFromFormat('d/m/Y', $resViaApi['data'])->format('Y-m-d'),
+                    'resultado_id'=>$retorno_resultado['id']
+                ]);
                 $ccs->registrar();
             } catch (Exception $e) {
                 return [
