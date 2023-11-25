@@ -170,7 +170,7 @@ class LotoController extends Controller
     public function cargateste(){
 
 
-        $jogo = new Jogo(['numero_id'=>280,'user_id'=>Auth::id()]);
+        $jogo = new Jogo(['numero_id'=>280]);
         $jogo->save();
         echo '<br> Jogo criado com sucesso!';
 

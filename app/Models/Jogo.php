@@ -14,8 +14,11 @@ class Jogo extends Model
 
     public function __construct(array $attributes=[])
     {
+        if(!isset($attributes['user_id'])) $attributes=['user_id'=>Auth::id()];
+        if(!isset($attributes['nome'])) $attributes=['nome'=>Auth::getUser()->username];
+        // if($attributes['numero_id']) $attributes=['numero_id'=>Auth::id()];
+
         parent::__construct($attributes);
-        $this->nome =mb_strtolower(str_replace(' ','',Auth::user()->name));
     }
 
     public function numero()

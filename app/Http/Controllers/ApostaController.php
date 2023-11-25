@@ -30,15 +30,20 @@ class ApostaController extends Controller
             Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            // ->whereIn('concursos.id',[44,45,46,47])
+            ->whereIn('concursos.id',[44,46,52])
             ->orderBy('concursos.id', 'desc')->get();
 
         // var_dump($concursos_completo->toArray());
-        var_dump($jogo->toArray());
+        // var_dump($jogo->toArray());
 
 
         $aposta = new Aposta();
-        $aposta->conferir([$numero3],$concursos_completo->toArray());
+        // $aposta2 = new Aposta(['jogo_id'=>1,'concurso_id'=>256]);
+        // var_dump($aposta2->conferir());
+        $aposta->conferir([$jogo,$numero1],$concursos_completo->toArray());
+
+
+        var_dump($aposta);
 
         // $aposta = new Aposta();
         // var_dump($numero->registrar());
