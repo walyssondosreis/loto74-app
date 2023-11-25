@@ -24,9 +24,9 @@ ok - Componentizar :
     Estatistico multiplo = n Jogos Não apostado x Concurso
     Estatistico cast = n jogos não apostados x
 
-- Comparador de números - Comparar jogos e resultados
-    > Jogo x Jogo
-    > Resultado x Resultado
+- Comparador de números - Comparar jogos e resultados visando buscar similaridade
+    > Jogo x Jogo : Similaridade média
+    > Resultado x Resultado: Similaridade em progresso
 
 - Analisador de resultados - Analisa base em pontos específicos
     > Lista de asserções:

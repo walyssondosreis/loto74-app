@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('jogos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('numero_id')->unique();
-            // $table->timestamps();
-
+            $table->string('nome')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
             $table->foreign('numero_id')->references('id')->on('numeros');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

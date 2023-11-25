@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Expr\Cast\Object_;
 
+use function PHPSTORM_META\type;
+
 class Aposta extends Model
 {
     use HasFactory;
@@ -29,7 +31,7 @@ class Aposta extends Model
 
             }
         }
-        print_r($resultado);
+        var_dump($resultado);
     }
 
 
