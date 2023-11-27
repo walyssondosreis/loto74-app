@@ -1,13 +1,14 @@
 @php
     // Declare os itens da Navbar
     $items = [
-        'Inicio' => '#',
+        'Inicio' => '/',
         'Atualizar' => ['Online (API)' => route('atualizar', ['modo' => 'api']), 'Offline (CSV)' => route('atualizar', ['modo' => 'csv'])],
         'Painel' => [
             // 'Analisador'=>'#',
             'Conferidor'=>route('conferidor'),
             // 'Comparador'=>'#',
         ],
+        'Jogos'=>['Base de Jogos'=>'#'],
         'Apostar' => '#',
         'Configurar' => '#',
     ];
