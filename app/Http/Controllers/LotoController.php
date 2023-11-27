@@ -130,17 +130,12 @@ class LotoController extends Controller
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
-        if (Auth::check()) {
-
-            $usuario = Auth::user()->name;
-        }
 
         $toView = [
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
             'filtros' => $filtros,
-            'usuario' => $usuario,
         ];
 
         return view('loto', $toView);

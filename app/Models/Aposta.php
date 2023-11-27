@@ -5,9 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\Cast\Object_;
-
-use function PHPSTORM_META\type;
 
 class Aposta extends Model
 {
@@ -33,21 +30,17 @@ class Aposta extends Model
                 // Se for do tipo NUMEROS
                 if(get_class($num) === 'App\Models\Numero'){
                     $numArray = explode(',', $num->numeros);
-                    $nomeQualificado = '(T'.date('YmdHms').') @'. Auth::getUser()->username;
-                    $resultado[$nomeQualificado]['input'] = $num;
-                    $resultado[$nomeQualificado]['output'] = [];
+                    $nomeQualificado = '(T'.date('ymdHms').mt_rand(10,99).') @'. Auth::user()->username;
                 }
 
                 // Se for do tipo JOGO
                 if(get_class($num) === 'App\Models\Jogo'){
-                    // dd($num->nome);
                     $numArray = explode(',', $num->numero->numeros);
                     $nomeQualificado = "({$num->id}) @{$num->nome}";
-                    $resultado[$nomeQualificado]['input'] = $num;
-                    $resultado[$nomeQualificado]['output'] = [];
-                    $resultado[$nomeQualificado]['stats'] = array_fill(5,11,0);
                 }
-
+                $resultado[$nomeQualificado]['input'] = $num;
+                $resultado[$nomeQualificado]['output'] = [];
+                $resultado[$nomeQualificado]['stats'] = array_fill(5,11,0);
 
                 foreach ($concursos as $cc) {
                     // var_dump($cc);
@@ -56,7 +49,7 @@ class Aposta extends Model
                     $resultado[$nomeQualificado]['stats'][$cc['pontuacao']]++;
                     array_push($resultado[$nomeQualificado]['output'], $cc);
                 }
-                var_dump($resultado[$nomeQualificado]);
+                // var_dump($resultado[$nomeQualificado]);
             }
             return $resultado;
         }

@@ -1,6 +1,6 @@
 {{-- Componente de pagina --}}
 <x-app>
-    <x-navbar :usuario='$usuario'></x-navbar>
+    <x-navbar></x-navbar>
 
     <x-notification :errors='$errors'></x-notification>
 
