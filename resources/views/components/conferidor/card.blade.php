@@ -1,4 +1,4 @@
-<div class="flex flex-wrap lg:flex-nowrap text-center border-2 border-black rounded-lg m-4 lg:w-3/5 p-4">
+<div class="flex text-center border-2 border-black rounded-lg p-4 mb-4">
     <div class="flex-col">
         <div class="p-4">
             <span class="p-1 border-2 border-roxo-light rounded">3</span>
