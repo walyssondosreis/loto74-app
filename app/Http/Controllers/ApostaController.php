@@ -29,7 +29,7 @@ class ApostaController extends Controller
             Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            // ->whereIn('concursos.id',[44,46,52])
+            ->whereIn('concursos.id',[2899])
             ->orderBy('concursos.id', 'desc')->get();
 
         // var_dump($concursos_completo->toArray());
@@ -49,8 +49,13 @@ class ApostaController extends Controller
             // var_dump($card['stats']);
             $subArray = array_slice($card['stats'],6,5);
             $ranking[$idx] = array_sum($subArray);
+            /*
+            Preciso ordenar o ranking da foma que a sua pontuação seja
+            idx x qtd , assim terei um ranking preciso ,
+            */
         }
         arsort($ranking);
+
 
 
         $toView = [
