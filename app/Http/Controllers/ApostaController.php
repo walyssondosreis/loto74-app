@@ -29,7 +29,9 @@ class ApostaController extends Controller
             Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            ->whereIn('concursos.id',[2899])
+            ->where('concursos.id','>=','200')
+            ->where('concursos.id','<=','200')
+            // ->whereIn('concursos.id',[1,2,3])
             ->orderBy('concursos.id', 'desc')->get();
 
         // var_dump($concursos_completo->toArray());
@@ -40,27 +42,56 @@ class ApostaController extends Controller
         // $aposta2 = new Aposta(['jogo_id'=>1,'concurso_id'=>256]);
         // var_dump($aposta2->conferir());
         // $res = $aposta->conferir([$jogo,$numero1,$numero2,$numero3,$numero4],$concursos_completo->toArray());
-        $cards = $aposta->conferir([$numero4,$numero1,$numero3],$concursos_completo->toArray());
+        $cards = $aposta->conferir([$numero4,$numero1],$concursos_completo->toArray());
 
         $ranking = [];
+        $premiado = [];
+        $npremiado = [];
+        $analisador = [];
+
         foreach($cards as $idx=>$card){
-            // var_dump($idx);
-            // var_dump($card['input']->id ? $card['input']->numero->numeros : $card['input']->numeros);
+
+            // Cacula pontuação total de jogos passados
+            $ranking[$idx] = 0;
+            foreach($card['stats'] as $ids=>$cs) {
+                $ranking[$idx] += $ids*$cs;
+            }
+
             // var_dump($card['stats']);
-            $subArray = array_slice($card['stats'],6,5);
-            $ranking[$idx] = array_sum($subArray);
-            /*
-            Preciso ordenar o ranking da foma que a sua pontuação seja
-            idx x qtd , assim terei um ranking preciso ,
-            */
+            $npreal = array_sum(array_slice($card['stats'],0,6));
+            $preal = array_sum(array_slice($card['stats'],6));
+            var_dump($preal);
+            var_dump($npreal);
+            $npremiado[$idx] = number_format(($npreal/($preal+$npreal))*100,0);
+            $premiado[$idx] = number_format(($preal/($preal+$npreal))*100,0);
+
+            // Logica que retorna array com quantidades de repetições de numeros
+            $qtdNums = array_fill(0, 25, 0);
+            foreach ($card['output'] as $ccc) {
+
+                // var_dump($ccc);
+                foreach (explode(',', $ccc['numeros']) as $n) {
+                    $qtdNums[$n - 1] += 1;
+                }
+                $analisador[$idx] = $qtdNums;
+            }
+
         }
+        var_dump($numero1->toArray());
+        var_dump($numero4->toArray());
+        var_dump($concursos_completo->toArray());
+
         arsort($ranking);
+        // var_dump($ranking);
 
 
 
         $toView = [
             'cards'=>$cards,
             'ranking'=>$ranking,
+            'premiado'=> $premiado,
+            'npremiado'=>$npremiado,
+            'analisador'=>$analisador,
         ];
 
         return view('conferidor',$toView);

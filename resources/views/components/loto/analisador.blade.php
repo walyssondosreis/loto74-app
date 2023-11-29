@@ -14,74 +14,83 @@
                     $totalFaixa[4] = array_sum(array_slice($numeros, 20, 5));
 
                 @endphp
+                {{-- Linha: IndEsq+Numeros**+IndDir --}}
+                <div class="flex">
+                    <div class="flex writing-mode-vertical-left p-1 text-xs border border-roxo-escuro"
+                        id="ind-esq{{ $i }}">
+                        @switch($i)
+                            @case(0)
+                                {{ $totalFaixa[0] != 0 ? number_format(($totalFaixa[0] / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            @break
 
-                <div class="writing-mode-vertical-left p-1 text-xs border border-roxo-escuro"
-                    id="ind-esq{{ $i }}">
-                    @switch($i)
-                        @case(0)
-                            {{ $totalFaixa[0] != 0 ? number_format(($totalFaixa[0] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-                        @break
+                            @case(1)
+                                {{ $totalFaixa[1] != 0 ? number_format(($totalFaixa[1] / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            @break
 
-                        @case(1)
-                            {{ $totalFaixa[1] != 0 ? number_format(($totalFaixa[1] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-                        @break
+                            @case(2)
+                                {{ $totalFaixa[2] != 0 ? number_format(($totalFaixa[2] / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            @break
 
-                        @case(2)
-                            {{ $totalFaixa[2] != 0 ? number_format(($totalFaixa[2] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-                        @break
+                            @case(3)
+                                {{ $totalFaixa[3] != 0 ? number_format(($totalFaixa[3] / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            @break
 
-                        @case(3)
-                            {{ $totalFaixa[3] != 0 ? number_format(($totalFaixa[3] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-                        @break
+                            @case(4)
+                                {{ $totalFaixa[4] != 0 ? number_format(($totalFaixa[4] / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            @break
 
-                        @case(4)
-                            {{ $totalFaixa[4] != 0 ? number_format(($totalFaixa[4] / $qtd_total) * 100, 2) . '%' : '0 %' }}
-                        @break
-
-                        @default
-                            0 %
-                    @endswitch
-                </div>
-                @for ($j = 0; $j < 5; $j++)
-                    @php
-                        $numTotal += 1;
-                    @endphp
-
-                    <div class="w-full">
-                        <div class=" text-xs border border-roxo-escuro" id="ind-top{{ $i . $j }}">
-                            @php
-
-                                $ind = array_map(
-                                    function ($item, $index) use ($numTotal) {
-                                        if ($index + 1 == $numTotal) {
-                                            return $item;
-                                        }
-                                    },
-                                    $numeros,
-                                    array_keys($numeros),
-                                );
-                                // xdebug_break();
-
-                                $ind = array_filter($ind, function ($item) {
-                                    return $item !== null;
-                                });
-                                $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;
-
-                                echo $ind;
-                                // xdebug_break();
-                                // dd($ind[0]);
-                            @endphp
-
-                        </div>
-                        <div class="text-xl bg-roxo-escuro text-white">{{ $numTotal }}</div>
-                        <div class="p-1 text-xs border border-roxo-escuro" id="ind-bas{{ $i . $j }}">
-                            {{ $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %' }}
-                        </div>
+                            @default
+                                0 %
+                        @endswitch
                     </div>
-                @endfor
-                <div class="writing-mode-vertical-right p-1 text-xs border border-roxo-escuro"
-                    id="ind-dir{{ $i }}">
-                    {{ $totalFaixa[$i] }}
+                    @for ($j = 0; $j < 5; $j++)
+                        @php
+                            $numTotal += 1;
+                        @endphp
+
+                        <div class="bg-red-400">
+                            <div class=" text-xs border border-roxo-escuro" id="ind-top{{ $i . $j }}">
+                                @php
+
+                                    $ind = array_map(
+                                        function ($item, $index) use ($numTotal) {
+                                            if ($index + 1 == $numTotal) {
+                                                return $item;
+                                            }
+                                        },
+                                        $numeros,
+                                        array_keys($numeros),
+                                    );
+                                    // xdebug_break();
+
+                                    $ind = array_filter($ind, function ($item) {
+                                        return $item !== null;
+                                    });
+                                    $ind = intval(implode($ind)) ? intval(implode($ind)) : 0;
+
+                                    echo $ind;
+                                    // xdebug_break();
+                                    // dd($ind[0]);
+                                @endphp
+
+                            </div>
+                            <div
+                                @if (isset($numDestaque) && in_array($numTotal, explode(',', $numDestaque))) class="text-xl bg-roxo-escuro text-white"
+                        @elseif (isset($numDestaque))
+                            class="text-xl bg-roxo-escuro text-white"
+                        @else
+                            class="text-xl bg-roxo-escuro text-white" @endif>
+                                {{ $numTotal }}
+                            </div>
+                            <div class="p-1 text-xs border border-roxo-escuro" id="ind-bas{{ $i . $j }}">
+                                {{ $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %' }}
+                            </div>
+                        </div>
+                    @endfor
+                    <div class="writing-mode-vertical-right p-1 text-xs border border-roxo-escuro"
+                        id="ind-dir{{ $i }}">
+                        {{ $totalFaixa[$i] }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +98,7 @@
 </div>
 
 
-<script>
+<script type="false">
     document.addEventListener('DOMContentLoaded', (event) => {
         // Envolver o script nesta função DOM garante que o script só seja executado após o carregamento da página
         // Função que recebe vetor calcula cor e retorna vetor de cores

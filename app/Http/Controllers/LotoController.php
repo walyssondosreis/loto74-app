@@ -130,7 +130,7 @@ class LotoController extends Controller
         // var_dump($concursos[0]->toArray());
         // dd($sequencias);
         // dd($concursos);
-
+        // var_dump($numeros);
         $toView = [
             'concursos' => $concursos,
             'sequencias' => $sequencias,

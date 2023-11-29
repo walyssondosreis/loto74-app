@@ -11,6 +11,11 @@
                 @component('components.conferidor.card')
                     @slot('card', $card)
                     @slot('nome',$idx)
+                    @slot('premiado', $premiado[$idx])
+                    @slot('npremiado', $npremiado[$idx])
+                    @slot('sequencia', $card['seq'])
+                    @slot('analisador', $analisador[$idx])
+
                 @endcomponent
             @endforeach
 

@@ -31,16 +31,22 @@ class Aposta extends Model
                 if(get_class($num) === 'App\Models\Numero'){
                     $numArray = explode(',', $num->numeros);
                     $nomeQualificado = '(T'.date('ymdHms').mt_rand(10,99).') @'. Auth::user()->username;
+                    $resultado[$nomeQualificado]['seq'] = $num->sequencia;
+
                 }
 
                 // Se for do tipo JOGO
                 if(get_class($num) === 'App\Models\Jogo'){
                     $numArray = explode(',', $num->numero->numeros);
                     $nomeQualificado = "({$num->id}) @{$num->nome}";
+                    $resultado[$nomeQualificado]['seq'] = $num->numero->sequencia;
+
                 }
-                $resultado[$nomeQualificado]['input'] = $num;
+                // $resultado[$nomeQualificado]['input'] = $num;
                 $resultado[$nomeQualificado]['output'] = [];
+                $resultado[$nomeQualificado]['nums'] = implode(',',$numArray);
                 $resultado[$nomeQualificado]['stats'] = array_fill(5,11,0);
+
 
                 foreach ($concursos as $cc) {
                     // var_dump($cc);

@@ -16,7 +16,7 @@
             <div class="flex m-2">
                 <span class="flex w-10 p-4 border-2 border-black justify-center border-r-0">{{ $contador++ }}º</span>
                 <span class="flex w-full  p-4 border-2 border-black">{{ $idx }}</span>
-                <span class="flex w-10 border-2 p-1 border-black justify-center writing-mode-vertical-right text-center border-l-0">{{ $item }}</span>
+                <span class="flex w-10 border-2 p-4 border-black justify-center border-l-0 text-xs">{{ $item }} pts</span>
             </div>
             @endforeach
 
