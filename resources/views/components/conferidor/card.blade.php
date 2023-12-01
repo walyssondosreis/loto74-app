@@ -9,7 +9,7 @@
             @endforeach
         </div>
 
-        <div class="w-72">
+        <div class="">
             @component('components.loto.analisador')
                 @slot('numeros',$analisador)
                 @slot('numDestaque','1,2,3,5,7,10,11,13,14,17,18,20,22,23,24')

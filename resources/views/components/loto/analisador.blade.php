@@ -1,10 +1,9 @@
-<div class="justify-center items-center text-center border-2 border-roxo-light rounded-md bg-white">
+<div class="flex-col border-2 border-black rounded-md w-72">
     @php
         $numTotal = 0;
     @endphp
     @for ($i = 0; $i < 5; $i++)
-        <div class="p-2">
-            <div class="flex justify-center items-stretch">
+        <div class="flex p-1">
                 @php
                     $qtd_total = array_sum($numeros);
                     $totalFaixa[0] = array_sum(array_slice($numeros, 0, 5));
@@ -15,8 +14,8 @@
 
                 @endphp
                 {{-- Linha: IndEsq+Numeros**+IndDir --}}
-                <div class="flex">
-                    <div class="flex writing-mode-vertical-left p-1 text-xs border border-roxo-escuro"
+                <div class="flex w-full items-stretch">
+                    <div class="flex writing-mode-vertical-left p-1 text-xs border border-black justify-center"
                         id="ind-esq{{ $i }}">
                         @switch($i)
                             @case(0)
@@ -48,8 +47,8 @@
                             $numTotal += 1;
                         @endphp
 
-                        <div class="bg-red-400">
-                            <div class=" text-xs border border-roxo-escuro" id="ind-top{{ $i . $j }}">
+                        <div class="flex-col w-full ">
+                            <div class="flex justify-center text-xs border border-black" id="ind-top{{ $i . $j }}">
                                 @php
 
                                     $ind = array_map(
@@ -74,31 +73,30 @@
                                 @endphp
 
                             </div>
-                            <div
-                                @if (isset($numDestaque) && in_array($numTotal, explode(',', $numDestaque))) class="text-xl bg-roxo-escuro text-white"
+                            <div class="flex justify-center bg-black text-white
+                                @if (isset($numDestaque) && in_array($numTotal, explode(',', $numDestaque))) text-xl
                         @elseif (isset($numDestaque))
-                            class="text-xl bg-roxo-escuro text-white"
+                            text-xl
                         @else
-                            class="text-xl bg-roxo-escuro text-white" @endif>
+                            text-xl @endif ">
                                 {{ $numTotal }}
                             </div>
-                            <div class="p-1 text-xs border border-roxo-escuro" id="ind-bas{{ $i . $j }}">
+                            <div class="flex justify-center p-1 text-xs border border-black" id="ind-bas{{ $i . $j }}">
                                 {{ $ind != 0 ? number_format(($ind / $qtd_total) * 100, 2) . '%' : '0 %' }}
                             </div>
                         </div>
                     @endfor
-                    <div class="writing-mode-vertical-right p-1 text-xs border border-roxo-escuro"
+                    <div class="flex writing-mode-vertical-right p-1 justify-center text-xs border border-black"
                         id="ind-dir{{ $i }}">
                         {{ $totalFaixa[$i] }}
                     </div>
-                </div>
             </div>
         </div>
     @endfor
 </div>
 
 
-<script type="false">
+<script type="module">
     document.addEventListener('DOMContentLoaded', (event) => {
         // Envolver o script nesta função DOM garante que o script só seja executado após o carregamento da página
         // Função que recebe vetor calcula cor e retorna vetor de cores
