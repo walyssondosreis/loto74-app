@@ -3,7 +3,7 @@
 @endphp
 
 <div class="flex-col p-4 text-center border-2 border-black rounded-lg">
-    <span class="flex justify-center p-4 mb-4 border-2 border-black rounded-lg">Melhores Apostas</span>
+    <span class="flex justify-center p-4 m-4 border-2 border-black rounded-lg">Melhores Apostas</span>
 
     <div class="flex justify-center w-full ">
         @php

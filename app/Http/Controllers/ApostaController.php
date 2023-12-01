@@ -60,8 +60,8 @@ class ApostaController extends Controller
             // var_dump($card['stats']);
             $npreal = array_sum(array_slice($card['stats'],0,6));
             $preal = array_sum(array_slice($card['stats'],6));
-            var_dump($preal);
-            var_dump($npreal);
+            // var_dump($preal);
+            // var_dump($npreal);
             $npremiado[$idx] = number_format(($npreal/($preal+$npreal))*100,0);
             $premiado[$idx] = number_format(($preal/($preal+$npreal))*100,0);
 
@@ -77,9 +77,9 @@ class ApostaController extends Controller
             }
 
         }
-        var_dump($numero1->toArray());
-        var_dump($numero4->toArray());
-        var_dump($concursos_completo->toArray());
+        // var_dump($numero1->toArray());
+        // var_dump($numero4->toArray());
+        // var_dump($concursos_completo->toArray());
 
         arsort($ranking);
         // var_dump($ranking);

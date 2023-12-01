@@ -106,35 +106,34 @@
         }
         function corGradiente(valores, tema = null) {
             if (tema == null) {
-                var tema = [
-            { // 1
-                'background': '#ff0000',
-                'color': 'white',
-            },
-            { // 2
-                'background': '#ff7f00',
-                'color': 'black',
-            },
-            { // 3
-                'background': '#ffaa00',
-                'color': 'black',
-            },
-            { // 4
-                'background': '#ffff00',
-                'color': 'black',
-            },
-            { // 5
-                'background': '#bfdf00',
-                'color': 'black',
-            },
-            { // 6
-                'background': '#7fbf00',
-                'color': 'black',
-            },
-            { // 7
-                'background': '#3f9f00',
-                'color': 'black',
-            },
+                var tema = [{ // 1
+                        'background': '#ffffff',
+                        'color': 'black',
+                    },
+                    { // 2
+                        'background': '#ddd3e3',
+                        'color': 'black',
+                    },
+                    { // 3
+                        'background': '#bba8c7',
+                        'color': 'black',
+                    },
+                    { // 4
+                        'background': '#9a7fab',
+                        'color': 'black',
+                    },
+                    { // 5
+                        'background': '#795890',
+                        'color': 'white',
+                    },
+                    { // 6
+                        'background': '#583276',
+                        'color': 'white',
+                    },
+                    { // 7
+                        'background': '#360a5c',
+                        'color': 'white',
+                    },
                 ];
             }
 
@@ -162,6 +161,77 @@
             });
             // console.log(coresVal);
             return coresVal;
+        }
+
+        var tema = [{ // 1
+                'background': '#ff0000',
+                'color': 'white',
+            },
+            { // 2
+                'background': '#ff7f00',
+                'color': 'black',
+            },
+            { // 3
+                'background': '#ffaa00',
+                'color': 'black',
+            },
+            { // 4
+                'background': '#ffff00',
+                'color': 'black',
+            },
+            { // 5
+                'background': '#bfdf00',
+                'color': 'black',
+            },
+            { // 6
+                'background': '#7fbf00',
+                'color': 'black',
+            },
+            { // 7
+                'background': '#3f9f00',
+                'color': 'black',
+            },
+        ];
+
+        // Pinta os indicadores dos lados esq e dir
+        let vet = [];
+
+        for (let i = 0; i < 5; i++) {
+            vet.push(document.querySelector('#ind-dir' + i).innerText);
+        }
+
+        var indColor = corGradiente(vet, tema);
+
+        for (let i = 0; i < 5; i++) {
+
+            document.querySelector('#ind-dir' + i).style.cssText =
+                'background-color:' + indColor[i]['background'] +
+                ';color:' + indColor[i]['color'];
+
+            document.querySelector('#ind-esq' + i).style.cssText =
+                'background-color:' + indColor[i]['background'] +
+                ';color:' + indColor[i]['color'];
+        }
+
+        // Pinta os indicadores do topo e base
+        for (let i = 0; i < 5; i++) {
+            let vet = [];
+
+            document.querySelectorAll('[id^="ind-top' + i + '"]').forEach(function(e) {
+                vet.push(e.innerText);
+            });
+
+            var indColor = corGradiente(vet, tema);
+
+            document.querySelectorAll('[id^="ind-top' + i + '"]').forEach(function(e, idx) {
+                e.style.cssText = 'background-color:' + indColor[idx]['background'] +
+                    ';color:' + indColor[idx]['color'];
+            });
+
+            document.querySelectorAll('[id^="ind-bas' + i + '"]').forEach(function(e, idx) {
+                e.style.cssText = 'background-color:' + indColor[idx]['background'] +
+                    ';color:' + indColor[idx]['color'];
+            });
         }
 
     });
