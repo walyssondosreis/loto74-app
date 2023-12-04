@@ -3,6 +3,8 @@
 
     <x-navbar></x-navbar>
 
+    <x-loto.formulario :filtros=[]></x-loto.formulario>
+
     <x-notification :errors='$errors'></x-notification>
     <div class="flex justify-center flex-wrap">
         <div class="flex-col lg:w-4/6 p-4 w-full order-2 lg:order-1">

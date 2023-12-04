@@ -41,4 +41,19 @@
 
 </div>
 
+<div x-data="{ showModal: false }">
+    <!-- Botão para abrir o modal -->
+    <button @click="showModal = true">Abrir Modal</button>
+
+    <!-- Modal -->
+    <div x-show="showModal" @click.away="showModal = false">
+        <div style="background-color: white; padding: 20px; border: 1px solid black; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <p>Conteúdo do Modal</p>
+            <!-- Botão para fechar o modal -->
+            <button @click="showModal = false">Fechar Modal</button>
+        </div>
+    </div>
+</div>
+
+
 @vite(['resources/js/app.js'])
