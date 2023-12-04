@@ -24,6 +24,15 @@ ok - Componentizar :
     Estatistico multiplo = n Jogos Não apostado x Concurso
     Estatistico cast = n jogos não apostados x
 
+- Componente de Formulário:
+    - Action
+    - Nome do campo para ativar
+    ** Formulario loto: concursos, sequencias, data-ini, data-fim
+
+    ** Formulario conferidor: jogos|apostas|Numumeros, concursos, sequencias, data-ini, data-fim
+    *Jogos por usuario
+    *Jogos por campanha
+
 - Comparador de números - Comparar jogos e resultados visando buscar similaridade
     > Jogo x Jogo : Similaridade média
     > Resultado x Resultado: Similaridade em progresso
