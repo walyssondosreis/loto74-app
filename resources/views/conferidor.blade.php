@@ -3,7 +3,7 @@
 
     <x-navbar></x-navbar>
 
-    <x-loto.formulario :filtros=[]></x-loto.formulario>
+    <x-loto.formulario :submit=$submit :campos=$campos :filtros=$filtros :nomeFiltro=$nomeFiltro ></x-loto.formulario>
 
     <x-notification :errors='$errors'></x-notification>
     <div class="flex justify-center flex-wrap">

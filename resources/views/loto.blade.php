@@ -5,7 +5,12 @@
 
         <x-notification :errors='$errors'></x-notification>
 
-        <x-loto.formulario :filtros='$filtros'></x-loto.formulario>
+        @component('components.loto.formulario')
+            @slot('submit',$submit)
+            @slot('campos',$campos)
+            @slot('filtros',$filtros)
+            @slot('nomeFiltro',$nomeFiltro)
+        @endcomponent
 
 
         <div class="flex flex-wrap">

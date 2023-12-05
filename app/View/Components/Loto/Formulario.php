@@ -12,10 +12,16 @@ class Formulario extends Component
      * Create a new component instance.
      */
     public $filtros;
+    public $submit;
+    public $campos;
+    public $nomeFiltro;
 
-    public function __construct($filtros)
+    public function __construct($submit, $campos, $filtros=[], $nomeFiltro)
     {
         $this->filtros = $filtros;
+        $this->submit = $submit;
+        $this->campos = $campos;
+        $this->nomeFiltro = $nomeFiltro;
     }
 
     /**

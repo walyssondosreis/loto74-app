@@ -1,13 +1,9 @@
 
     {{-- class="fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2" --}}
 
-@php
-    $submit = route('loto');
-    $campos = ['jogos','concursos','sequencias','datas'];
-@endphp
     <div class="p-4">
     {{-- Filtros de Jogos --}}
-    <form action="{{ $submit }}" method="POST">
+    <form action="{{ route($submit) }}" method="POST">
         @csrf
         <div class="flex-col justify-center p-4 border border-black rounded-md">
             {{-- Campos do formulario --}}
@@ -16,8 +12,8 @@
                 <div class="flex-col w-full">
                     <label class="flex form-label " for="jogos">Numeros | Jogos:</label>
                     <input type="text" class="flex form-input border-black" id="jogos" name="jogos"
-                        placeholder="Ex.: 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ou 245"
-                        >
+                        placeholder='Ex.: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" ou 245'
+                        @if (!empty($filtros) && $filtros['jogos']) value="{{ $filtros['jogos'] }}"; @endif>
                 </div>
                 @endif
                 @if (in_array('concursos',$campos))
@@ -61,7 +57,7 @@
             {{-- Em baixo botões --}}
             <div class="flex justify-center">
 
-                <a class="flex text-xs" href="{{ route('limparFiltros') }}">Limpar
+                <a class="flex text-xs" href="{{ route('limparFiltros',['redirect'=>$submit, 'nomeFiltro'=>$nomeFiltro ]) }}">Limpar
                     Filtros</a>
             </div>
 

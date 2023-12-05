@@ -5,6 +5,8 @@ use App\Http\Controllers\LotoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
+use function App\Helpers\limparFiltros;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,11 +36,15 @@ Route::get('/criarusuario',[UsuarioController::class,'criar_usuario']);
 Route::post('/logar',[UsuarioController::class,'logar'])->name('logar');
 Route::get('/deslogar',[UsuarioController::class,'deslogar'])->name('deslogar');
 
-// Loto Controller
+
 Route::get('/cargateste',[LotoController::class,'cargateste']);
 Route::middleware('auth')->group(function(){
     Route::get('/loto',[LotoController::class,'index'])->name('loto');
-    Route::get('/loto/limparFiltros',[LotoController::class,'limparFiltros'])->name('limparFiltros');
+
+    Route::get('/loto/limparFiltros/{redirect}/{nomeFiltro}',function($redirect,$nomeFiltro){
+        return limparFiltros(redirect: $redirect, nomeFiltro: $nomeFiltro);
+    })->name('limparFiltros');
+
     Route::post('/loto',[LotoController::class,'index']);
     Route::get('/atualizar',[LotoController::class,'atualizarBase'])->name('atualizar');
 
@@ -46,6 +52,7 @@ Route::middleware('auth')->group(function(){
 
 Route::middleware('auth')->group(function(){
     Route::get('/conferidor',[ApostaController::class,'conferidor'])->name('conferidor');
+    Route::post('/conferidor',[ApostaController::class,'conferidor'])->name('conferidor');
 });
 
 

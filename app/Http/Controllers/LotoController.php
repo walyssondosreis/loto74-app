@@ -40,16 +40,16 @@ class LotoController extends Controller
         // ->get();
         $filtros = [];
 
-        if ($request->has('_token') || session('inputSalvo')) {
+        if ($request->has('_token') || session('inputLoto')) {
 
 
-            if (session('inputSalvo')) {
-                $dadosForm = session('inputSalvo');
+            if (session('inputLoto')) {
+                $dadosForm = session('inputLoto');
             }
             if ($request->has('_token')) {
                 // $dadosForm = $request->except(['_token','page']);
                 $dadosForm = $request->except(['_token', 'page']);
-                $request->session()->put('inputSalvo', $request->except(['_token', 'page']));
+                $request->session()->put('inputLoto', $request->except(['_token', 'page']));
             }
 
             // Entrada de Concursos Tratamento
@@ -135,7 +135,11 @@ class LotoController extends Controller
             'concursos' => $concursos,
             'sequencias' => $sequencias,
             'numeros' => $numeros,
+            // Formulário
+            'campos' => ['concursos','sequencias','datas'],
+            'submit' => 'loto',
             'filtros' => $filtros,
+            'nomeFiltro' => 'inputLoto',
         ];
 
         return view('loto', $toView);
@@ -153,13 +157,6 @@ class LotoController extends Controller
 
         return redirect()->route('loto')
             ->with('mensagem', $update_retorno['mensagem']);
-    }
-    public function limparFiltros()
-    {
-        session()->forget('inputSalvo');
-        // return to_route('loto');
-        return redirect()->route('loto');
-        // return back();
     }
 
     public function cargateste(){

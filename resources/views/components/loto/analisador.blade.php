@@ -75,7 +75,7 @@
                             </div>
                             <div class="flex justify-center
                                 @if (isset($numDestaque) && in_array($numTotal, explode(',', $numDestaque)))
-                                text-xl bg-gray-300 rounded-full p-1 border-4 text-white border-gray-350
+                                text-xl bg-gray-300 rounded-full p-1 border-4 text-black border-gray-200
                                 @elseif (isset($numDestaque))
                                 text-xl rounded-full p-1 border-4 border-gray-200 text-gray-300
                                 @else

@@ -23,7 +23,7 @@ ok - Componentizar :
     Estatistico Simples = Jogo Não Apostado x Concurso
     Estatistico multiplo = n Jogos Não apostado x Concurso
     Estatistico cast = n jogos não apostados x
-
+** Na tela inicial do conferidor permitir que apostas favoritas fiquem ai
 - Componente de Formulário:
     - Action
     - Nome do campo para ativar
