@@ -92,7 +92,7 @@ class ApostaController extends Controller
         // var_dump($aposta2->conferir());
         // $res = $aposta->conferir([$jogo,$numero1,$numero2,$numero3,$numero4],$concursos_completo->toArray());
         $cards = $aposta->conferir([$numero4,$numero1],$concursos_completo->toArray());
-        var_dump($cards);
+        // var_dump($cards);
 
         $ranking = [];
         $premiado = [];
@@ -110,8 +110,8 @@ class ApostaController extends Controller
             // var_dump($card['stats']);
             $npreal = array_sum(array_slice($card['stats'],0,6));
             $preal = array_sum(array_slice($card['stats'],6));
-            var_dump($preal);
-            var_dump($npreal);
+            // var_dump($preal);
+            // var_dump($npreal);
 
             if(intval($npreal+$preal) !== 0) {
                 $npremiado[$idx] = number_format(($npreal/($preal+$npreal))*100,0);
