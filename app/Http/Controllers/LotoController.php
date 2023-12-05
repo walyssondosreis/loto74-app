@@ -91,7 +91,7 @@ class LotoController extends Controller
             $filtros = $dadosForm;
         }
 
-        $concursos = $concursos->simplePaginate(10);
+        $concursos = $concursos->simplePaginate(6);
         $concursos_completo = $concursos_completo->get();
 
         $sequencias = [];

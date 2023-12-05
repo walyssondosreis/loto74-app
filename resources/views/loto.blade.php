@@ -21,7 +21,7 @@
 
                 </div>
                 <div class="flex-col w-full border-2 border-roxo-light rounded-lg p-4 mt-4">
-                    <div class="flex flex-wrap justify-evenly">
+                    <div class="flex flex-wrap justify-center">
                         <?php foreach ($concursos as $cc) : ?>
                         {{-- Componente de bilhete --}}
                         @component('components.loto.bilhete')

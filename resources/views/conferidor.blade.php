@@ -15,7 +15,7 @@
                     @slot('nome',$idx)
                     @slot('premiado', $premiado[$idx])
                     @slot('npremiado', $npremiado[$idx])
-                    @slot('analisador', isset($analisador[$idx]) ? isset($analisador[$idx]) : [] )
+                    @slot('analisador', isset($analisador[$idx]) ? $analisador[$idx] : [] )
 
                 @endcomponent
             @endforeach
