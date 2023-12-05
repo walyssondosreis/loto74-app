@@ -1,25 +1,35 @@
 
     {{-- class="fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2" --}}
-<div class="p-4">
+
+@php
+    $submit = route('loto');
+    $campos = ['jogos','concursos','sequencias','datas'];
+@endphp
+    <div class="p-4">
     {{-- Filtros de Jogos --}}
-    <form action="{{ route('loto') }}" method="POST">
+    <form action="{{ $submit }}" method="POST">
         @csrf
         <div class="flex-col justify-center p-4 border border-black rounded-md">
             {{-- Campos do formulario --}}
             <div class="flex justify-center w-full gap-2 flex-wrap lg:flex-nowrap">
+                @if (in_array('jogos',$campos))
                 <div class="flex-col w-full">
-                    <label class="flex form-label " for="jogos">Numeros|Jogos|Apostas:</label>
+                    <label class="flex form-label " for="jogos">Numeros | Jogos:</label>
                     <input type="text" class="flex form-input border-black" id="jogos" name="jogos"
-                        placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209"
+                        placeholder="Ex.: 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ou 245"
                         >
                 </div>
-
+                @endif
+                @if (in_array('concursos',$campos))
                 <div class="flex-col w-full">
                     <label class="flex form-label " for="concursos">Concurso:</label>
                     <input type="text" class="flex form-input border-black" id="concursos" name="concursos"
                         placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209"
                         @if (!empty($filtros) && $filtros['concursos']) value="{{ $filtros['concursos'] }}"; @endif>
                 </div>
+                @endif
+
+                @if (in_array('sequencias',$campos))
                 <div class="flex-col w-full">
                     <label class="flex form-label" for="sequencias">Sequência:</label>
                     <input type="text" class="flex form-input border-black" id="sequencias" name="sequencias"
@@ -27,6 +37,8 @@
                         @if (!empty($filtros) && $filtros['sequencias']) value="{{ $filtros['sequencias'] }}"; @endif>
 
                 </div>
+                @endif
+                @if (in_array('datas',$campos))
                 <div class="flex-col">
                     <label class="flex form-label" for="data_ini">Data de Início:</label>
                     <input type="date" class="flex form-input border-black" id="data_ini" name="data_ini"
@@ -36,8 +48,8 @@
                     <label class="flex form-label" for="data_fim">Data de Fim:</label>
                     <input type="date" class="flex form-input border-black" id="data_fim" name="data_fim"
                         @if (!empty($filtros) && $filtros['data_fim']) value="{{ $filtros['data_fim'] }}"; @endif>
-
                 </div>
+                @endif
             </div>
             {{-- Botões --}}
             <div class="flex justify-center text-sm font-bold p-2 gap-2">
