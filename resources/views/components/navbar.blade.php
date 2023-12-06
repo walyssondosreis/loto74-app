@@ -2,15 +2,20 @@
     // Declare os itens da Navbar
     $items = [
         'Inicio' => '/',
-        'Atualizar' => ['Online (API)' => route('atualizar', ['modo' => 'api']), 'Offline (CSV)' => route('atualizar', ['modo' => 'csv'])],
-        'Painel' => [
+        'Atualiza' => ['Atualizar Online (API)' => route('atualizar', ['modo' => 'api']), 'Atualizar Offline (CSV)' => route('atualizar', ['modo' => 'csv'])],
+        'Aposta' => [
             // 'Analisador'=>'#',
-            'Conferidor'=>route('conferidor'),
+            'Registrar Apostas'=>'#',
+            'Conferir Apostas'=>'#',
+            'Conferir Números e Jogos'=>route('conferidor'),
+            // 'Constância'=>'#',
             // 'Comparador'=>'#',
         ],
-        'Jogos'=>['Base de Jogos'=>'#'],
-        'Apostar' => '#',
-        'Configurar' => '#',
+        'Jogo'=>[
+            'Criar Jogos'=>'#',
+            'Base de Jogos'=>'#',
+        ],
+        'Configura' => '#',
     ];
 @endphp
 

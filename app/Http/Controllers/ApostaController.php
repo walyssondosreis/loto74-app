@@ -7,7 +7,9 @@ use App\Models\Jogo;
 use App\Models\Aposta;
 use App\Models\Numero;
 use App\Models\Concurso;
+use Exception;
 
+use function App\Helpers\limparFiltros;
 use function App\Helpers\myHelperFunction;
 
 class ApostaController extends Controller
@@ -15,15 +17,9 @@ class ApostaController extends Controller
     public function conferidor(LotoRequest $request)
     {
 
-        $numero1 = new Numero('1,3,4,5,6,8,11,13,14,17,18,19,21,24,25');
-        $numero3 = new Numero('1,2,3,5,7,10,11,13,14,17,18,20,22,23,24'); // O Premiado
-        $numero4 = new Numero('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15');
-
-        // $jogo = Jogo::with('numero')->find(2);
-
         /*
             Há 2 tipos de verificação de aposta;
-            Conferência Avulsa => Numero em Aposta: Identificador é composto pelo USERNAME+DATA+HORA
+            Conferência Avulsa => Numero em Aposta: Identificador é composto pelo USERNAME+DATA+HORA+RANDOM
             Conferência Padrão => Jogo em Aposta: Identificador é o ID da Aposta
         */
 
@@ -34,7 +30,7 @@ class ApostaController extends Controller
 
         // var_dump($concursos_completo->toArray());
         // var_dump($jogo->toArray());
-
+        $numerosConferir = [];
         $filtros = [];
 
         if ($request->has('_token') || session('inputConferidor')) {
@@ -48,22 +44,44 @@ class ApostaController extends Controller
                 $dadosForm = $request->except(['_token', 'page']);
                 $request->session()->put('inputConferidor', $request->except(['_token', 'page']));
             }
-
+            // dd($dadosForm['jogos']);
             // Entrada de Numeros e Jogos Tratamento
 
             if (strpos($dadosForm['jogos'], ',') && $dadosForm['jogos']) {
-                $nums = explode('-', $dadosForm['jogos']);
-                sort($ccn);
-                $concursos_completo->whereBetween('concursos.id', $ccn);
-            } else if ($dadosForm['concursos']) {
-                $ccn = explode(',', $dadosForm['concursos']);
-                sort($ccn);
-                $concursos_completo->whereIn('concursos.id', $ccn);
+                $numjogos = explode(',', $dadosForm['jogos']);
+                foreach ($numjogos as $num) {
+                    $num = str_replace('-', ',', trim($num));
+                    if (strpos($num, ',')) {
+                        try {
+                            array_push($numerosConferir, new Numero($num));
+                        } catch (Exception $e) {
+                            limparFiltros('inputConferidor');
+                            return redirect()->route('conferidor')->with('mensagem', $e->getMessage());
+                        }
+                    } else {
+                        $jogoBusco = Jogo::with('numero')->find($num);
+                        if ($jogoBusco) array_push($numerosConferir, $jogoBusco);
+                    }
+                }
+            } else if ($dadosForm['jogos']) {
+                $num = trim($dadosForm['jogos']);
+                if (strpos($num, '-')) {
+                    try {
+                        $num = str_replace('-', ',', trim($num));
+                        array_push($numerosConferir, new Numero($num));
+                    } catch (Exception $e) {
+                        limparFiltros('inputConferidor');
+                        return redirect()->route('conferidor')->with('mensagem', $e->getMessage());
+                    }
+                } else {
+                    $jogoBusco = Jogo::with('numero')->find($num);
+                    if ($jogoBusco) array_push($numerosConferir, $jogoBusco);
+                }
             }
 
-             // Entrada de Concursos Tratamento
+            // Entrada de Concursos Tratamento
 
-             if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
+            if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
                 $ccn = explode('-', $dadosForm['concursos']);
                 sort($ccn);
                 $concursos_completo->whereBetween('concursos.id', $ccn);
@@ -91,10 +109,8 @@ class ApostaController extends Controller
                 $concursos_completo->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
             }
 
-            var_dump($dadosForm);
+            // var_dump($dadosForm);
             $filtros = $dadosForm;
-
-
         }
 
         $concursos_completo = $concursos_completo->get();
@@ -103,7 +119,13 @@ class ApostaController extends Controller
         // $aposta2 = new Aposta(['jogo_id'=>1,'concurso_id'=>256]);
         // var_dump($aposta2->conferir());
         // $res = $aposta->conferir([$jogo,$numero1,$numero2,$numero3,$numero4],$concursos_completo->toArray());
-        $cards = $aposta->conferir([$numero4,$numero1],$concursos_completo->toArray());
+        // $cards = $aposta->conferir([$numero4,$numero1],$concursos_completo->toArray());
+        // var_dump($numerosConferir);
+        if (!empty($numerosConferir)) {
+            $cards = $aposta->conferir($numerosConferir, $concursos_completo->toArray());
+        } else {
+            $cards = [];
+        }
         // var_dump($cards);
 
         $ranking = [];
@@ -111,24 +133,24 @@ class ApostaController extends Controller
         $npremiado = [];
         $analisador = [];
 
-        foreach($cards as $idx=>$card){
+        foreach ($cards as $idx => $card) {
 
             // Cacula pontuação total de jogos passados
             $ranking[$idx] = 0;
-            foreach($card['stats'] as $ids=>$cs) {
-                $ranking[$idx] += $ids*$cs;
+            foreach ($card['stats'] as $ids => $cs) {
+                $ranking[$idx] += $ids * $cs;
             }
 
             // var_dump($card['stats']);
-            $npreal = array_sum(array_slice($card['stats'],0,6));
-            $preal = array_sum(array_slice($card['stats'],6));
+            $npreal = array_sum(array_slice($card['stats'], 0, 6));
+            $preal = array_sum(array_slice($card['stats'], 6));
             // var_dump($preal);
             // var_dump($npreal);
 
-            if(intval($npreal+$preal) !== 0) {
-                $npremiado[$idx] = number_format(($npreal/($preal+$npreal))*100,0);
-                $premiado[$idx] = number_format(($preal/($preal+$npreal))*100,0);
-            }else{
+            if (intval($npreal + $preal) !== 0) {
+                $npremiado[$idx] = number_format(($npreal / ($preal + $npreal)) * 100, 0);
+                $premiado[$idx] = number_format(($preal / ($preal + $npreal)) * 100, 0);
+            } else {
                 $npremiado[$idx] = 0;
                 $premiado[$idx] = 0;
             }
@@ -144,7 +166,6 @@ class ApostaController extends Controller
                 }
                 $analisador[$idx] = $qtdNums;
             }
-
         }
         // var_dump($numero1->toArray());
         // var_dump($numero4->toArray());
@@ -157,19 +178,19 @@ class ApostaController extends Controller
 
         $toView = [
             // Cards
-            'cards'=>$cards,
-            'ranking'=>$ranking,
-            'premiado'=> $premiado,
-            'npremiado'=>$npremiado,
-            'analisador'=>$analisador,
+            'cards' => $cards,
+            'ranking' => $ranking,
+            'premiado' => $premiado,
+            'npremiado' => $npremiado,
+            'analisador' => $analisador,
             // Formulário
-            'campos' => ['jogos','concursos','sequencias','datas'],
+            'campos' => ['jogos', 'concursos', 'sequencias', 'datas'],
             'submit' => 'conferidor',
             'filtros' => $filtros,
             'nomeFiltro' => 'inputConferidor',
         ];
 
-        return view('conferidor',$toView);
+        return view('conferidor', $toView);
         // $aposta = new Aposta();
         // var_dump($numero->registrar());
 

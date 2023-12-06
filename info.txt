@@ -15,24 +15,16 @@ ok - Componentizar :
     ok - analisador
     ok - sequencias
 
-- Conferidor de apostas - Conferir de fato pontuação de um jogo
-    Padrão  = Jogo Apostado x Concurso concorrendo
-    Teimosinha  = Jogo Apostado x n Concursos concorrendo
-    Multiplo = n Jogos Apostados x Concurso concorrendo
-    Teimoso Multiplo =  n Jogos Apostados x n Concursos concorrendo
-    Estatistico Simples = Jogo Não Apostado x Concurso
-    Estatistico multiplo = n Jogos Não apostado x Concurso
-    Estatistico cast = n jogos não apostados x
+ok - Conferidor de apostas - Conferir de fato pontuação de um jogo
+   ok Padrão  = Jogo Apostado x Concurso concorrendo
+   ok Teimosinha  = Jogo Apostado x n Concursos concorrendo
+   ok Multiplo = n Jogos Apostados x Concurso concorrendo
+   ok Teimoso Multiplo =  n Jogos Apostados x n Concursos concorrendo
+   ok Estatistico Simples = Jogo Não Apostado x Concurso
+   ok Estatistico multiplo = n Jogos Não apostado x Concurso
+   ok Estatistico cast = n jogos não apostados x
 ** Na tela inicial do conferidor permitir que apostas favoritas fiquem ai
-- Componente de Formulário:
-    - Action
-    - Nome do campo para ativar
-    ** Formulario loto: concursos, sequencias, data-ini, data-fim
-
-    ** Formulario conferidor: jogos|apostas|Numumeros, concursos, sequencias, data-ini, data-fim
-    *Jogos por usuario
-    *Jogos por campanha
-
+ok - Componente de Formulário modularizado
 - Comparador de números - Comparar jogos e resultados visando buscar similaridade
     > Jogo x Jogo : Similaridade média
     > Resultado x Resultado: Similaridade em progresso
@@ -48,6 +40,9 @@ ok - Componentizar :
 
 - Registro de usuarios
 
+- Logica de impares, pares e primos
+
+#================================================
 
 (3) Jogo:__
 - Pode marcar de 15 a 20 Numeros dos 25 disponíveis
