@@ -49,6 +49,18 @@ class ApostaController extends Controller
                 $request->session()->put('inputConferidor', $request->except(['_token', 'page']));
             }
 
+            // Entrada de Numeros e Jogos Tratamento
+
+            if (strpos($dadosForm['jogos'], ',') && $dadosForm['jogos']) {
+                $nums = explode('-', $dadosForm['jogos']);
+                sort($ccn);
+                $concursos_completo->whereBetween('concursos.id', $ccn);
+            } else if ($dadosForm['concursos']) {
+                $ccn = explode(',', $dadosForm['concursos']);
+                sort($ccn);
+                $concursos_completo->whereIn('concursos.id', $ccn);
+            }
+
              // Entrada de Concursos Tratamento
 
              if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {

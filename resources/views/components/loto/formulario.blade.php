@@ -12,7 +12,7 @@
                 <div class="flex-col w-full">
                     <label class="flex form-label " for="jogos">Numeros | Jogos:</label>
                     <input type="text" class="flex form-input border-black" id="jogos" name="jogos"
-                        placeholder='Ex.: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" ou 245'
+                        placeholder='Ex.: 1-2-3-4-5-6-7-8-9-10-11-12-13-14-15 ou 245,456'
                         @if (!empty($filtros) && $filtros['jogos']) value="{{ $filtros['jogos'] }}"; @endif>
                 </div>
                 @endif
