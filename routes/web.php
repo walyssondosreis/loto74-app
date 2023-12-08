@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApostaController;
 use App\Http\Controllers\LotoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\TesteController;
 use Illuminate\Support\Facades\Route;
 
 use function App\Helpers\limparFiltros;
@@ -23,6 +24,7 @@ Route::get('/', function () {
     return to_route('loto');
 });
 
+Route::get('/inov4dev',[TesteController::class,'inov4dev'])->name('inov');
 // Route::resources([
 //     'loto'=> LotoController::class,
 // ]);
