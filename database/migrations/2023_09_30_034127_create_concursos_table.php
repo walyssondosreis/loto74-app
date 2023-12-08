@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('resultado_id')->nullable();
             $table->date('data_apuracao')->nullable();
             // $table->timestamps();
-            // $table->foreign('resultado_id')->references('id')->on('resultados');
+            $table->foreign('resultado_id')->references('id')->on('resultados');
 
         });
     }
