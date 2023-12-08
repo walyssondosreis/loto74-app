@@ -1,0 +1,20 @@
+{
+  "public/fonts/barcade-bold.ttf": {
+    "file": "assets/barcade-bold-0351726e.ttf",
+    "src": "public/fonts/barcade-bold.ttf"
+  },
+  "public/fonts/barcade.ttf": {
+    "file": "assets/barcade-23903f95.ttf",
+    "src": "public/fonts/barcade.ttf"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-daf9202f.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-cccfa4b5.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}
