@@ -15,7 +15,11 @@ export default {
                 },
             },
             fontFamily: {
-                barcade: ['barcade', 'sans-serif']
+                barcade: ['barcade', 'sans-serif'],
+                jhetegral: ['jonathan-hetegral', 'sans-serif'],
+                nexal: ['nexa-light', 'sans-serif'],
+                nexah: ['nexa-heavy', 'sans-serif']
+
             },
             keyframes: {
                 balanco_kf: {
