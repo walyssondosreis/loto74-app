@@ -1,4 +1,12 @@
 {
+  "public/fonts/Nexa-ExtraLight.ttf": {
+    "file": "assets/Nexa-ExtraLight-d24aa311.ttf",
+    "src": "public/fonts/Nexa-ExtraLight.ttf"
+  },
+  "public/fonts/Nexa-Heavy.ttf": {
+    "file": "assets/Nexa-Heavy-8bd502de.ttf",
+    "src": "public/fonts/Nexa-Heavy.ttf"
+  },
   "public/fonts/barcade-bold.ttf": {
     "file": "assets/barcade-bold-0351726e.ttf",
     "src": "public/fonts/barcade-bold.ttf"
@@ -8,7 +16,7 @@
     "src": "public/fonts/barcade.ttf"
   },
   "resources/css/app.css": {
-    "file": "assets/app-daf9202f.css",
+    "file": "assets/app-8661dcef.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
