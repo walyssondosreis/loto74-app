@@ -23,23 +23,23 @@
         {{-- Itens da navbar --}}
         <div class="flex justify-center w-full p-4 items-center">
             <ul class="flex gap-4 text-lg">
-                <&sol;>
+                < >
                     <li
                         class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
                         inicio</li>
-                    <&sol;>
+                    < >
                         <li
                             class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
                             habilidades</li>
-                        <&sol;>
+                        < >
                             <li
                                 class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
                                 experiencias</li>
-                            <&sol;>
+                            < >
                                 <li
                                     class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
                                     trabalhos</li>
-                                <&sol;>
+                                < >
                                     <li
                                         class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
                                         contatos</li>
@@ -54,7 +54,7 @@
             <div class="bg-white flex-col text-center p-8 rounded-r-3xl justify-start lg:w-4/5 xl:w-3/5" >
                 <div class="flex text-9xl justify-center p-4 font-nexah"> INOV <span class="text-blue-600">4</span> DEV
                 </div>
-                <div class="flex text-2xl justify-center font-nexal"> Inovação e desenvolvimento</div>
+                <div class="flex text-2xl justify-center font-nexal"> inovação e desenvolvimento</div>
 
 
             </div>
@@ -71,7 +71,56 @@
 
         </div>
     </div>
+    <div class="container mx-auto justify-center bg-yellow-300">
+        Área inspiradora
+    </div>
+    {{-- Container da Hagilidades --}}
+<div class="container mx-auto flex-col justify-center ">
+    <div class="flex justify-center p-4">
+        <span class="font-nexal text-4xl p-4">Minhas ferramentas de trabalho <i>< > FULLSTACK <&sol;></i></span>
+    </div>
+    <div class="flex-col justify-center p-4">
+        <div class="flex justify-center">
+            {{-- Card  --}}
+            <div class="flex-col border-2 border-black border-r-0 p-4 max-w-md">
+                <div class="flex justify-center p-4">
+                    <img class="w-20" src=" {{ asset('images/php-logo.svg') }}">
+                </div>
+                <div class="flex">
+                    <p>
+                        O PHP (Hypertext Preprocessor) é uma linguagem de programação de código aberto amplamente utilizada para o desenvolvimento de aplicações web dinâmicas. Conhecido por seu desempenho, permite o desenvolvimento rápido e eficiente de páginas web dinâmicas. Sua vasta base de usuários e comunidade ativa garantem suporte contínuo, enquanto a integração perfeita com bancos de dados facilita a gestão de informações.
+                        Além disso, a flexibilidade e escalabilidade do PHP tornam-no ideal para empresas de todos os tamanhos, proporcionando uma presença online eficaz e adaptável às necessidades em constante evolução do mercado. Em resumo, o PHP oferece uma solução confiável e eficiente para impulsionar seu projeto online.
+                    </p>
+                </div>
+            </div>
+            {{-- Card  --}}
+            <div class="flex-col border-2 border-black border-r-0 p-4 max-w-md">
+                <div class="flex justify-center p-4">
+                    <img class="w-32" src=" {{ asset('images/laravel-wordmark-1.svg') }}">
+                </div>
+                <div class="flex">
+                    <p>
+                        Laravel é um framework de desenvolvimento web em PHP que simplifica e agiliza a criação de aplicativos web robustos e escaláveis.
+                        A principal vantagem de utilizar o Laravel para o desenvolvimento do seu site reside na eficiência e na produtividade que o framework proporciona. Com uma sintaxe elegante, Laravel simplifica tarefas comuns, acelerando o processo de desenvolvimento. Além disso, o Laravel inclui recursos como o Eloquent, que facilita a interação com o banco de dados, e o Blade, um poderoso mecanismo de template.A robustez do Laravel, combinada com a sua comunidade ativa, resulta em manutenção mais fácil e escalabilidade para o seu site. Seja para projetos pequenos ou grandes, o Laravel oferece uma base sólida, promovendo um desenvolvimento rápido e eficiente, o que se traduz em benefícios tanto a curto quanto a longo prazo.
 
+                    </p>
+                </div>
+            </div>
+            {{-- Card  --}}
+            <div class="flex-col border-2 border-black p-4 max-w-md">
+                <div class="flex justify-center p-4">
+                    <img class="w-10" src=" {{ asset('images/vue-9.svg') }}">
+                </div>
+                <div class="flex">
+                    <p>
+                        O PHP (Hypertext Preprocessor) é uma linguagem de programação de código aberto amplamente utilizada para o desenvolvimento de aplicações web dinâmicas. Conhecido por seu desempenho, permite o desenvolvimento rápido e eficiente de páginas web dinâmicas. Sua vasta base de usuários e comunidade ativa garantem suporte contínuo, enquanto a integração perfeita com bancos de dados facilita a gestão de informações.
+                        Além disso, a flexibilidade e escalabilidade do PHP tornam-no ideal para empresas de todos os tamanhos, proporcionando uma presença online eficaz e adaptável às necessidades em constante evolução do mercado. Em resumo, o PHP oferece uma solução confiável e eficiente para impulsionar seu projeto online.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     @vite(['resources/js/app.js'])
 
