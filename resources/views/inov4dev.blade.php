@@ -12,84 +12,78 @@
 
 <body class="h-screen bg-black text-white">
     {{-- Container de Topo Navbar --}}
-    <div class="flex fixed top-0 bg-white w-full h-20 border-b-2 border-black">
-        <div class="flex container-full mx-auto relative w-full">
+    <nav class="flex ">
+        <div class="flex flex-wrap sm:flex-nowrap w-full relative">
             {{-- Icone ou logo --}}
-            <div class= "flex p-4 text-center text-slate-900 w-3/12">
-                <span
-                    class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-black relative inline-block">
-                    <span class="relative text-5xl justify-center font-jhetegral text-white">Walysson dos Reis</span>
-                </span>
+            <div class="flex w-full relative">
+
+                <div class="sm:hidden flex text-black justify-center pl-2 pb-2 items-end bg-white border-b-2 border-black">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                      </svg>
+
+                </div>
+                <div class= "flex bg-white py-8 lg:px-8 justify-center lg:justify-start text-center text-slate-900 border-b-2 border-black w-full">
+
+                    <span
+                        class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-black relative inline-block">
+                        <span class="relative text-5xl justify-center font-jhetegral text-white">Walysson dos Reis</span>
+                    </span>
+                </div>
             </div>
             {{-- Itens da navbar --}}
-            <div class="flex justify-center w-6/12 text-black p-4 items-center">
-                <ul class="flex gap-4 text-lg">
-                    <>
+            <div class="hidden sm:block flex justify-start p-4 w-48 sm:w-full text-black items-center bg-white border-black shadow-lg sm:shadow-none sm:border-b-2 rounded-br-md sm:rounded-none">
+                <ul class="flex flex-wrap sm:flex-nowrap w-full text-lg">
                         <li
-                            class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
-                            inicio</li>
-                        <>
-                            <li
-                                class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
-                                habilidade</li>
-                            <>
-                                <li
-                                    class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer">
-                                    contato</li>
+                            class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer p-1">
+                            <span class="italic font-nexal text-2xl align-middle pr-2"><></span> inicio
+                        </li>
+                        <li
+                            class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer p-1">
+                            <span class="italic font-nexal text-2xl align-middle pr-2"><></span> habilidade
+                        </li>
+                        <li
+                            class="hover:scale-105 hover:bg-black hover:text-red-300 hover:font-semibold duration-300 px-2 cursor-pointer p-1">
+                            <span class="italic font-nexal text-2xl align-middle pr-2"><></span> contato
+                        </li>
                 </ul>
             </div>
         </div>
-    </div>
+
+    </nav>
     {{-- Container da capa --}}
-    <div class="flex bg-red-300 h-2/5 container-full mx-auto items-center mt-20">
-
-        <div class="flex-col items-center w-full">
+    <div class="flex container mx-auto p-4  justify-center">
             {{-- Texto grande + Slogan --}}
-            <div class="bg-white flex-col border-4 border-l-0 border-black text-black text-center p-8 rounded-r-3xl justify-start lg:w-4/5 xl:w-3/5">
-                <div class="flex text-9xl justify-center p-4 font-nexah"> INOV <span class="text-blue-600">4</span> DEV
+            <div class="flex-col shadow-md bg-white text-black text-center p-4 rounded-xl justify-center">
+                <div class="flex flex-wrap lg:text-9xl text-7xl justify-center p-4 font-nexah"> INOV <span class="text-blue-600">4</span> DEV</div>
+                <div class="flex flex-wrap gap-2 lg:text-2xl text-xl justify-center font-nexal font-semibold">
+                    <span class="flex">Inovação</span>
+                    <span class="flex">< / ></span>
+                    <span class="flex">Desenvolvimento</span>
                 </div>
-                <div class="flex text-2xl justify-center font-nexal font-semibold"> Inovação & Desenvolvimento</div>
-
-
             </div>
-            {{-- Botão de Jogar pra baixo --}}
-            {{-- <div class="flex justify-center p-4 h-3/5 items-end">
-                <span
-                    class= "text-red-300 bg-white rounded-full items-center flex p-2 border-4 border-red-200 shadow-sm shadow-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                </span>
-            </div> --}}
-
-        </div>
     </div>
-    {{-- <div class="container mx-auto flex justify-center text-center p-4">
-        <p class="font-nexal text-2xl italic max-w-4xl">
-            "A tecnologia é a chave para a inovação e transformação, capacitando-nos a moldar um futuro melhor" - <span>
-                Satya Nadella (CEO, Microsoft) </span>
-        </p>
-    </div> --}}
+
+
     {{-- Container Quem Sou Eu --}}
     <div class="container mx-auto flex-col justify-center p-4">
         <div class="flex justify-center">
-            <span class="font-nexal text-4xl p-4 italic">QUEM SOU EU ? </span>
+            <span class="font-nexal sm:text-4xl text-3xl p-4 italic">QUEM SOU EU ? </span>
         </div>
-        <div class="flex border-2 border-white rounded-md p-4 justify-center w-full">
+        <div class="flex flex-wrap sm:flex-nowrap border-2 border-white rounded-md p-4 justify-center w-full">
 
             <div class="flex min-w-fit p-4 justify-center items-center">
                 <img class="w-40 h-40 rounded-full" src="{{ asset('images/pika.jpg') }}" alt="" srcset="">
             </div>
-            <div class="flex p-4 text-justify">
+            <div class="flex p-4 text-justify font-nexal font-semibold">
                 <p>
-                Saudações amigos, sou Walysson Pereira dos Reis, desenvolvedor web apaixonado por tecnologia. Ao longo de minha trajetória profissional, cultivei uma mentalidade analítica e resolutiva, capacitando-me a abordar desafios complexos com garra e determinação. Minha habilidade de comunicação eficaz propicia uma colaboração produtiva em equipes multifuncionais, enquanto minha atenção meticulosa aos detalhes garante a entrega de produtos de alta qualidade. Alimento uma curiosidade incessante, sempre buscando aprimorar-me e aplicar as mais recentes tendências e melhores práticas no desenvolvimento web. Além das competências técnicas, cultivo um compromisso sólido com a entrega pontual de projetos e a plena satisfação do cliente. Acredito na importância do equilíbrio entre eficiência e elegância no design de software, assegurando que as soluções que concebo não apenas operem de maneira eficaz, mas também proporcionem uma experiência agradável para o usuário. Minha abordagem proativa e orientada a resultados me confere a capacidade de enfrentar os desafios em constante evolução do cenário tecnológico. Estou preparado para contribuir significativamente para projetos inovadores, transformando concepções em realidade através de minha paixão pelo desenvolvimento web e meu comprometimento com o crescimento profissional contínuo.
+                    Olá! Eu sou Walysson Pereira dos Reis, um desenvolvedor web apaixonado por tecnologia. Ao longo da minha carreira, desenvolvi uma mentalidade analítica e resolutiva que me permitiu superar inúmeros desafios. Com uma curiosidade incessante, busco aprimorar-me e aplicar as últimas tendências no desenvolvimento. Estou sempre pensando em contribuir para projetos inovadores, transformando concepções em realidade e buscando equilíbrio entre eficiência e elegância no design de software.
                 </p>
             </div>
         </div>
     </div>
     {{-- Container da Hagilidades --}}
-    <div class="container mx-auto flex-col justify-center p-4 ">
+    <div class="hidden container mx-auto flex-col justify-center p-4 ">
         <div class="flex justify-center p-4">
             <span class="font-nexal text-4xl p-4"> <i>
                     <> FULLSTACK <&sol;>
@@ -177,7 +171,7 @@
         </div>
     </div>
     {{-- Container Formulario de contate-me --}}
-    <div class="container mx-auto flex justify-center p-4">
+    <div class="hidden container mx-auto flex justify-center p-4">
         <div class="flex max-w-lg order-2 w-1/2 p-4">
             <span class="font-nexal text-4xl p-4" >Tem alguma pergunta ou proposta, ou quer apenas dizer olá? Vá em frente! :) Respoderei assim que possível</span>
         </div>
@@ -196,8 +190,8 @@
             </div>
         </div>
     </div>
-    {{-- Redes sociais --}}
-    <div class="container mx-auto flex justify-center p-4">
+    {{-- Container Redes sociais --}}
+    <div class="hidden container mx-auto flex justify-center p-4">
         <div class="flex">
             <span class="font-nexal text-4xl p-4" >Gostou do meu perfil? <br>Me siga nas redes sociais! </span>
         </div>
@@ -229,7 +223,7 @@
         </div>
     </div>
     {{-- Footer --}}
-    <div class="container mx-auto flex justify-center p-4 pt-10 pb-10 border-t-2 mt-10">
+    <div class="hidden container mx-auto flex justify-center p-4 pt-10 pb-10 border-t-2 mt-10">
         <p>&copy; {{ date('Y') }} INOV4DEV. Todos os direitos reservados.</p>
     </div>
     @vite(['resources/js/app.js'])
