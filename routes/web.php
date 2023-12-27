@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApostaController;
 use App\Http\Controllers\LotoController;
+use App\Http\Controllers\MegaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TesteController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::get('/', function () {
 });
 
 Route::get('/inov4dev',[TesteController::class,'inov4dev'])->name('inov');
+
+Route::get('/bolaodamega',[MegaController::class,'index'])->name('bolaodamega');
+
 // Route::resources([
 //     'loto'=> LotoController::class,
 // ]);
