@@ -16,12 +16,12 @@
     "src": "public/fonts/barcade.ttf"
   },
   "resources/css/app.css": {
-    "file": "assets/app-7413b782.css",
+    "file": "assets/app-c7e020c6.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-3f52f8eb.js",
+    "file": "assets/app-cccfa4b5.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

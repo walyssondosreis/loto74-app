@@ -15,22 +15,26 @@ class MegaController extends Controller
      */
     public function index()
     {
-        $resultado = '1-2-3-4-5-6';
+        $resultado = '';
         // Cria arquivo CSV
         $jogosCru = $this->carregarJogosMega();
         $jogosValidado = [];
 
         // Tratar e Valida jogos
-        foreach($jogosCru as $jogo){
+        foreach ($jogosCru as $jogo) {
             $jogo['status'] = $this->validarNumeros($this->tratarNumeros($jogo['numeros']));
-            if($jogo['status']=='jogo_valido' && $this->validarNumeros($this->tratarNumeros($resultado)) != 'jogo_invalido'){
-                $jogo['pontos'] = $this->calcularPontos($jogo['numeros'],$this->tratarNumeros($resultado));
+            if ($jogo['status'] == 'jogo_valido' && $this->validarNumeros($this->tratarNumeros($resultado)) != 'jogo_invalido') {
+                $jogo['pontos'] = $this->calcularPontos($jogo['numeros'], $this->tratarNumeros($resultado));
             }
-            array_push($jogosValidado,$jogo);
+            array_push($jogosValidado, $jogo);
         }
 
+        usort($jogosValidado, function($a,$b){
+            return intval($b['pontos']) - intval($a['pontos']);
+        });
+
         $dadosView = [
-            'jogosValidado'=>$jogosValidado,
+            'jogosValidado' => $jogosValidado,
             'resultado' => $resultado
         ];
         // var_dump($jogosValidado);
@@ -60,7 +64,7 @@ class MegaController extends Controller
         }
     }
 
-    public function carregarJogosMega(): Array
+    public function carregarJogosMega(): array
     {
         set_time_limit(900000);
         ini_set('max_execution_time', 0);
@@ -88,16 +92,16 @@ class MegaController extends Controller
         foreach ($csvData as $linhaCSV) {
 
             $jogo = [];
-            foreach($indicesColuna as $id=>$nidx){
+            foreach ($indicesColuna as $id => $nidx) {
                 $jogo[$nidx] = $linhaCSV[$id];
             }
-            array_push($todosJogos,$jogo);
+            array_push($todosJogos, $jogo);
         }
 
         return $todosJogos;
     }
 
-    public function validarNumeros(String $numeros):String
+    public function validarNumeros(String $numeros): String
     {
         $numeros = explode('-', $numeros);
         $numeros = array_unique($numeros);
@@ -108,32 +112,31 @@ class MegaController extends Controller
 
         foreach ($numeros as $ns) {
             $ns = trim($ns);
-            if (!is_numeric($ns) || is_float($ns+0) || $ns+0 < 1 || $ns+0> 60) {
+            if (!is_numeric($ns) || is_float($ns + 0) || $ns + 0 < 1 || $ns + 0 > 60) {
                 return 'jogo_invalido';
             }
         }
         return 'jogo_valido';
     }
 
-    public function tratarNumeros(String $numeros):String
+    public function tratarNumeros(String $numeros): String
     {
         $numeros = explode('-', $numeros);
         $numerosTratados = [];
         foreach ($numeros as $ns) {
-            array_push($numerosTratados,intval($ns));
+            array_push($numerosTratados, intval($ns));
         }
         sort($numerosTratados);
-        return implode('-',$numerosTratados);
+        return implode('-', $numerosTratados);
     }
 
-    public function calcularPontos(String $numeros, String $resultado):Int{
-            $vetNumeros = explode('-', $numeros);
-            $vetResultado = explode('-',$resultado);
+    public function calcularPontos(String $numeros, String $resultado): Int
+    {
+        $vetNumeros = explode('-', $numeros);
+        $vetResultado = explode('-', $resultado);
 
-            $pontos = array_intersect($vetNumeros,$vetResultado);
+        $pontos = array_intersect($vetNumeros, $vetResultado);
 
-            return count($pontos);
+        return count($pontos);
     }
-
-
 }
