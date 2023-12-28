@@ -15,7 +15,7 @@ class MegaController extends Controller
      */
     public function index()
     {
-        $resultado = '1-2-3-4-5-6';
+        $resultado = '';
         // Cria arquivo CSV
         $jogosCru = $this->carregarJogosMega();
         $jogosValidado = [];
