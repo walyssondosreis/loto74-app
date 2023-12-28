@@ -29,7 +29,7 @@
                 <li><span class="font-semibold text-xl text-yellow-600">INFORMAÇÕES</span></li>
                 <li><span class="font-semibold">Quantidade de Jogos: </span>{{ count($jogosValidado) }}</li>
                 <li><span class="font-semibold">Valor total apostado: </span> R$ {{ 5 * count($jogosValidado) }},00</li>
-                <li>Seu prêmio = (Premio/Qtd_de_jogos) * Qtd_de_jogos_que_vc_fez</li>
+                <li> ... E ninguém solta a mão de ninguém</li>
             </ul>
             {{-- Resultado --}}
             <div class="flex-col p-4 justify-center sm:w-1/2 w-full">
@@ -130,7 +130,7 @@
                             <span class="w-full flex justify-center sm:justify-start font-nexah"> ${jogo.nome_pessoa}</span>
                             <span class="sm:w-80 justify-center flex font-semibold"> Jogo #${jogo.id} </span>`;
 
-                    if(jogo.numeros!=''){
+                    if(jogo.numeros!==''){
                         hmtlCard += `
                         <div class="flex justify-center w-full gap-1 p-2">`;
 
@@ -145,7 +145,7 @@
 
                            hmtlCard+=`</div>`;
 
-                        if(jogo.pontos != ''){
+                        if(jogo.pontos !== ''){
                             hmtlCard+= `
                             <span class="font-semibold flex justify-center w-full">${jogo.pontos} pts</span>
                             `;

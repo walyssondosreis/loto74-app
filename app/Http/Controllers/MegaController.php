@@ -15,14 +15,15 @@ class MegaController extends Controller
      */
     public function index()
     {
-        $resultado = '';
+        $resultado = '1-2-3-4-5-6';
         // Cria arquivo CSV
         $jogosCru = $this->carregarJogosMega();
         $jogosValidado = [];
 
         // Tratar e Valida jogos
         foreach ($jogosCru as $jogo) {
-            $jogo['status'] = $this->validarNumeros($this->tratarNumeros($jogo['numeros']));
+            $jogo['numeros']= $this->tratarNumeros($jogo['numeros']);
+            $jogo['status'] = $this->validarNumeros($jogo['numeros']);
             if ($jogo['status'] == 'jogo_valido' && $this->validarNumeros($this->tratarNumeros($resultado)) != 'jogo_invalido') {
                 $jogo['pontos'] = $this->calcularPontos($jogo['numeros'], $this->tratarNumeros($resultado));
             }
