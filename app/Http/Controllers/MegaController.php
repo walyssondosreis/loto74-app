@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Ramsey\Uuid\Type\Integer;
 
+use function PHPUnit\Framework\returnSelf;
 
 class MegaController extends Controller
 {
@@ -13,62 +15,27 @@ class MegaController extends Controller
      */
     public function index()
     {
+        $resultado = '1-2-3-4-5-6';
         // Cria arquivo CSV
-        $this->carregarJogosMega();
+        $jogosCru = $this->carregarJogosMega();
+        $jogosValidado = [];
 
+        // Tratar e Valida jogos
+        foreach($jogosCru as $jogo){
+            $jogo['status'] = $this->validarNumeros($this->tratarNumeros($jogo['numeros']));
+            if($jogo['status']=='jogo_valido' && $this->validarNumeros($this->tratarNumeros($resultado)) != 'jogo_invalido'){
+                $jogo['pontos'] = $this->calcularPontos($jogo['numeros'],$this->tratarNumeros($resultado));
+            }
+            array_push($jogosValidado,$jogo);
+        }
 
-
+        $dadosView = [
+            'jogosValidado'=>$jogosValidado,
+            'resultado' => $resultado
+        ];
+        // var_dump($jogosValidado);
+        return view('mega', $dadosView);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    // Abaixo funções não padrões
 
     public function criarCSV(): Void
     {
@@ -93,7 +60,7 @@ class MegaController extends Controller
         }
     }
 
-    public function carregarJogosMega()
+    public function carregarJogosMega(): Array
     {
         set_time_limit(900000);
         ini_set('max_execution_time', 0);
@@ -126,6 +93,47 @@ class MegaController extends Controller
             }
             array_push($todosJogos,$jogo);
         }
-        var_dump($todosJogos);
+
+        return $todosJogos;
     }
+
+    public function validarNumeros(String $numeros):String
+    {
+        $numeros = explode('-', $numeros);
+        $numeros = array_unique($numeros);
+
+        if (count($numeros) != 6) {
+            return 'jogo_invalido';
+        }
+
+        foreach ($numeros as $ns) {
+            $ns = trim($ns);
+            if (!is_numeric($ns) || is_float($ns+0) || $ns+0 < 1 || $ns+0> 60) {
+                return 'jogo_invalido';
+            }
+        }
+        return 'jogo_valido';
+    }
+
+    public function tratarNumeros(String $numeros):String
+    {
+        $numeros = explode('-', $numeros);
+        $numerosTratados = [];
+        foreach ($numeros as $ns) {
+            array_push($numerosTratados,intval($ns));
+        }
+        sort($numerosTratados);
+        return implode('-',$numerosTratados);
+    }
+
+    public function calcularPontos(String $numeros, String $resultado):Int{
+            $vetNumeros = explode('-', $numeros);
+            $vetResultado = explode('-',$resultado);
+
+            $pontos = array_intersect($vetNumeros,$vetResultado);
+
+            return count($pontos);
+    }
+
+
 }
