@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="h-screen">
+<body class="h-screen bg-gradient-to-r from-gray-100 to-gray-200">
 
     @php
         // var_dump($jogosValidado[0]);
@@ -25,7 +25,7 @@
 
         <div class="mt-4 flex flex-wrap font-semibold items-center justify-center ">
             {{-- Informações --}}
-            <ul class="container mx-auto flex-col text-green-800 p-4 rounded-md w-full mb-8 text-center border border-green-800">
+            <ul class="container mx-auto w-fit flex-col text-green-800 p-4 rounded-md mb-8 text-center border border-green-800">
                 <li><span class="font-semibold text-xl ">INFORMAÇÕES</span></li>
                 <li><span class="font-semibold">Quantidade de Jogos: </span>{{ count($jogosValidado) }}</li>
                 <li><span class="font-semibold">Valor total apostado: </span> R$ {{ 5 * count($jogosValidado) }},00</li>
@@ -48,8 +48,8 @@
         </div>
 
         <div class="container mx-auto flex justify-center p-4 w-full">
-            <input id="campo_busca" class="px-4 py-2 w-full border border-blue-500 rounded-md font-nexah text-xl"
-                type="text" name="" id="" placeholder="ex.: walysson dos reis">
+            <input id="campo_busca" class="px-4 py-2 w-full border border-gray-500 rounded-md font-nexah text-xl"
+                type="text" name="" id="" placeholder="... digite seu nome aqui">
         </div>
 
         <div id="area_de_jogos" class="container mx-auto flex-col p-4 mt-4">
@@ -95,8 +95,8 @@
     </div>
 
     {{-- Footer --}}
-    <div class="container mx-auto flex justify-center p-4 pt-10 pb-10 border-t-2 mt-10 text-center">
-        <p>&copy; {{ date('Y') }} INOV4DEV.<br>Todos os direitos reservados.</p>
+    <div class="container mx-auto flex justify-center p-4 pt-10 pb-10 border-t-4 border-black mt-10 text-center">
+        <p>&copy; {{ date('Y') }} <a href="https://www.inov4dev.com" class="font-bold">INOV4DEV</a><br>Todos os direitos reservados.</p>
     </div>
     @vite(['resources/js/app.js'])
 
