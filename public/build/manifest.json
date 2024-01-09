@@ -15,13 +15,20 @@
     "file": "assets/barcade-23903f95.ttf",
     "src": "public/fonts/barcade.ttf"
   },
+  "public/images/pika.jpg": {
+    "file": "assets/pika-071070ef.jpg",
+    "src": "public/images/pika.jpg"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-e1b5692e.css",
+    "file": "assets/app-cf9d97c2.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-3f52f8eb.js",
+    "assets": [
+      "assets/pika-071070ef.jpg"
+    ],
+    "file": "assets/app-0fb32922.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
