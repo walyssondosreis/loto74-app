@@ -2,10 +2,10 @@
     <div class="fixed flex w-full z-10">
         <nav class="flex flex-wrap sm:flex-nowrap w-full relative">
             <!-- Icone do Logo -->
-            <div class="flex w-full bg-gray-800 border-b-2 border-white items-center pl-2">
+            <div class="flex w-full bg-gray-800 border-b-2 border-white items-center">
 
                 <div @click="toggleMenuSM"
-                    class="sm:hidden flex justify-center items-end h-fit active:scale-90 duration-75">
+                    class="sm:hidden p-2 flex justify-center items-end h-fit active:scale-90 duration-75">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         class="w-7 h-7 stroke-gray-400">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -22,9 +22,9 @@
                 </div>
             </div>
             <!-- Itens da Navbar -->
-            <div id="menuNav" :class="{ 'hidden': menuSM == false }" class="absolute sm:relative sm:top-0 left-0 top-full sm:block justify-start p-4 sm:p-0 w-40 sm:w-full items-center bg-gray-800 text-gray-500 border-white shadow-lg sm:shadow-none sm:border-b-2 rounded-br-md sm:rounded-none
+            <div id="menuNav" :class="{ 'hidden': menuSM == false }" class="absolute sm:relative sm:top-0 left-0 top-full sm:block justify-start p-4 sm:p-0 w-40 sm:w-full items-center bg-gray-800 text-gray-300 border-white shadow-lg sm:shadow-none sm:border-b-2 rounded-br-md sm:rounded-none
             ">
-                <ul class="flex flex-wrap sm:flex-nowrap w-full text-md py-4 sm:justify-center gap-4 items-center">
+                <ul class="flex flex-wrap sm:flex-nowrap w-full text-md py-4 sm:justify-evenly items-center">
                     <li v-for="(item, idx ) in itemsMenu" :key="idx"
                         class="hover:scale-105 hover:bg-gray-600 rounded-lg hover:text-white hover:font-semibold duration-300 px-2 cursor-pointer p-1">
                         <div class="flex">
@@ -32,8 +32,32 @@
                         </div>
                     </li>
 
+                    <!-- Pesquisa -->
+            <div class="flex">
+                <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Modal de busca</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                      </svg>
+                </button>
+
+
+            </div>
+                    <!-- Notificações -->
+                <button type="button"
+                    class="flex relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Visualizar Notificações</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                    </svg>
+                </button>
+
                     <!-- Perfil do usuário -->
-                    <div class="relative flex w-10 h-10 self-end ml-10">
+                    <div class="relative flex w-10 h-10 self-end mr-5">
 
                         <button
                             class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
