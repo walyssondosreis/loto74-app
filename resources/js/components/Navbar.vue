@@ -21,9 +21,13 @@
                     <!-- Items do menu -->
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <a v-for="item in navigation" :key="item.name" :href="item.href"
-                                :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']"
-                                :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+                            <div v-for="(item, idx) in navigation" :key="idx" class="flex relative">
+                                <a :href="item.href"
+                                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']"
+                                    :aria-current="item.current ? 'page' : undefined">{{ item.name }}
+                                </a>
+                                <SubDropdown v-if="item.subitems" :subitems="item.subitems"></SubDropdown>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,9 +47,7 @@
                                 class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="absolute -inset-1.5" />
                                 <span class="sr-only">Abrir menu do usuário</span>
-                                <img class="h-10 w-10 rounded-full"
-                                    src="../../../public/images/pika.jpg"
-                                    alt="" />
+                                <img class="h-10 w-10 rounded-full" src="../../../public/images/pika.jpg" alt="" />
                             </MenuButton>
                         </div>
                         <transition enter-active-class="transition ease-out duration-100"
@@ -57,7 +59,8 @@
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
                                 <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Meu perfil</a>
+                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Meu
+                                    perfil</a>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
                                 <a href="#"
@@ -85,20 +88,42 @@
 </template>
 
 <script lang="ts">
+
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-
-interface NavigationItem {
-    name: string;
-    href: string;
-    current: boolean;
-}
+import SubDropdown from './SubDropdown.vue';
+import { NavigationItem } from '../interfaces/INavigationItem';
 
 const navigation: NavigationItem[] = [
-    { name: 'Início', href: '#', current: true },
+    {
+        name: 'Início',
+        href: '#',
+        current: true,
+        subitems: [
+            { name: 'Atualizar Online (API)', href: '#', current: false },
+            { name: 'Atualizar Offline (CSV)', href: '#', current: false }
+        ]
+    },
     { name: 'Atualizar', href: '#', current: false },
-    { name: 'Apostar', href: '#', current: false },
-    { name: 'Jogar', href: '#', current: false },
+    {
+        name: 'Apostar',
+        href: '#',
+        current: false,
+        subitems: [
+            { name: 'Registrar Aposta', href: '#', current: false },
+            { name: 'Conferir Aposta', href: '#', current: false },
+            { name: 'Conferir Números e Jogos', href: '#', current: false },
+        ]
+    },
+    {
+        name: 'Jogar',
+        href: '#',
+        current: false,
+        subitems: [
+            { name: 'Criar Jogos', href: '#', current: false },
+            { name: 'Base de Jogos', href: '#', current: false },
+        ]
+    },
     { name: 'Configurar', href: '#', current: false },
 ];
 
@@ -114,6 +139,7 @@ export default {
         Bars3Icon,
         BellIcon,
         XMarkIcon,
+        SubDropdown,
     },
     data() {
         return {
