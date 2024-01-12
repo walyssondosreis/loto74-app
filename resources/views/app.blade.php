@@ -6,8 +6,10 @@
     <title>Loto74</title>
 
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @inertiaHead
 </head>
 <body>
+    @inertia
     <div id="app"></div>
 </body>
 </html>

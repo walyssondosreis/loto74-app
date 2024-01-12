@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class TesteController extends Controller
 {
     //
 
-    public function inov4dev(){
+    public function index(){
 
-        return view('inov4dev');
+        return Inertia::render('Teste/Index');
     }
 }

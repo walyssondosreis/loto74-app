@@ -20,10 +20,7 @@ use function App\Helpers\limparFiltros;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-    // return to_route('loto');
-});
+Route::get('/', [TesteController::class,'index']);
 
 // Route::get('/bolaodamega',[MegaController::class,'index'])->name('bolaodamega');
 
