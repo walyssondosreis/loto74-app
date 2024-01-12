@@ -6,6 +6,7 @@ use App\Http\Controllers\MegaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TesteController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 use function App\Helpers\limparFiltros;
 
@@ -20,7 +21,9 @@ use function App\Helpers\limparFiltros;
 |
 */
 
-Route::get('/', [TesteController::class,'index']);
+Route::get('/',fn()=> Inertia::render('Home'));
+
+// Route::get('/', [TesteController::class,'index']);
 
 // Route::get('/bolaodamega',[MegaController::class,'index'])->name('bolaodamega');
 
