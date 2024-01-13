@@ -22,11 +22,11 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <div v-for="(item, idx) in navigation" :key="idx" class="flex relative">
-                                <a :href="item.href"
+                                <a :href="item.href" @click="()=>{ item.current = !item.current}"
                                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']"
                                     :aria-current="item.current ? 'page' : undefined">{{ item.name }}
                                 </a>
-                                <SubDropdown v-if="item.subitems" :subitems="item.subitems"></SubDropdown>
+                                <SubMenu v-click-outside="()=>{ console.log('teste')}" v-show="item.current" v-if="item.subitems" :subitems="item.subitems"></SubMenu>
                             </div>
                         </div>
                     </div>
@@ -91,20 +91,21 @@
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import SubDropdown from './SubDropdown.vue';
+import SubMenu from './SubMenu.vue';
 import { NavigationItem } from '../interfaces/INavigationItem';
 
 const navigation: NavigationItem[] = [
+    { name: 'Inicio', href: '#', current: false },
+
     {
-        name: 'Início',
+        name: 'Atualizar',
         href: '#',
-        current: true,
+        current: false,
         subitems: [
             { name: 'Atualizar Online (API)', href: '#', current: false },
             { name: 'Atualizar Offline (CSV)', href: '#', current: false }
         ]
     },
-    { name: 'Atualizar', href: '#', current: false },
     {
         name: 'Apostar',
         href: '#',
@@ -139,7 +140,7 @@ export default {
         Bars3Icon,
         BellIcon,
         XMarkIcon,
-        SubDropdown,
+        SubMenu,
     },
     data() {
         return {

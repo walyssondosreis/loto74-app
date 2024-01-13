@@ -14,7 +14,7 @@ import { NavigationItem } from '../interfaces/INavigationItem';
 import { PropType } from 'vue';
 
 export default defineComponent({
-    name: 'SubDropdown',
+    name: 'SubMenu',
     props:{
         subitems: { type: Array<NavigationItem>, required: true }
     }
