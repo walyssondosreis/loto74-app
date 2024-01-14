@@ -67,8 +67,8 @@
                                     :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Configurações</a>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sair</a>
+                                <Link href="/logout"
+                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sair</Link>
                                 </MenuItem>
                             </MenuItems>
                         </transition>
@@ -93,6 +93,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import SubMenu from './SubMenu.vue';
 import { NavigationItem } from '../interfaces/INavigationItem';
+import { Link } from '@inertiajs/vue3';
 
 const navigation: NavigationItem[] = [
     { name: 'Inicio', href: '#', current: false },
@@ -141,6 +142,7 @@ export default {
         BellIcon,
         XMarkIcon,
         SubMenu,
+        Link,
     },
     data() {
         return {

@@ -15,20 +15,25 @@
     "file": "assets/barcade-23903f95.ttf",
     "src": "public/fonts/barcade.ttf"
   },
+  "public/images/logo-loto/logo-loto-0.png": {
+    "file": "assets/logo-loto-0-414ec7d5.png",
+    "src": "public/images/logo-loto/logo-loto-0.png"
+  },
   "public/images/pika.jpg": {
     "file": "assets/pika-071070ef.jpg",
     "src": "public/images/pika.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-db406c67.css",
+    "file": "assets/app-56595d4a.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/pika-071070ef.jpg"
+      "assets/pika-071070ef.jpg",
+      "assets/logo-loto-0-414ec7d5.png"
     ],
-    "file": "assets/app-0e15774a.js",
+    "file": "assets/app-3090c199.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

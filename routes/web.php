@@ -1,14 +1,12 @@
 <?php
 
-use App\Http\Controllers\ApostaController;
-use App\Http\Controllers\LotoController;
-use App\Http\Controllers\MegaController;
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\TesteController;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Route;
 use function App\Helpers\limparFiltros;
+use App\Http\Controllers\LotoController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ApostaController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +19,19 @@ use function App\Helpers\limparFiltros;
 |
 */
 
-// Route::get('/',fn()=> Inertia::render('Home',[ 'title' => 'Olá teste']));
+Route::get('/bilhete',fn()=> Inertia::render('Bilhete',[ 'title' => 'Olá teste']));
 // Route::get('/login',fn()=> Inertia::render('Login',[ 'title' => 'Olá teste']));
 
-Route::get('/',[UsuarioController::class,'login'])->name('login');
+Route::get('/',[LoginController::class,'login'])->name('login');
+
+
+// Login Controller
+Route::get('/login',[LoginController::class,'login'])->name('login');
+Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+Route::post('/logar',[LoginController::class,'logar'])->name('logar');
 
 // Usuário Controller
-Route::get('/login',[UsuarioController::class,'login'])->name('login');
 Route::get('/criarusuario',[UsuarioController::class,'criar_usuario']);
-Route::post('/logar',[UsuarioController::class,'logar'])->name('logar');
-Route::get('/logout',[UsuarioController::class,'deslogar'])->name('deslogar');
-
 
 Route::get('/cargateste',[LotoController::class,'cargateste']);
 Route::middleware('auth')->group(function(){

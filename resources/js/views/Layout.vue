@@ -1,6 +1,12 @@
 <template>
+<div>
+
     <Navbar/>
-    <h1>Minha tela inicial</h1>
+    <slot>
+
+    </slot>
+    <Footer/>
+</div>
 
 </template>
 
@@ -9,10 +15,13 @@
 
 import { defineComponent } from 'vue';
 import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 
 export default defineComponent({
-    name: 'Inicio',
-    components: { Navbar }
-});
+    components:{
+        Navbar,
+        Footer
+    }
+})
 
 </script>
