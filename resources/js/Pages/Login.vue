@@ -1,6 +1,6 @@
 <template>
-    <div class="flex justify-center items-center bg-gradient-to-l from-gray-900 to-roxo-escuro h-full">
-        <main class="flex px-6 drop-shadow-2xl lg:W-3/4 select-none">
+    <main class="flex justify-center items-center bg-gradient-to-l from-gray-900 to-roxo-escuro h-screen">
+        <div class="flex px-6 drop-shadow-2xl lg:W-3/4 select-none">
             <section class="w-1/2 hidden lg:block rounded-full bg-roxo-claro rounded-r-none ">
 
                 <img class="m-auto animate-balanco pointer-events-none"
@@ -14,11 +14,13 @@
                     <div class="mb-2">
                         <label class="form-label" for="email">E-mail:</label>
                         <input v-model="form.email" class="form-input" type="text" id="email" placeholder="Digite seu e-mail" name="email">
-                        <span class="text-red-500" v-if="errors.email">{{  erros.email }}</span>
+                        <span class="flex text-red-500" v-if="form.errors.email">{{  form.errors.email }}</span>
+
                     </div>
                     <div class="mb-5">
                         <label class="form-label" for="password">Senha:</label>
                         <input v-model="form.password" class="form-input" type="text" id="password" placeholder="Digite sua senha" name="password">
+                        <span class="flex text-red-500" v-if="form.errors.password">{{  form.errors.password }}</span>
                     </div>
                     <div class="text-sm font-bold ">
                         <button
@@ -27,8 +29,8 @@
                     </div>
                 </form>
             </section>
-        </main>
-    </div>
+        </div>
+    </main>
 </template>
 
 

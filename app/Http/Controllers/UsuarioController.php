@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
+use function Termwind\render;
+
 class UsuarioController extends Controller
 {
     //
     public function login()
     {
         if (Auth::check()) {
-            return redirect()->route('loto');
+            return Inertia::render('Home');
         }
 
         // return view('login');
@@ -33,10 +35,16 @@ class UsuarioController extends Controller
     public function logar(Request $request)
     {
 
+        $mensagensPersonalizadas = [
+            'email.required' => 'O campo de e-mail é obrigatório.',
+            'email.email' => 'Por favor, insira um endereço de e-mail válido.',
+            'password.required' => 'A senha é obrigatória.',
+        ];
+
         $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
-        ]);
+        ],$mensagensPersonalizadas);
         // dd($request->toArray());
 
 
@@ -45,7 +53,8 @@ class UsuarioController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $senha], false)) {
 
-            return redirect()->route('loto')->with('mensagem', 'Bem Vindo de volta!');
+            // return redirect()->route('loto')->with('mensagem', 'Bem Vindo de volta!');
+            return Inertia::render('Home',['mensagem'=>'Bem Vindo de volta']);
         }
 
 
@@ -55,6 +64,6 @@ class UsuarioController extends Controller
     public function deslogar()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return Inertia::render('login');
     }
 }
