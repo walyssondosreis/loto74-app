@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LotoRequest;
-use App\Models\Concurso;
 use App\Models\Jogo;
-use App\Models\Numero;
 use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Numero;
+use App\Models\Concurso;
 use App\Services\LotoService;
+use App\Http\Requests\LotoRequest;
 use Illuminate\Support\Facades\Auth;
 
 class LotoController extends Controller
@@ -17,6 +18,7 @@ class LotoController extends Controller
      */
     public function index(LotoRequest $request)
     {
+
 
         // $a = Concurso::with('resultado.numero')->find(2808);
         // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
@@ -35,7 +37,7 @@ class LotoController extends Controller
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->orderBy('concursos.id', 'desc');
-        // ->where('concursos.id', '=', '2500');
+        // ->where('concursos.id', '=', '205');
         // ->where('concursos.id','<=','2599')
         // ->get();
         $filtros = [];
@@ -141,8 +143,9 @@ class LotoController extends Controller
             'filtros' => $filtros,
             'nomeFiltro' => 'inputLoto',
         ];
-
-        return view('loto', $toView);
+        // var_dump($concursos->toArray());
+        // return view('loto', $toView);
+        return Inertia::render('Home',$toView);
     }
     public function atualizarBase(LotoRequest $request)
     {

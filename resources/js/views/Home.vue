@@ -9,9 +9,9 @@
                 </div>
                 <!-- Are de Bilhetes -->
                 <div class="flex-col w-full border border-roxo-light rounded p-4 mt-4">
-                    <div class="flex flex-wrap justify-center">
+                    <div class="flex flex-wrap justify-center gap-2">
                         <!-- Componente de bilhetes  -->
-                        <Bilhete titulo="Concurso" :sequencia="[3,3,3,3,3]" :numeros="[2,5,20,15,16,18,10,24,25]"/>
+                        <Bilhete v-for="(idx,cc) in concursos"  data="15/01/2024" titulo="Concurso 2577" :sequencia="[3,3,3,3,3]" :numeros="[2,5,20,15,16,18,10,24,25]"/>
                     </div>
 
                     <div class="flex justify-center pt-4 ">
@@ -40,7 +40,13 @@ import Bilhete from '../components/Bilhete.vue';
 
 export default defineComponent({
     name: 'Home',
-    components: { Layout, FormularioBusca, Analisador, Bilhete }
+    components: { Layout, FormularioBusca, Analisador, Bilhete },
+    props: {
+        concursos: {type: Array}
+    },
+    mounted(){
+        console.log(this.concursos);
+    }
 });
 
 </script>

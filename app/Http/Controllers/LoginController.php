@@ -39,8 +39,8 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $senha], false)) {
 
-            // return redirect()->route('loto')->with('mensagem', 'Bem Vindo de volta!');
-            return Inertia::render('Home',['mensagem'=>'Bem Vindo de volta']);
+            return redirect()->route('loto')->with('mensagem', 'Bem Vindo de volta!');
+            // return Inertia::render('Home',['mensagem'=>'Bem Vindo de volta']);
         }
 
 
@@ -50,6 +50,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return Inertia::render('login');
+        return redirect()->route('login');
+        // return Inertia::render('login');
     }
 }
