@@ -8,10 +8,10 @@
                     <Analisador/>
                 </div>
                 <!-- Are de Bilhetes -->
-                <div class="flex-col w-full border-2 border-roxo-light rounded-lg p-4 mt-4">
+                <div class="flex-col w-full border border-roxo-light rounded p-4 mt-4">
                     <div class="flex flex-wrap justify-center">
                         <!-- Componente de bilhetes  -->
-                        <Bilhete/>
+                        <Bilhete titulo="Concurso" :sequencia="[3,3,3,3,3]" :numeros="[2,5,20,15,16,18,10,24,25]"/>
                     </div>
 
                     <div class="flex justify-center pt-4 ">

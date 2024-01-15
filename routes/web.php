@@ -19,7 +19,7 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
-Route::get('/bilhete',fn()=> Inertia::render('Bilhete',[ 'title' => 'Olá teste']));
+// Route::get('/bilhete',fn()=> Inertia::render('Bilhete',[ 'title' => 'Olá teste']));
 // Route::get('/login',fn()=> Inertia::render('Login',[ 'title' => 'Olá teste']));
 
 Route::get('/',[LoginController::class,'login'])->name('login');
