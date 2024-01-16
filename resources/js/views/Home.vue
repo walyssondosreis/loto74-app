@@ -11,7 +11,10 @@
                 <div class="flex-col w-full border border-roxo-light rounded p-4 mt-4">
                     <div class="flex flex-wrap justify-center gap-2">
                         <!-- Componente de bilhetes  -->
-                        <Bilhete v-for="(idx,cc) in concursos"  data="15/01/2024" titulo="Concurso 2577" :sequencia="[3,3,3,3,3]" :numeros="[2,5,20,15,16,18,10,24,25]"/>
+                        <div v-for="(cc,idx) in concursos.data" :key="idx" >
+                            {{ cc.resultado.numero.numeros.split(',') }}
+                            <Bilhete   :data="cc.data_apuracao" :titulo="'Concurso '+cc.id" :sequencia="cc.resultado.numero.sequencia.split(',')" :numeros="cc.resultado.numero.numeros.split(',')"/>
+                        </div>
                     </div>
 
                     <div class="flex justify-center pt-4 ">
@@ -42,10 +45,12 @@ export default defineComponent({
     name: 'Home',
     components: { Layout, FormularioBusca, Analisador, Bilhete },
     props: {
-        concursos: {type: Array}
+        concursos: {type: Object},
     },
     mounted(){
-        console.log(this.concursos);
+
+        console.log(typeof this.concursos);
+        console.log('AQUI ESTA: ',this.concursos)
     }
 });
 
