@@ -46,7 +46,8 @@ export default defineComponent({
                 email: null,
                 password: null,
                 remember: false
-            })
+            }),
+            botaoEntrar: false
         }
     }
 });

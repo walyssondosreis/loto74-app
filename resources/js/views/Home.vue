@@ -12,13 +12,16 @@
                     <div class="flex flex-wrap justify-center gap-2">
                         <!-- Componente de bilhetes  -->
                         <div v-for="(cc,idx) in concursos.data" :key="idx" >
-                            {{ cc.resultado.numero.numeros.split(',') }}
+                            <!-- {{ cc.resultado.numero.numeros.split(',') }} -->
                             <Bilhete   :data="cc.data_apuracao" :titulo="'Concurso '+cc.id" :sequencia="cc.resultado.numero.sequencia.split(',')" :numeros="cc.resultado.numero.numeros.split(',')"/>
+
                         </div>
                     </div>
 
                     <div class="flex justify-center pt-4 ">
-                        <!-- {{ $concursos->links() }} -->
+                        <!-- <PaginationVue offset="1" total="80" limit="10"/> -->
+                        <Pagination :currentPage="1" :total="100" :limit="5" />
+
                     </div>
 
                 </div>
@@ -38,20 +41,24 @@
 import { defineComponent } from 'vue';
 import Layout from './Layout.vue';
 import FormularioBusca from '@/components/FormularioBusca.vue';
-import Analisador from '../components/Analisador.vue'
+import Analisador from '../components/Analisador.vue';
 import Bilhete from '../components/Bilhete.vue';
+import Pagination from '../components/Pagination.vue';
+
 
 export default defineComponent({
     name: 'Home',
-    components: { Layout, FormularioBusca, Analisador, Bilhete },
+    components: { Layout, FormularioBusca, Analisador, Bilhete, Pagination},
     props: {
         concursos: {type: Object},
+        currentPage: {type: Number}
     },
     mounted(){
 
         console.log(typeof this.concursos);
         console.log('AQUI ESTA: ',this.concursos)
     }
+
 });
 
 </script>

@@ -40,7 +40,7 @@
       },
       methods: {
         verificaNumero(numero: Number){
-            if(this.sequencia && this.numeros.includes(numero)){
+            if(this.sequencia && this.numeros.includes(String(numero))){
                 return true;
             }
             return false;
