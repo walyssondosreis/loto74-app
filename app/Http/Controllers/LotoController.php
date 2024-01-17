@@ -93,7 +93,7 @@ class LotoController extends Controller
             $filtros = $dadosForm;
         }
 
-        $concursos = $concursos->simplePaginate(6);
+        $concursos = $concursos->paginate(6);
         $concursos_completo = $concursos_completo->get();
 
         $sequencias = [];
@@ -145,7 +145,7 @@ class LotoController extends Controller
         ];
         // var_dump($concursos->toArray());
         // return view('loto', $toView);
-        return Inertia::render('Home',$toView);
+        return Inertia::render('Home',compact($toView));
     }
     public function atualizarBase(LotoRequest $request)
     {

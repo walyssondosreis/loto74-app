@@ -20,7 +20,7 @@
 
                     <div class="flex justify-center pt-4 ">
                         <!-- <PaginationVue offset="1" total="80" limit="10"/> -->
-                        <Pagination :currentPage="1" :total="100" :limit="5" />
+                        <Pagination :currentPage="1" :total="3" :limit="5" prevPageUrl="UrlAnterior" nextPageUrl="ProximaUrl"/>
 
                     </div>
 
@@ -36,29 +36,19 @@
 </template>
 
 
-<script lang="ts">
 
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+
+import { ref, defineProps, onMounted } from 'vue';
 import Layout from './Layout.vue';
 import FormularioBusca from '@/components/FormularioBusca.vue';
 import Analisador from '../components/Analisador.vue';
 import Bilhete from '../components/Bilhete.vue';
 import Pagination from '../components/Pagination.vue';
 
+const { concursos, currentPage } = defineProps(['concursos', 'currentPage']);
 
-export default defineComponent({
-    name: 'Home',
-    components: { Layout, FormularioBusca, Analisador, Bilhete, Pagination},
-    props: {
-        concursos: {type: Object},
-        currentPage: {type: Number}
-    },
-    mounted(){
-
-        console.log(typeof this.concursos);
-        console.log('AQUI ESTA: ',this.concursos)
-    }
-
+onMounted(() => {
+    console.log('AQUI ESTA: ', page.props);
 });
-
 </script>
