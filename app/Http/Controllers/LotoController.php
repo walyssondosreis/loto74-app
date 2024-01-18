@@ -145,7 +145,11 @@ class LotoController extends Controller
         ];
         // var_dump($concursos->toArray());
         // return view('loto', $toView);
-        return Inertia::render('Home',compact($toView));
+
+
+
+        // dd($toView['concursos']);
+        return Inertia::render('Home',$toView);
     }
     public function atualizarBase(LotoRequest $request)
     {

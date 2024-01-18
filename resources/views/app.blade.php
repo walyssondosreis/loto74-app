@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="h-full bg-gray-100">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Loto74</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/public/images/favicon.png">
+
+    {{-- Inertia --}}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=smoothscroll,NodeList.prototype.forEach,Promise,Object.values,Object.assign" defer></script>
+
+    {{-- Ping CRM --}}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script>
 
     @vite(['resources/js/app.js', 'resources/css/app.css'])
     @inertiaHead
 </head>
-<body >
+<body class="font-sans leading-none text-gray-700 antialiased">
     @inertia
-    <div id="app"></div>
 </body>
 </html>

@@ -6,7 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.11.6",
+        "@popperjs/core": "^2.11.8",
         "@vitejs/plugin-vue": "^4.5.0",
         "autoprefixer": "^10.4.16",
         "axios": "^1.6.5",
@@ -21,8 +21,9 @@
         "@headlessui/vue": "^1.7.16",
         "@heroicons/vue": "^2.0.18",
         "@inertiajs/vue3": "^1.0.14",
-        "@popperjs/core": "^2.11.8",
         "alpinejs": "^3.13.3",
-        "flowbite-vue": "^0.1.2"
+        "flowbite-vue": "^0.1.2",
+        "lodash": "^4.17.21",
+        "uuid": "^9.0.1"
     }
 }
