@@ -95,7 +95,7 @@ class LotoController extends Controller
 
         $concursos = $concursos->paginate(6);
         $concursos_completo = $concursos_completo->get();
-
+        // dd($concursos);
         $sequencias = [];
         $aux_1 = [];
         $numeros = array_fill(0, 25, 0);

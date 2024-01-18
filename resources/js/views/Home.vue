@@ -20,7 +20,7 @@
 
                     <div class="flex justify-center pt-4 ">
                         <!-- <PaginationVue offset="1" total="80" limit="10"/> -->
-                        <Pagination :currentPage="1" :total="3" :limit="5" prevPageUrl="UrlAnterior" nextPageUrl="ProximaUrl"/>
+                        <Pagination :links="concursos.links" />
 
                     </div>
 
@@ -46,9 +46,7 @@ import Analisador from '../components/Analisador.vue';
 import Bilhete from '../components/Bilhete.vue';
 import Pagination from '../components/Pagination.vue';
 
-const { concursos, currentPage } = defineProps(['concursos', 'currentPage']);
+const { concursos } = defineProps(['concursos']);
 
-onMounted(() => {
-    console.log('AQUI ESTA: ', page.props);
-});
+
 </script>
