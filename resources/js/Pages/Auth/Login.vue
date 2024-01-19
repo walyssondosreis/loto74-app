@@ -13,8 +13,8 @@
                     <!-- @csrf Token CSRF para segurança -->
                     <!-- <h2 class="text-4xl mb-6 font-barcade text-roxo-claro">(loto74)</h2> -->
                     <Logo />
-                    <text-input v-model="form.email" :error="form.errors.email" class="mt-10" label="Email" type="email" autofocus autocapitalize="off" />
-                    <text-input v-model="form.password" :error="form.errors.password" class="mt-6" label="Password" type="password" />
+                    <text-input v-model="form.email" :error="form.errors.email" class="p-2" label="Email" type="email" autofocus autocapitalize="off" />
+                    <text-input v-model="form.password" :error="form.errors.password" class="p-2" label="Password" type="password" />
                     <!-- <div class="mb-2">
                         <label class="text-sm text-gray-700 font-bold mb-1 flex" for="email">E-mail:</label>
                         <input v-model="form.email"
@@ -30,7 +30,7 @@
                             type="text" id="password" placeholder="Digite sua senha" name="password">
                         <span class="flex text-red-500 p-4" v-if="form.errors.password">{{ form.errors.password }}</span>
                     </div> -->
-                    <div class="mb-5">
+                    <div class="flex p-2 mb-5">
                         <label class="flex items-center mt-6 select-none" for="remember">
                             <input id="remember" v-model="form.remember" class="mr-1" type="checkbox" />
                             <span class="text-sm">Lembrar senha</span>

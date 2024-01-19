@@ -49,10 +49,10 @@ class User extends Authenticatable
         return $this->where($field ?? 'id', $value)->withTrashed()->firstOrFail();
     }
 
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
-    }
+    // public function account()
+    // {
+    //     return $this->belongsTo(Account::class);
+    // }
 
     public function getNameAttribute()
     {

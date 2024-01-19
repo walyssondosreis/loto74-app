@@ -69,7 +69,10 @@ Route::post('login', [AuthenticatedSessionController::class, 'store'])
 Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
-
+// Lotofacil
+    Route::get('/', [LotoController::class, 'index'])
+    ->name('loto')
+    ->middleware('auth');
 
 // Users
 
@@ -100,3 +103,5 @@ Route::delete('users/{user}', [UsersController::class, 'destroy'])
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
+
+
