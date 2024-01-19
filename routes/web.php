@@ -24,9 +24,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // Route::get('/bilhete',fn()=> Inertia::render('Bilhete',[ 'title' => 'Olá teste']));
 // Route::get('/login',fn()=> Inertia::render('Login',[ 'title' => 'Olá teste']));
 
-// Route::get('/',function(){
-//     return redirect('login');
-// });
+Route::get('/',function(){
+    return redirect('login');
+});
 
 
 // // Login Controller
