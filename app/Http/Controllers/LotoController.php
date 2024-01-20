@@ -149,7 +149,7 @@ class LotoController extends Controller
 
 
         // dd($toView['concursos']);
-        return Inertia::render('Lotofacil/Index',$toView);
+        return Inertia::render('Lotofacil/Lotofacil',$toView);
     }
     public function atualizarBase(LotoRequest $request)
     {

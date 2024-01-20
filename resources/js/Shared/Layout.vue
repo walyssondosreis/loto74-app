@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="dropdown" />
+        <div id="dropdown"></div>
         <div class="md:flex md:flex-col">
             <div class="md:flex md:flex-col md:h-screen">
                 <div class="md:flex md:flex-shrink-0">
@@ -53,7 +53,7 @@
                     <main-menu class="hidden flex-shrink-0 p-12 w-56 bg-roxo-escuro overflow-y-auto md:block" />
                     <div class="px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto" scroll-region>
                         <flash-messages />
-                        <slot />
+                        <slot/>
                     </div>
                 </div>
             </div>
@@ -61,15 +61,17 @@
     </div>
 </template>
 
-<script>
-import { Link } from '@inertiajs/vue3'
-import Icon from '@/Shared/Icon.vue'
-import Logo from '@/Shared/Logo.vue'
-import Dropdown from '@/Shared/Dropdown.vue'
-import MainMenu from '@/Shared/MainMenu.vue'
-import FlashMessages from '@/Shared/FlashMessages.vue'
+<script lang="ts">
 
-export default {
+import { defineComponent } from 'vue'
+import { Link } from '@inertiajs/vue3'
+import Icon from './Icon.vue'
+import Logo from './Logo.vue'
+import Dropdown from './Dropdown.vue'
+import MainMenu from './MainMenu.vue'
+import FlashMessages from './FlashMessages.vue'
+
+export default defineComponent({
     name: 'Layout',
     components: {
         Dropdown,
@@ -82,5 +84,5 @@ export default {
     props: {
         auth: Object,
     },
-}
+});
 </script>

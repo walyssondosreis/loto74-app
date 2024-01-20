@@ -67,7 +67,7 @@ export default defineComponent({
         return {
             form: this.$inertia.form({
                 email: 'johndoe@example.com',
-                password: 'secret2',
+                password: 'secret',
                 remember: false,
             })
         }

@@ -8,6 +8,7 @@ use App\Models\Aposta;
 use App\Models\Numero;
 use App\Models\Concurso;
 use Exception;
+use Inertia\Inertia;
 
 use function App\Helpers\limparFiltros;
 use function App\Helpers\myHelperFunction;
@@ -189,8 +190,8 @@ class ApostaController extends Controller
             'filtros' => $filtros,
             'nomeFiltro' => 'inputConferidor',
         ];
-
-        return view('conferidor', $toView);
+        return Inertia::render('Lotofacil/Conferidor',$toView);
+        // return view('conferidor', $toView);
         // $aposta = new Aposta();
         // var_dump($numero->registrar());
 

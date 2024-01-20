@@ -74,6 +74,11 @@ Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('loto')
     ->middleware('auth');
 
+    Route::get('/conferidor', [ApostaController::class, 'conferidor'])
+    ->name('conferidor')
+    ->middleware('auth');
+
+
 // Users
 
 Route::get('users', [UsersController::class, 'index'])
