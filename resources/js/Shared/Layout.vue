@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Navbar/>
         <div id="dropdown"></div>
         <div class="md:flex md:flex-col">
             <div class="md:flex md:flex-col md:h-screen">
@@ -58,6 +59,7 @@
                 </div>
             </div>
         </div>
+        <Footer/>
     </div>
 </template>
 
@@ -70,6 +72,8 @@ import Logo from './Logo.vue'
 import Dropdown from './Dropdown.vue'
 import MainMenu from './MainMenu.vue'
 import FlashMessages from './FlashMessages.vue'
+import Navbar from './Navbar.vue'
+import Footer from './Footer.vue'
 
 export default defineComponent({
     name: 'Layout',
@@ -80,6 +84,8 @@ export default defineComponent({
         Link,
         Logo,
         MainMenu,
+        Navbar,
+        Footer
     },
     props: {
         auth: Object,

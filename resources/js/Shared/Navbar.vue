@@ -18,15 +18,44 @@
                     <div class="flex flex-shrink-0 items-center">
                         <span class="font-barcade text-white text-3xl">(loto74)</span>
                     </div>
+
                     <!-- Items do menu -->
                     <div class="hidden sm:ml-6 sm:block">
-                        <div class="flex space-x-4">
-                            <div v-for="(item, idx) in navigation" :key="idx" class="flex relative">
-                                <a :href="item.href" @click="()=>{ item.current = !item.current}"
-                                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']"
-                                    :aria-current="item.current ? 'page' : undefined">{{ item.name }}
+                        <div class="flex space-x-4 justify-center items-center">
+                            <div v-for="(item, idx) in navigation" :key="idx" class="flex">
+                                <!-- Itens SEM Dropdown -->
+                                <a v-if="!item.subitems" :href="item.href"
+                                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']">
+                                    {{ item.name }}
                                 </a>
-                                <SubMenu v-click-outside="()=>{ console.log('teste')}" v-show="item.current" v-if="item.subitems" :subitems="item.subitems"></SubMenu>
+
+                                <!-- Itens COM Dropdown -->
+                                <Menu as="div" class="relative" v-if="item.subitems">
+                                    <MenuButton>
+                                        <span :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']" >
+                                            {{ item.name }}
+                                        </span>
+                                    </MenuButton>
+
+                                    <transition enter-active-class="transition ease-out duration-100"
+                                        enter-from-class="transform opacity-0 scale-95"
+                                        enter-to-class="transform opacity-100 scale-100"
+                                        leave-active-class="transition ease-in duration-75"
+                                        leave-from-class="transform opacity-100 scale-100"
+                                        leave-to-class="transform opacity-0 scale-95">
+                                        <MenuItems
+                                            class="absolute left-0 top-8 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            <MenuItem v-for="(subitem, idxsi) in item.subitems" :key="idxsi"
+                                                v-slot="{ active }">
+                                            <a href="#"
+                                                :class="[active ? 'bg-gray-700 text-white' : 'text-gray-400', 'rounded-md px-3 py-2 block text-sm']">
+                                                {{ subitem.name }}
+                                            </a>
+                                            </MenuItem>
+
+                                        </MenuItems>
+                                    </transition>
+                                </Menu>
                             </div>
                         </div>
                     </div>
@@ -68,7 +97,8 @@
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
                                 <Link href="/logout"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sair</Link>
+                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sair
+                                </Link>
                                 </MenuItem>
                             </MenuItems>
                         </transition>
@@ -89,13 +119,13 @@
 
 <script lang="ts">
 
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import SubMenu from './SubMenu.vue';
-import { NavigationItem } from '../interfaces/INavigationItem';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { Link } from '@inertiajs/vue3';
+import { INavigationItem } from '../Interfaces/INavigationItem';
+import { PropType } from 'vue';
 
-const navigation: NavigationItem[] = [
+const navigationItens: INavigationItem[] = [
     { name: 'Inicio', href: '#', current: false },
 
     {
@@ -130,6 +160,7 @@ const navigation: NavigationItem[] = [
 ];
 
 export default {
+    name: 'Navbar',
     components: {
         Disclosure,
         DisclosureButton,
@@ -141,12 +172,14 @@ export default {
         Bars3Icon,
         BellIcon,
         XMarkIcon,
-        SubMenu,
         Link,
+    },
+    props:{
+        navigation: { type: Array<INavigationItem>, default: navigationItens}
     },
     data() {
         return {
-            navigation,
+            // navigation,
         };
     },
 };

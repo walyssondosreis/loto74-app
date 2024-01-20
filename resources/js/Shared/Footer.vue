@@ -13,6 +13,7 @@ interface datatype {
 }
 
 export default defineComponent({
+    name: 'Footer',
     data(): datatype {
         const data = new Date();
         return {
