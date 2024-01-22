@@ -3,6 +3,13 @@
 
 
     <!-- <FormularioBusca /> -->
+    <button @click="openModal" type="button" class="bg-red-500 rounded-md m-4 text-white p-4" >AbrirModal</button>
+    <ModalForm :isOpen="modalIsOpen" @closeModal="closeModal" />
+
+
+
+
+
     <div class="flex flex-wrap">
         <div class="flex flex-wrap lg:flex-nowrap md:flex-nowrap justify-center p-4">
             <div class="flex-col lg:p-4 md:p-4">
@@ -15,10 +22,7 @@
                     <!-- Componente de bilhetes  -->
                     <div v-for="(cc, idx) in concursos.data" :key="idx">
 
-                        <Bilhete
-                            :data="cc.dataApuracao"
-                            :titulo="'Concurso ' + cc.id"
-                            :sequencia="cc.sequencia"
+                        <Bilhete :data="cc.dataApuracao" :titulo="'Concurso ' + cc.id" :sequencia="cc.sequencia"
                             :numeros="cc.numeros" />
 
                     </div>
@@ -26,7 +30,7 @@
 
                 <div class="flex justify-center pt-4 ">
                     <!-- Componente de paginação aqui -->
-                  <Pagination :links="concursos.links" class="mt-6"/>
+                    <Pagination :links="concursos.links" class="mt-6" />
 
                 </div>
 
@@ -48,6 +52,7 @@ import FormularioBusca from '../../Components/FormularioBusca.vue';
 import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Pagination from '../../Shared/Pagination.vue';
+import ModalForm from '../../Shared/ModalForm.vue';
 
 export default defineComponent({
     name: 'Lotofacil',
@@ -58,18 +63,24 @@ export default defineComponent({
         FormularioBusca,
         Analisador,
         Bilhete,
-        Pagination
+        Pagination,
+        ModalForm
     },
     props: {
         concursos: { type: Object }
     },
     data() {
         return {
-
+            modalIsOpen: false
         };
     },
     methods: {
-
+        openModal() {
+            this.modalIsOpen = true;
+        },
+        closeModal() {
+            this.modalIsOpen = false;
+        }
     },
 });
 </script>

@@ -70,9 +70,16 @@
                     </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <!-- Busca Icone -->
+                    <button type="button"
+                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none ">
+                        <span class="absolute -inset-1.5" />
+                        <span class="sr-only">Modal de busca</span>
+                        <MagnifyingGlassIcon class="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
+                    </button>
                     <!-- Notificações Icone -->
                     <button type="button"
-                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none">
                         <span class="absolute -inset-1.5" />
                         <span class="sr-only">Visualizar Notificações</span>
                         <BellIcon class="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
@@ -128,7 +135,7 @@
 <script lang="ts">
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
+import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { Link } from '@inertiajs/vue3';
 import { INavigationItem } from '../Interfaces/INavigationItem';
 import Logo from './Logo.vue';
@@ -181,6 +188,7 @@ export default {
     BellIcon,
     XMarkIcon,
     ChevronDownIcon,
+    MagnifyingGlassIcon,
     Link,
     Logo
 },

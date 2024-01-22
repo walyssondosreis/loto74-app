@@ -1,9 +1,9 @@
 <template>
 <!-- Card Geral -->
 <div class= "flex-col w-max border-gray-500 border rounded p-2">
-    <div class="flex justify-center pb-4 pt-2">
+    <!-- <div class="flex justify-center pb-4 pt-2">
         <span class="font-medium">A N A L I S A D O R</span>
-    </div>
+    </div> -->
     <!-- Linha -->
     <div v-for="idx_col in 5" :key="idx_col" class="flex items-center border border-gray-500 py-1 gap-1" >
         <!-- Indicador 1 de Linha -->
