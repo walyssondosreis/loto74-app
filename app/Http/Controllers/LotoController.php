@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Jogo;
 use App\Models\User;
 use Inertia\Inertia;
@@ -16,140 +17,121 @@ class LotoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(LotoRequest $request)
+    public function index()
     {
 
-
-        // $a = Concurso::with('resultado.numero')->find(2808);
-        // $concursos = Concurso::with('resultado.numero')->orderBy('id','desc')->simplePaginate(6);
-
-        // Busca concursos completo na tabela com paginação
-        $concursos = Concurso::with('resultado.numero')
-            ->orderBy('concursos.id', 'desc');
-        // ->simplePaginate(3);
-
-        // dd($concursos[0]->toArray());
-        // $concursos = Concurso::paginate(10);
-        // var_dump($concursos[0]->resultado->numero->toArray());
-
-        // Busca completo de concursos
-        $concursos_completo = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+        $concursos = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            ->orderBy('concursos.id', 'desc');
-        // ->where('concursos.id', '=', '205');
-        // ->where('concursos.id','<=','2599')
-        // ->get();
-        $filtros = [];
-
-        if ($request->has('_token') || session('inputLoto')) {
-
-
-            if (session('inputLoto')) {
-                $dadosForm = session('inputLoto');
-            }
-            if ($request->has('_token')) {
-                // $dadosForm = $request->except(['_token','page']);
-                $dadosForm = $request->except(['_token', 'page']);
-                $request->session()->put('inputLoto', $request->except(['_token', 'page']));
-            }
-
-            // Entrada de Concursos Tratamento
-
-            if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
-                $ccn = explode('-', $dadosForm['concursos']);
-                sort($ccn);
-                $concursos->whereBetween('concursos.id', $ccn);
-                $concursos_completo->whereBetween('concursos.id', $ccn);
-            } else if ($dadosForm['concursos']) {
-                $ccn = explode(',', $dadosForm['concursos']);
-                sort($ccn);
-                $concursos->whereIn('concursos.id', $ccn);
-                $concursos_completo->whereIn('concursos.id', $ccn);
-            }
-
-            // Entrada de Sequencias Tratamento
-
-            if ($dadosForm['sequencias']) {
-                $seqs = explode(',', $dadosForm['sequencias']);
-                foreach ($seqs as $ch => $seq) {
-                    $seqs[$ch] = implode(',', str_split($seq));
-                }
-
-                $concursos->whereHas('resultado.numero', function ($query) use ($seqs) {
-                    $query->whereIn('numeros.sequencia', $seqs);
-                });
-                $concursos_completo->whereIn('numeros.sequencia', $seqs);
-            }
-            // Entrada de Data Inicio e Data Fim Tratamento
-            if ($dadosForm['data_ini'] || $dadosForm['data_fim']) {
-
-                $dadosForm['data_ini'] = $dadosForm['data_ini'] ? $dadosForm['data_ini'] : '2003-09-29';
-                $dadosForm['data_fim'] = $dadosForm['data_fim'] ? $dadosForm['data_fim'] : now()->toDateString();
-                $concursos->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
-                $concursos_completo->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
-            }
-            // var_dump($dadosForm);
-            $filtros = $dadosForm;
-        }
-
-        $concursos = $concursos->paginate(6);
-        $concursos_completo = $concursos_completo->get();
+            ->orderBy('concursos.id', 'desc')
+            ->paginate(6)
+            ->withQueryString()
+            ->through(fn ($concurso) => [
+                'id' => $concurso->cc,
+                'dataApuracao' => Carbon::createFromFormat('Y-m-d', $concurso->data_apuracao)->format('d/m/Y'),
+                'numeros' => explode(',',$concurso->numeros) ,
+                'sequencia' => explode(',',$concurso->sequencia) ,
+            ]);
         // dd($concursos);
-        $sequencias = [];
-        $aux_1 = [];
-        $numeros = array_fill(0, 25, 0);
-        $aux_2 = [];
+        return Inertia::render('Lotofacil/Lotofacil',[
+            'concursos'=>$concursos
+        ]);
 
-        foreach ($concursos_completo as $ccc) {
-            if (!in_array($ccc->sequencia, $aux_1)) {
-                array_push($aux_1, $ccc->sequencia);
-                $sequencias[$ccc->sequencia]['sequencia'] = $ccc->sequencia;
-                $sequencias[$ccc->sequencia]['qtd'] = 1;
-            } else {
-                $sequencias[$ccc->sequencia]['qtd'] += 1;
-            }
-            foreach (explode(',', $ccc->numeros) as $n) {
-                $numeros[$n - 1] += 1;
-            }
-        }
-        // dd($numeros);
-        usort($sequencias, function ($a, $b) {
-            return $b['qtd'] - $a['qtd'];
-        });
+        // // Busca concursos completo na tabela com paginação
+        // $concursos = Concurso::with('resultado.numero')
+        //     ->orderBy('concursos.id', 'desc');
 
-        // var_dump($concursos_completo->toArray());exit();
-        // dd($concursos_completo->toArray());
-        // var_dump($a->data_apuracao);
-        // var_dump($concursos);
-        // var_dump($a->resultado->toArray());
-        // var_dump($a->resultado->numero->toArray());
+        //     // Busca completo de concursos
+        // $concursos_completo = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+        //     ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
+        //     ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
+        //     ->orderBy('concursos.id', 'desc');
+        // $filtros = [];
 
-        // foreach($sequencias)
+        // if ($request->has('_token') || session('inputLoto')) {
 
 
-        // SELECT id FROM numeros WHERE  FIND_IN_SET("1", numeros);
-        // var_dump($concursos[0]->toArray());
-        // dd($sequencias);
-        // dd($concursos);
-        // var_dump($numeros);
-        $toView = [
-            'concursos' => $concursos,
-            'sequencias' => $sequencias,
-            'numeros' => $numeros,
-            // Formulário
-            'campos' => ['concursos','sequencias','datas'],
-            'submit' => 'loto',
-            'filtros' => $filtros,
-            'nomeFiltro' => 'inputLoto',
-        ];
-        // var_dump($concursos->toArray());
-        // return view('loto', $toView);
+        //     if (session('inputLoto')) {
+        //         $dadosForm = session('inputLoto');
+        //     }
+        //     if ($request->has('_token')) {
+        //         // $dadosForm = $request->except(['_token','page']);
+        //         $dadosForm = $request->except(['_token', 'page']);
+        //         $request->session()->put('inputLoto', $request->except(['_token', 'page']));
+        //     }
 
+        //     // Entrada de Concursos Tratamento
 
+        //     if (strpos($dadosForm['concursos'], '-') && $dadosForm['concursos']) {
+        //         $ccn = explode('-', $dadosForm['concursos']);
+        //         sort($ccn);
+        //         $concursos->whereBetween('concursos.id', $ccn);
+        //         $concursos_completo->whereBetween('concursos.id', $ccn);
+        //     } else if ($dadosForm['concursos']) {
+        //         $ccn = explode(',', $dadosForm['concursos']);
+        //         sort($ccn);
+        //         $concursos->whereIn('concursos.id', $ccn);
+        //         $concursos_completo->whereIn('concursos.id', $ccn);
+        //     }
 
-        // dd($toView['concursos']);
-        return Inertia::render('Lotofacil/Lotofacil',$toView);
+        //     // Entrada de Sequencias Tratamento
+
+        //     if ($dadosForm['sequencias']) {
+        //         $seqs = explode(',', $dadosForm['sequencias']);
+        //         foreach ($seqs as $ch => $seq) {
+        //             $seqs[$ch] = implode(',', str_split($seq));
+        //         }
+
+        //         $concursos->whereHas('resultado.numero', function ($query) use ($seqs) {
+        //             $query->whereIn('numeros.sequencia', $seqs);
+        //         });
+        //         $concursos_completo->whereIn('numeros.sequencia', $seqs);
+        //     }
+        //     // Entrada de Data Inicio e Data Fim Tratamento
+        //     if ($dadosForm['data_ini'] || $dadosForm['data_fim']) {
+
+        //         $dadosForm['data_ini'] = $dadosForm['data_ini'] ? $dadosForm['data_ini'] : '2003-09-29';
+        //         $dadosForm['data_fim'] = $dadosForm['data_fim'] ? $dadosForm['data_fim'] : now()->toDateString();
+        //         $concursos->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
+        //         $concursos_completo->whereBetween('concursos.data_apuracao', [$dadosForm['data_ini'], $dadosForm['data_fim']]);
+        //     }
+        //     $filtros = $dadosForm;
+        // }
+
+        // $concursos = $concursos->paginate(6);
+        // $concursos_completo = $concursos_completo->get();
+        // $sequencias = [];
+        // $aux_1 = [];
+        // $numeros = array_fill(0, 25, 0);
+        // $aux_2 = [];
+
+        // foreach ($concursos_completo as $ccc) {
+        //     if (!in_array($ccc->sequencia, $aux_1)) {
+        //         array_push($aux_1, $ccc->sequencia);
+        //         $sequencias[$ccc->sequencia]['sequencia'] = $ccc->sequencia;
+        //         $sequencias[$ccc->sequencia]['qtd'] = 1;
+        //     } else {
+        //         $sequencias[$ccc->sequencia]['qtd'] += 1;
+        //     }
+        //     foreach (explode(',', $ccc->numeros) as $n) {
+        //         $numeros[$n - 1] += 1;
+        //     }
+        // }
+        // usort($sequencias, function ($a, $b) {
+        //     return $b['qtd'] - $a['qtd'];
+        // });
+
+        // $toView = [
+        //     'concursos' => $concursos,
+        //     'sequencias' => $sequencias,
+        //     'numeros' => $numeros,
+        //     'campos' => ['concursos','sequencias','datas'],
+        //     'submit' => 'loto',
+        //     'filtros' => $filtros,
+        //     'nomeFiltro' => 'inputLoto',
+        // ];
+
+        // return Inertia::render('Lotofacil/Lotofacil',$toView);
     }
     public function atualizarBase(LotoRequest $request)
     {
@@ -161,9 +143,8 @@ class LotoController extends Controller
         if ($request->get('modo') == 'csv') {
             $update_retorno = $atualizador->carregarDBViaCSV();
         }
-
         return redirect()->route('loto')
-            ->with('mensagem', $update_retorno['mensagem']);
+            ->with($update_retorno['status'], $update_retorno['mensagem']);
     }
 
     public function cargateste(){

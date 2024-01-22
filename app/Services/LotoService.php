@@ -118,7 +118,7 @@ class LotoService
 
         }
         return [
-            'status' => 'sucesso',
+            'status' => 'success',
             'atualizado' => true,
             'mensagem' => 'Base de dados atualizado.',
         ];
@@ -153,13 +153,13 @@ class LotoService
         // dd($ccParaAtualizar);
         if (empty($ccParaAtualizar))
             return [
-                'status' => 'sucesso',
+                'status' => 'success',
                 'atualizado' => true,
                 'mensagem' => 'Base de dados não requer atualização',
             ];
         if (count($ccParaAtualizar) > 30)
             return [
-                'status' => 'aviso',
+                'status' => 'error',
                 'atualizado' => false,
                 'mensagem' => 'Base de dados requer carga manual. Concursos faltantes: '.implode(',',$ccParaAtualizar),
             ];
@@ -191,7 +191,7 @@ class LotoService
             }
         }
         return [
-            'status' => 'sucesso',
+            'status' => 'success',
             'atualizado' => true,
             'mensagem' => 'Base de dados atualizado.',
         ];

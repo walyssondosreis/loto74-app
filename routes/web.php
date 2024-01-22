@@ -38,17 +38,17 @@ Route::get('/',function(){
 // Route::get('/criarusuario',[UsuarioController::class,'criar_usuario']);
 
 // Route::get('/cargateste',[LotoController::class,'cargateste']);
-// Route::middleware('auth')->group(function(){
-//     Route::get('/loto',[LotoController::class,'index'])->name('loto');
+Route::middleware('auth')->group(function(){
+    // Route::get('/loto',[LotoController::class,'index'])->name('loto');
 
-//     Route::get('/loto/limparFiltros/{redirect}/{nomeFiltro}',function($redirect,$nomeFiltro){
-//         return limparFiltros(redirect: $redirect, nomeFiltro: $nomeFiltro);
-//     })->name('limparFiltros');
+    // Route::get('/loto/limparFiltros/{redirect}/{nomeFiltro}',function($redirect,$nomeFiltro){
+    //     return limparFiltros(redirect: $redirect, nomeFiltro: $nomeFiltro);
+    // })->name('limparFiltros');
 
-//     Route::post('/loto',[LotoController::class,'index']);
-//     Route::get('/atualizar',[LotoController::class,'atualizarBase'])->name('atualizar');
+    // Route::post('/loto',[LotoController::class,'index']);
+    Route::get('/atualizar',[LotoController::class,'atualizarBase'])->name('atualizar');
 
-// });
+});
 
 // Route::middleware('auth')->group(function(){
 //     Route::get('/conferidor',[ApostaController::class,'conferidor'])->name('conferidor');

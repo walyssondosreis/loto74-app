@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html class="h-full bg-gray-100">
+<html>
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <link rel="icon" type="image/svg+xml" href="/public/images/favicon.png">
 
     {{-- Inertia --}}
@@ -14,7 +15,7 @@
     @vite(['resources/js/app.js', 'resources/css/app.css'])
     @inertiaHead
 </head>
-<body class="font-sans leading-none text-gray-700 antialiased">
+<body class="font-sans leading-none text-gray-700 antialiased h-screen">
     @inertia
 </body>
 </html>

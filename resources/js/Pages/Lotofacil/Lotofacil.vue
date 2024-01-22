@@ -13,14 +13,20 @@
             <div class="flex-col w-full border border-roxo-light rounded p-4 mt-4">
                 <div class="flex flex-wrap justify-center gap-2">
                     <!-- Componente de bilhetes  -->
-                    <!-- <div v-for="(cc,idx) in concursos" :key="idx">
-                    <Bilhete   :data="cc.data_apuracao" :titulo="'Concurso '+cc.id" :sequencia="cc.resultado.numero.sequencia.split(',')" :numeros="cc.resultado.numero.numeros.split(',')"/>
+                    <div v-for="(cc, idx) in concursos.data" :key="idx">
 
-                </div> -->
+                        <Bilhete
+                            :data="cc.dataApuracao"
+                            :titulo="'Concurso ' + cc.id"
+                            :sequencia="cc.sequencia"
+                            :numeros="cc.numeros" />
+
+                    </div>
                 </div>
 
                 <div class="flex justify-center pt-4 ">
                     <!-- Componente de paginação aqui -->
+                  <Pagination :links="concursos.links" class="mt-6"/>
 
                 </div>
 
@@ -40,7 +46,8 @@ import { Head } from '@inertiajs/vue3';
 import Layout from '../../Shared/Layout.vue';
 import FormularioBusca from '../../Components/FormularioBusca.vue';
 import Analisador from '../../Components/Analisador.vue';
-
+import Bilhete from '../../Components/Bilhete.vue';
+import Pagination from '../../Shared/Pagination.vue';
 
 export default defineComponent({
     name: 'Lotofacil',
@@ -49,7 +56,12 @@ export default defineComponent({
         Layout,
         Head,
         FormularioBusca,
-        Analisador
+        Analisador,
+        Bilhete,
+        Pagination
+    },
+    props: {
+        concursos: { type: Object }
     },
     data() {
         return {

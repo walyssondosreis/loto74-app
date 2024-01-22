@@ -16,7 +16,10 @@
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                     <!-- Logo do sistema -->
                     <div class="flex flex-shrink-0 items-center">
+                        <Link href="/">
                         <span class="font-barcade text-white text-3xl">(loto74)</span>
+                        <!-- <Logo></Logo> -->
+                        </Link>
                     </div>
 
                     <!-- Items do menu -->
@@ -24,17 +27,22 @@
                         <div class="flex space-x-4 justify-center items-center">
                             <div v-for="(item, idx) in navigation" :key="idx" class="flex">
                                 <!-- Itens SEM Dropdown -->
-                                <a v-if="!item.subitems" :href="item.href"
-                                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']">
+                                <Link v-if="!item.subitems" :href="item.href"
+                                    :method="item.method ?? 'get' "
+                                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium flex']">
                                     {{ item.name }}
-                                </a>
+                                </Link>
 
                                 <!-- Itens COM Dropdown -->
                                 <Menu as="div" class="relative" v-if="item.subitems">
                                     <MenuButton>
-                                        <span :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium']" >
-                                            {{ item.name }}
-                                        </span>
+                                        <div :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-md font-medium flex']">
+
+                                            <span>
+                                                {{ item.name }}
+                                            </span>
+                                            <ChevronDownIcon class="ml-2 w-4"/>
+                                        </div>
                                     </MenuButton>
 
                                     <transition enter-active-class="transition ease-out duration-100"
@@ -47,10 +55,11 @@
                                             class="absolute left-0 top-8 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <MenuItem v-for="(subitem, idxsi) in item.subitems" :key="idxsi"
                                                 v-slot="{ active }">
-                                            <a href="#"
+                                            <Link :href="subitem.href"
+                                            :method="subitem.method ?? 'get' "
                                                 :class="[active ? 'bg-gray-700 text-white' : 'text-gray-400', 'rounded-md px-3 py-2 block text-sm']">
-                                                {{ subitem.name }}
-                                            </a>
+                                            {{ subitem.name }}
+                                            </Link>
                                             </MenuItem>
 
                                         </MenuItems>
@@ -68,7 +77,9 @@
                         <span class="sr-only">Visualizar Notificações</span>
                         <BellIcon class="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
                     </button>
-
+                    <div class="sm:flex text-white p-2 hidden">
+                        {{ auth.user.first_name + ' ' + auth.user.last_name }}
+                    </div>
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-3">
                         <div>
@@ -87,16 +98,13 @@
                             <MenuItems
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Meu
-                                    perfil</a>
+                                <Link :href="`/users/${auth.user.id}/edit`"
+                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                Meu perfil
+                                </Link>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Configurações</a>
-                                </MenuItem>
-                                <MenuItem v-slot="{ active }">
-                                <Link href="/logout"
+                                <Link href="/logout" method="delete"
                                     :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sair
                                 </Link>
                                 </MenuItem>
@@ -110,8 +118,8 @@
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href"
-                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
-                    :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
+                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']">
+                    {{ item.name }}</DisclosureButton>
             </div>
         </DisclosurePanel>
     </Disclosure>
@@ -120,21 +128,21 @@
 <script lang="ts">
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
 import { Link } from '@inertiajs/vue3';
 import { INavigationItem } from '../Interfaces/INavigationItem';
-import { PropType } from 'vue';
+import Logo from './Logo.vue';
 
 const navigationItens: INavigationItem[] = [
-    { name: 'Inicio', href: '#', current: false },
+    { name: 'Inicio', href: '/', current: false},
 
     {
         name: 'Atualizar',
         href: '#',
         current: false,
         subitems: [
-            { name: 'Atualizar Online (API)', href: '#', current: false },
-            { name: 'Atualizar Offline (CSV)', href: '#', current: false }
+            { name: 'Atualizar Online (API)', href: '/atualizar?modo=api', current: false },
+            { name: 'Atualizar Offline (CSV)', href: '/atualizar?modo=csv', current: false },
         ]
     },
     {
@@ -144,7 +152,7 @@ const navigationItens: INavigationItem[] = [
         subitems: [
             { name: 'Registrar Aposta', href: '#', current: false },
             { name: 'Conferir Aposta', href: '#', current: false },
-            { name: 'Conferir Números e Jogos', href: '#', current: false },
+            { name: 'Conferir Números e Jogos', href: '/conferidor', current: false },
         ]
     },
     {
@@ -162,20 +170,23 @@ const navigationItens: INavigationItem[] = [
 export default {
     name: 'Navbar',
     components: {
-        Disclosure,
-        DisclosureButton,
-        DisclosurePanel,
-        Menu,
-        MenuButton,
-        MenuItem,
-        MenuItems,
-        Bars3Icon,
-        BellIcon,
-        XMarkIcon,
-        Link,
-    },
-    props:{
-        navigation: { type: Array<INavigationItem>, default: navigationItens}
+    Disclosure,
+    DisclosureButton,
+    DisclosurePanel,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
+    Bars3Icon,
+    BellIcon,
+    XMarkIcon,
+    ChevronDownIcon,
+    Link,
+    Logo
+},
+    props: {
+        navigation: { type: Array<INavigationItem>, default: navigationItens },
+        auth: { type: Object }
     },
     data() {
         return {

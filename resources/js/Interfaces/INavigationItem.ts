@@ -2,6 +2,7 @@
 export interface INavigationItem {
     name: string;
     href: string;
-    current: boolean;
+    method?: string;
+    current?: boolean;
     subitems?: INavigationItem[];
 }
