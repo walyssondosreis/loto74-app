@@ -24,16 +24,16 @@
     "src": "public/images/pika.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-054b3a88.css",
+    "file": "assets/app-af2846f6.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/pika-071070ef.jpg",
-      "assets/logo-loto-0-414ec7d5.png"
+      "assets/logo-loto-0-414ec7d5.png",
+      "assets/pika-071070ef.jpg"
     ],
-    "file": "assets/app-6b54901c.js",
+    "file": "assets/app-b2a6cce6.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
