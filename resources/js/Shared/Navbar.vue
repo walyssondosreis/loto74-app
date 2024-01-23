@@ -72,6 +72,7 @@
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <!-- Busca Icone -->
                     <button type="button"
+                    @click="mostrarModal=true"
                         class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none ">
                         <span class="absolute -inset-1.5" />
                         <span class="sr-only">Modal de busca</span>
@@ -198,6 +199,7 @@ export default {
     },
     data() {
         return {
+            // mostrarModal : false
             // navigation,
         };
     },

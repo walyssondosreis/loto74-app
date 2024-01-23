@@ -2,13 +2,13 @@
 
 <div class="">
 <!-- Filtros de Jogos -->
-<form action="" method="POST">
-    <div class="flex-col justify-center p-4 border border-black rounded-md">
+<form method="post" @submit.prevent="buscarComFiltro" >
+    <div class="flex-col justify-center rounded-sm">
         <!-- Campos do formulario -->
         <div class="flex justify-center w-full gap-2 flex-wrap lg:flex-nowrap">
-            <div class="flex-col w-full">
+            <!-- <div class="flex-col w-full">
                 <TextInput label="Números | Jogos" placeholder="Ex.: 1-2-3-4-5-6-7-8-9-10-11-12-13-14-15 ou 245,456" />
-            </div>
+            </div> -->
             <div class="flex-col w-full">
                 <TextInput label="Concursos" placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209" />
             </div>
@@ -53,7 +53,12 @@ export default defineComponent({
     name: 'FormularioBusca',
     components:{
         TextInput
-    }
+    },
+    methods: {
+        buscarComFiltro(){
+            alert('Ta buscando')
+        }
+    },
 });
 
 </script>

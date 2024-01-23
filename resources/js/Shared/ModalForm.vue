@@ -1,5 +1,4 @@
 <template>
-
     <TransitionRoot appear :show="showModal" as="template">
         <Dialog as="div" @close="$emit('fecharModal')" class="relative z-10">
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
@@ -16,31 +15,24 @@
                             class="w-full max-w-fit transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                             <div class="flex">
                                 <div class="flex justify-start w-full">
-
                                     <DialogTitle as="h3" class="flex text-lg font-medium leading-6 text-gray-900">
-                                        Procurar
+                                        Filtro de busca
                                     </DialogTitle>
                                 </div>
-                                <div class="flex justify-end">
-                                    <XMarkIcon class="w-5"/>
+                                <div class="flex justify-end ">
+                                    <button type="button" @click="$emit('fecharModal')">
+                                        <XMarkIcon class="w-5 hover:text-red-500" />
+                                    </button>
                                 </div>
                             </div>
-                            <div class="mt-2">
+                            <div class="my-4">
                                 <p class="text-sm text-gray-500">
-                                    Faça o filtro de busca avançada
+                                    Filtro para concursos
                                 </p>
                             </div>
-                            <!-- Aqui meu codigo -->
-                            <FormularioBusca/>
-                            <!-- fim do meu codigo -->
 
-                            <div class="mt-4">
-                                <button type="button"
-                                    class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                    @click="$emit('fecharModal')">
-                                    Got it, thanks!
-                                </button>
-                            </div>
+                            <FormularioBusca />
+
                         </DialogPanel>
                     </TransitionChild>
                 </div>
@@ -50,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+
 import {
     TransitionRoot,
     TransitionChild,
@@ -64,13 +56,5 @@ import { XMarkIcon } from '@heroicons/vue/24/outline';
 const props = defineProps(['showModal'])
 const emits = defineEmits(['fecharModal'])
 
-// const isOpen = ref(false)
-
-// function closeModal() {
-//     isOpen.value = false
-// }
-// function openModal() {
-//     isOpen.value = true
-// }
 
 </script>
