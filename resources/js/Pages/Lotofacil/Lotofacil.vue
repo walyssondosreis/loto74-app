@@ -3,11 +3,18 @@
 
 
     <!-- <FormularioBusca /> -->
-    <button @click="openModal" type="button" class="bg-red-500 rounded-md m-4 text-white p-4" >AbrirModal</button>
-    <ModalForm :isOpen="modalIsOpen" @closeModal="closeModal" />
+    <ModalForm />
 
 
-
+    <div class="inset-0 flex items-center justify-center">
+      <button
+        type="button"
+        @click="openModal"
+        class="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+      >
+        Open dialog
+      </button>
+    </div>
 
 
     <div class="flex flex-wrap">
@@ -71,16 +78,11 @@ export default defineComponent({
     },
     data() {
         return {
-            modalIsOpen: false
+
         };
     },
     methods: {
-        openModal() {
-            this.modalIsOpen = true;
-        },
-        closeModal() {
-            this.modalIsOpen = false;
-        }
+
     },
 });
 </script>
