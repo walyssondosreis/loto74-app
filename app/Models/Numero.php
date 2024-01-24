@@ -143,6 +143,23 @@ class Numero extends Model
             }
 
             // $query->where('concursos.id', '=', $concursos);
-        });
+        })
+        ->when($filters['sequencias'] ?? null, function ($query, $sequencias){
+
+            // Entrada de Sequencias Tratamento
+
+                $seqs = explode(',', $sequencias);
+                foreach ($seqs as $ch => $seq) {
+                    $seqs[$ch] = implode(',', str_split($seq));
+                }
+
+                $query->whereHas('resultado.numero', function ($query2) use ($seqs) {
+                    $query2->whereIn('numeros.sequencia', $seqs);
+                });
+                // $concursos_completo->whereIn('numeros.sequencia', $seqs);
+
+
+        })
+        ;
     }
 }
