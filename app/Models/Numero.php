@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class Numero extends Model
 {
     use HasFactory;
-    protected $fillable = ['numeros','sequencia'];
+    protected $fillable = ['numeros', 'sequencia'];
     public $timestamps = false;
 
     public function __construct(String $numeros = null)
     {
-        parent::__construct(['numeros'=>$numeros]);
-        if($numeros){
+        parent::__construct(['numeros' => $numeros]);
+        if ($numeros) {
             $this->validar();
             $this->tratar();
             $this->calcularSequencia();
@@ -39,7 +39,7 @@ class Numero extends Model
         $this->numeros = implode(',', $numerosVetOrdenados);
     }
 
-    public function validar():Void
+    public function validar(): Void
     {
         $numeros = explode(',', $this->numeros);
         $numeros = array_unique($numeros);
@@ -50,32 +50,32 @@ class Numero extends Model
 
         foreach ($numeros as $ns) {
             $ns = trim($ns);
-            if (!is_numeric($ns) || is_float($ns+0) || $ns+0 < 1 || $ns+0> 25) {
+            if (!is_numeric($ns) || is_float($ns + 0) || $ns + 0 < 1 || $ns + 0 > 25) {
                 throw new \InvalidArgumentException('Entrada de numeros não passou na validação. Há caracteres inválidos na sequência passada.');
             }
         }
     }
 
-    public function tratar():Void
+    public function tratar(): Void
     {
         $numeros = explode(',', $this->numeros);
         $numerosTratados = [];
         foreach ($numeros as $ns) {
-            array_push($numerosTratados,intval($ns));
+            array_push($numerosTratados, intval($ns));
         }
         sort($numerosTratados);
-        $this->numeros = implode(',',$numerosTratados);
+        $this->numeros = implode(',', $numerosTratados);
     }
 
-    public function calcularSequencia():Void
+    public function calcularSequencia(): Void
     {
-        $numeros = explode(',',$this->numeros);
+        $numeros = explode(',', $this->numeros);
         $sequencia = [0, 0, 0, 0, 0];
 
         foreach ($numeros as $ns) {
 
             switch ($ns) {
-                case $ns<= 5:
+                case $ns <= 5:
                     $sequencia[0] += 1;
                     break;
                 case $ns > 5 && $ns <= 10:
@@ -92,10 +92,10 @@ class Numero extends Model
                     break;
             }
         }
-        $this->sequencia = implode(',',$sequencia);
+        $this->sequencia = implode(',', $sequencia);
     }
 
-    public function registrar():Array
+    public function registrar(): array
     {
         $existe = $this->where('numeros', $this->numeros)->first();
         if ($existe) {
@@ -117,10 +117,32 @@ class Numero extends Model
         } catch (Exception $e) {
             return [
                 'status' => 'error',
-                'novo_registro'=>false,
-                'id'=>null,
-                'mensagem' => 'Não foi possível registrar numeros no banco de dados.'. $e->getMessage(),
+                'novo_registro' => false,
+                'id' => null,
+                'mensagem' => 'Não foi possível registrar numeros no banco de dados.' . $e->getMessage(),
             ];
         }
+    }
+    public function scopeFilter($query, array $filters)
+    {
+
+
+
+
+        $query->when($filters['concursos'] ?? null, function ($query, $concursos) {
+
+            // Entrada de Concursos Tratamento
+            if (strpos($concursos, '-')) {
+                $ccn = explode('-', $concursos);
+                sort($ccn);
+                $query->whereBetween('concursos.id', $ccn);
+            } else {
+                $ccn = explode(',', $concursos);
+                sort($ccn);
+                $query->whereIn('concursos.id', $ccn);
+            }
+
+            // $query->where('concursos.id', '=', $concursos);
+        });
     }
 }

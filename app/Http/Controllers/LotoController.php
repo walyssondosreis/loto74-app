@@ -21,10 +21,15 @@ class LotoController extends Controller
     public function index()
     {
 
+        $filtros = Request::all();
+
+        // var_dump($filtros);
+
+
         $concursos = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            // ->filter(Request::only('concursos'))
+            ->filter(Request::only('concursos'))
             ->orderBy('concursos.id', 'desc')
             ->paginate(6)
             ->withQueryString()
@@ -36,7 +41,6 @@ class LotoController extends Controller
             ]);
         // dd($concursos);
         // 'filters' => Request::all('search', 'trashed'),
-        $filtros = Request::all('concursos');
 
         // var_dump($filtros);
 
