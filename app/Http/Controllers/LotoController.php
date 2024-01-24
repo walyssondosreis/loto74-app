@@ -11,6 +11,7 @@ use App\Models\Concurso;
 use App\Services\LotoService;
 use App\Http\Requests\LotoRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class LotoController extends Controller
 {
@@ -23,6 +24,7 @@ class LotoController extends Controller
         $concursos = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
+            // ->filter(Request::only('concursos'))
             ->orderBy('concursos.id', 'desc')
             ->paginate(6)
             ->withQueryString()
@@ -33,7 +35,13 @@ class LotoController extends Controller
                 'sequencia' => explode(',',$concurso->sequencia) ,
             ]);
         // dd($concursos);
+        // 'filters' => Request::all('search', 'trashed'),
+        $filtros = Request::all('concursos');
+
+        // var_dump($filtros);
+
         return Inertia::render('Lotofacil/Lotofacil',[
+            'filters'=>$filtros,
             'concursos'=>$concursos
         ]);
 
