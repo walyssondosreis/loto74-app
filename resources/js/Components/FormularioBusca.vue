@@ -10,7 +10,8 @@
             </div> -->
                     <div class="flex-col w-full">
                         <TextInput label="Concurso" v-model="form.concursos"
-                            placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209" />
+                            placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209"
+                            />
                     </div>
 
                     <div class="flex-col w-full">

@@ -129,24 +129,25 @@ class Numero extends Model
 
 
 
-        $query->when($filters['concursos'] ?? null, function ($query, $concursos) {
+        $query
+            ->when($filters['concursos'] ?? null, function ($query, $concursos) {
 
-            // Entrada de Concursos Tratamento
-            if (strpos($concursos, '-')) {
-                $ccn = explode('-', $concursos);
-                sort($ccn);
-                $query->whereBetween('concursos.id', $ccn);
-            } else {
-                $ccn = explode(',', $concursos);
-                sort($ccn);
-                $query->whereIn('concursos.id', $ccn);
-            }
+                // Entrada de Concursos Tratamento
+                if (strpos($concursos, '-')) {
+                    $ccn = explode('-', $concursos);
+                    sort($ccn);
+                    $query->whereBetween('concursos.id', $ccn);
+                } else {
+                    $ccn = explode(',', $concursos);
+                    sort($ccn);
+                    $query->whereIn('concursos.id', $ccn);
+                }
 
-            // $query->where('concursos.id', '=', $concursos);
-        })
-        ->when($filters['sequencias'] ?? null, function ($query, $sequencias){
+                // $query->where('concursos.id', '=', $concursos);
+            })
+            ->when($filters['sequencias'] ?? null, function ($query, $sequencias) {
 
-            // Entrada de Sequencias Tratamento
+                // Entrada de Sequencias Tratamento
 
                 $seqs = explode(',', $sequencias);
                 foreach ($seqs as $ch => $seq) {
@@ -159,7 +160,20 @@ class Numero extends Model
                 // $concursos_completo->whereIn('numeros.sequencia', $seqs);
 
 
-        })
-        ;
+            })
+            ->when($filters['data_ini'] ?? null, function ($query) use ($filters) {
+
+                // Entrada de Data Inicio Tratamento
+
+                $filters['data_fim'] = isset($filters['data_fim']) ? $filters['data_fim'] : now()->toDateString();
+                $query->whereBetween('concursos.data_apuracao', [$filters['data_ini'], $filters['data_fim']]);
+            })
+            ->when($filters['data_fim'] ?? null, function ($query) use ($filters) {
+
+                // Entrada de Data Fim Tratamento
+
+                $filters['data_ini'] = isset($filters['data_ini']) ? $filters['data_ini'] : '2003-09-29';
+                $query->whereBetween('concursos.data_apuracao', [$filters['data_ini'], $filters['data_fim']]);
+            });
     }
 }

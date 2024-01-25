@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { v4 as uuid } from 'uuid'
+import { stringify, v4 as uuid } from 'uuid'
 
 export default {
     name: 'TextInput',
@@ -29,7 +29,7 @@ export default {
         },
         error: String,
         label: String,
-        modelValue: String,
+        modelValue:String,
     },
     emits: ['update:modelValue'],
     methods: {

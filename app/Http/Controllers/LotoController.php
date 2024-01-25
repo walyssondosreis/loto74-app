@@ -29,7 +29,7 @@ class LotoController extends Controller
         $concursos = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            ->filter(Request::only('concursos','sequencias'))
+            ->filter(Request::only('concursos','sequencias','data_ini','data_fim'))
             ->orderBy('concursos.id', 'desc')
             ->paginate(6)
             ->withQueryString()
