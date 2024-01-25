@@ -1,6 +1,6 @@
 <template>
 
-    <h2 class="text-4xl mb-6 font-barcade text-roxo-claro">(loto74)</h2>
+    <span class="text-3xl font-barcade">(loto74)</span>
 
 </template>
 

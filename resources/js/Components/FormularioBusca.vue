@@ -1,3 +1,24 @@
+<script lang="ts" setup>
+
+import pickBy from 'lodash/pickBy';
+import { Link, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import TextInput from '../Shared/TextInput.vue';
+
+const form = ref({
+    concursos: '',
+    sequencias: '',
+    data_ini: '',
+    data_fim: ''
+});
+
+function buscarComFiltro() {
+
+    router.get('/', pickBy(form.value), { preserveState: true })
+}
+
+</script>
+
 <template>
     <div class="">
         <!-- Filtros de Jogos -->
@@ -10,8 +31,7 @@
             </div> -->
                     <div class="flex-col w-full">
                         <TextInput label="Concurso" v-model="form.concursos"
-                            placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209"
-                            />
+                            placeholder="Ex.: 2204 ou 2204,2207,2306,n ou 2204-2209" />
                     </div>
 
                     <div class="flex-col w-full">
@@ -43,38 +63,3 @@
 
     </div>
 </template>
-
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import TextInput from '../Shared/TextInput.vue';
-import pickBy from 'lodash/pickBy';
-import { Link } from '@inertiajs/vue3';
-
-export default defineComponent({
-    name: 'FormularioBusca',
-    components: {
-        TextInput,
-        Link
-    },
-    data() {
-        return {
-            form: {
-                concursos: '',
-                sequencias: '',
-                data_ini: '',
-                data_fim: ''
-            }
-        }
-    },
-
-    methods: {
-        buscarComFiltro() {
-
-            console.log(this.form);
-            this.$inertia.get('/', pickBy(this.form), { preserveState: true })
-        }
-    },
-});
-
-</script>

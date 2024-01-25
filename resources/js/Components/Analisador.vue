@@ -1,4 +1,11 @@
+<script lang="ts" setup>
+
+
+
+</script>
+
 <template>
+
 <!-- Card Geral -->
 <div class= "flex-col w-max border-gray-500 border rounded p-2">
     <!-- <div class="flex justify-center pb-4 pt-2">
@@ -23,24 +30,5 @@
         </div>
     </div>
 </div>
+
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'Analisador',
-  data() {
-    return {
-
-    };
-  },
-  methods: {
-
-  },
-});
-</script>
-
-<style scoped>
-
-</style>

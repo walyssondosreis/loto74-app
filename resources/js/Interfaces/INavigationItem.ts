@@ -1,8 +1,8 @@
 
-export interface INavigationItem {
+export interface NavigationItem {
     name: string;
     href: string;
     method?: string;
     current?: boolean;
-    subitems?: INavigationItem[];
+    subitems?: NavigationItem[];
 }

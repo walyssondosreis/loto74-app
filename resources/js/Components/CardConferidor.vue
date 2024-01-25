@@ -1,3 +1,10 @@
+
+<script lang="ts" setup>
+
+
+
+</script>
+
 <template>
     <div class="flex text-center border-2 border-black rounded-lg p-4 mb-4 flex-wrap lg:flex-nowrap justify-center">
         <div class="flex-col">
@@ -50,20 +57,3 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'CardConferidor',
-    data() {
-        return {
-
-        };
-    },
-    methods: {
-
-    },
-});
-</script>
-
-<style scoped></style>

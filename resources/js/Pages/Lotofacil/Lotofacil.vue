@@ -52,7 +52,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Head } from '@inertiajs/vue3';
-import Layout from '../../Shared/Layout.vue';
+import Layout from '../../Components/Layout.vue';
 import FormularioBusca from '../../Components/FormularioBusca.vue';
 import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';

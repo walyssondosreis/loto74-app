@@ -1,4 +1,4 @@
-export default interface IConcurso{
+export default interface Concurso{
     id: number
     dataApuracao: string
     numeros: Array<Number>
