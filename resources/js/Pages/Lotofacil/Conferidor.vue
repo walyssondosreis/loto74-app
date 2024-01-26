@@ -1,28 +1,15 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+
 import Layout from '../../Components/Layout.vue';
 import { Head } from '@inertiajs/vue3';
 import CardConferidor from '../../Components/CardConferidor.vue';
 
-
-export default defineComponent({
-  name: 'Conferidor',
-  layout: Layout,
-  components:{
-    Layout,
-    Head,
-    CardConferidor
-  },
-  data() {
-    return {
-
-    };
-  },
-  methods: {
-
-  },
+defineOptions({
+    name: 'Conferidor',
+    layout: Layout
 });
 </script>
+
 
 <template>
 
@@ -41,7 +28,7 @@ export default defineComponent({
 
             </div>
 
-            <div class="hidden flex justify-center bg-gray-300 w-full p-4">
+            <div class="hidden sm:flex justify-center bg-gray-300 w-full p-4">
 
                 <div class="flex-col w-60 p-4 justify-center">
                     <span class="flex justify-center italic">:/ Nada para Exibir <br> Veja este elefante!</span>

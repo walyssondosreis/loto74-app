@@ -1,10 +1,28 @@
+<script lang="ts" setup>
+
+import { Head } from '@inertiajs/vue3';
+import Layout from '../../Components/Layout.vue';
+import Analisador from '../../Components/Analisador.vue';
+import Bilhete from '../../Components/Bilhete.vue';
+import Pagination from '../../Shared/Pagination.vue';
+import ModalForm from '../../Shared/ModalForm.vue';
+import { ref } from 'vue';
+
+defineOptions({ layout: Layout });
+
+defineProps({
+    concursos: { type: Object }
+});
+
+const mostrarModal = ref(false);
+
+</script>
+
+
 <template>
     <Head title="Lotofacil" />
 
-
     <!-- <FormularioBusca /> -->
-
-
 
     <div class="inset-0 flex items-center justify-center">
         <button type="button" @click="mostrarModal = true"
@@ -48,42 +66,3 @@
 
     <!-- <span class="bg-red-400" v-if="$page.props.mensagem" >{{ $page.props.mensagem }}</span> -->
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { Head } from '@inertiajs/vue3';
-import Layout from '../../Components/Layout.vue';
-import FormularioBusca from '../../Components/FormularioBusca.vue';
-import Analisador from '../../Components/Analisador.vue';
-import Bilhete from '../../Components/Bilhete.vue';
-import Pagination from '../../Shared/Pagination.vue';
-import ModalForm from '../../Shared/ModalForm.vue';
-
-export default defineComponent({
-    name: 'Lotofacil',
-    layout: Layout,
-    components: {
-        Layout,
-        Head,
-        FormularioBusca,
-        Analisador,
-        Bilhete,
-        Pagination,
-        ModalForm
-    },
-    props: {
-        concursos: { type: Object },
-        // mostrarModal: {type: Boolean, default:false}
-    },
-    data() {
-        return {
-            mostrarModal: false
-        };
-    },
-    methods: {
-
-    },
-});
-</script>
-
-<style scoped></style>
