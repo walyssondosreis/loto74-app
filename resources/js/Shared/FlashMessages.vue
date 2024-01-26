@@ -4,15 +4,16 @@ import { ref, watch } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
 const show =  ref(true);
-const $page = usePage();
+usePage();
 
-watch(
-  () => $page.props.flash,
-  () => {
-    show.value = true;
-  },
-  { deep: true }
-);
+// watch(
+//   () => page.props.flash,
+//   () => {
+//     show.value = true;
+//     console.log('Chamou o Watch no Segundo parametro');
+//   },
+//   { deep: true }
+// );
 
 </script>
 
@@ -42,21 +43,3 @@ watch(
     </div>
   </div>
 </template>
-
-<!-- <script>
-export default {
-  data() {
-    return {
-      show: true,
-    }
-  },
-  watch: {
-    '$page.props.flash': {
-      handler() {
-        this.show = true
-      },
-      deep: true,
-    },
-  },
-}
-</script> -->

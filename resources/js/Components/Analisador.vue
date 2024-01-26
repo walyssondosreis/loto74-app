@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 
-
+const props = defineProps({
+    numeros: {type: Array<String>}
+})
 
 </script>
 
@@ -15,14 +17,14 @@
     <div v-for="idx_col in 5" :key="idx_col" class="flex items-center border border-gray-500 py-1 gap-1" >
         <!-- Indicador 1 de Linha -->
         <div class="flex p-1">
-            <span class="flex text-xs writing-mode-vertical-left">100%</span>
+            <span class="flex text-xs writing-mode-vertical-left">{{ }} %</span>
         </div>
         <!-- Grupo de Numero -->
         <div v-for="idx_ln in 5" :key="idx_ln" class="flex-col border border-gray-500 p-1 rounded-md" >
             <span class="flex text-xs justify-center
              ">100%</span>
             <span class="flex justify-center border border-gray-500 rounded-full w-10 h-10 items-center" >{{ (idx_col - 1) * 5 + idx_ln }}</span>
-            <span class="flex text-xs justify-center">1000</span>
+            <span class="flex text-xs justify-center">{{ numeros[(idx_col - 1) * 5 + idx_ln] }}</span>
         </div>
         <!-- Indicardor 2 de Linha -->
         <div class="flex p-1" >

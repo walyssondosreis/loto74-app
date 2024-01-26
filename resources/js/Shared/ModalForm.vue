@@ -1,3 +1,21 @@
+<script lang="ts" setup>
+
+import {
+    TransitionRoot,
+    TransitionChild,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+} from '@headlessui/vue';
+import FormularioBusca from '../Components/FormularioBusca.vue';
+import { XMarkIcon } from '@heroicons/vue/24/outline';
+
+defineProps(['showModal']);
+defineEmits(['fecharModal']);
+
+
+</script>
+
 <template>
     <TransitionRoot appear :show="showModal" as="template">
         <Dialog as="div" @close="$emit('fecharModal')" class="relative z-10">
@@ -41,20 +59,4 @@
     </TransitionRoot>
 </template>
 
-<script setup>
 
-import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-} from '@headlessui/vue';
-import FormularioBusca from '../Components/FormularioBusca.vue';
-import { XMarkIcon } from '@heroicons/vue/24/outline';
-
-const props = defineProps(['showModal'])
-const emits = defineEmits(['fecharModal'])
-
-
-</script>

@@ -26,27 +26,59 @@ class LotoController extends Controller
         // var_dump($filtros);
 
 
-        $concursos = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+        $concursos_paginados = Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
             ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
-            ->filter(Request::only('concursos','sequencias','data_ini','data_fim'))
+            ->filter(Request::only('concursos', 'sequencias', 'data_ini', 'data_fim'))
             ->orderBy('concursos.id', 'desc')
             ->paginate(6)
             ->withQueryString()
             ->through(fn ($concurso) => [
                 'id' => $concurso->cc,
                 'dataApuracao' => Carbon::createFromFormat('Y-m-d', $concurso->data_apuracao)->format('d/m/Y'),
-                'numeros' => explode(',',$concurso->numeros) ,
-                'sequencia' => explode(',',$concurso->sequencia) ,
+                'numeros' => explode(',', $concurso->numeros),
+                'sequencia' => explode(',', $concurso->sequencia),
             ]);
-        // dd($concursos);
-        // 'filters' => Request::all('search', 'trashed'),
 
-        // var_dump($filtros);
+        $concursos_nao_paginados =  Numero::join('resultados', 'resultados.numero_id', '=', 'numeros.id')
+            ->join('concursos', 'resultados.id', '=', 'concursos.resultado_id')
+            ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
+            ->filter(Request::only('concursos', 'sequencias', 'data_ini', 'data_fim'))
+            ->orderBy('concursos.id', 'desc')
+            ->get();
+        // ->map(fn ($concurso) => [
+        //     'id' => $concurso->cc,
+        //     'dataApuracao' => Carbon::createFromFormat('Y-m-d', $concurso->data_apuracao)->format('d/m/Y'),
+        //     'numeros' => explode(',',$concurso->numeros) ,
+        //     'sequencia' => explode(',',$concurso->sequencia) ,
+        // ]);
 
-        return Inertia::render('Lotofacil/Lotofacil',[
-            'filters'=>$filtros,
-            'concursos'=>$concursos
+        $sequencias = [];
+        $aux_1 = [];
+        $numeros = array_fill(1, 25, 0);
+
+        foreach ($concursos_nao_paginados as $ccc) {
+            if (!in_array($ccc->sequencia, $aux_1)) {
+                array_push($aux_1, $ccc->sequencia);
+                $sequencias[$ccc->sequencia]['sequencia'] = $ccc->sequencia;
+                $sequencias[$ccc->sequencia]['qtd'] = 1;
+            } else {
+                $sequencias[$ccc->sequencia]['qtd'] += 1;
+            }
+            foreach (explode(',', $ccc->numeros) as $n) {
+                $numeros[$n] += 1;
+            }
+        }
+        usort($sequencias, function ($a, $b) {
+            return $b['qtd'] - $a['qtd'];
+        });
+
+
+        return Inertia::render('Lotofacil/Lotofacil', [
+            'filters' => $filtros,
+            'concursos' => $concursos_paginados,
+            'numeros' => $numeros,
+            'sequencias' => $sequencias
         ]);
 
         // // Busca concursos completo na tabela com paginação
@@ -159,13 +191,12 @@ class LotoController extends Controller
             ->with($update_retorno['status'], $update_retorno['mensagem']);
     }
 
-    public function cargateste(){
+    public function cargateste()
+    {
 
 
-        $jogo = new Jogo(['numero_id'=>280]);
+        $jogo = new Jogo(['numero_id' => 280]);
         $jogo->save();
         echo '<br> Jogo criado com sucesso!';
-
-
     }
 }

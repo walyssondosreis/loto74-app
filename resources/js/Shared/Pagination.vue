@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+
+import { Link } from '@inertiajs/vue3'
+
+const props = defineProps({ links: Array})
+
+</script>
+
 <template>
     <div v-if="links.length > 3">
         <div class="flex flex-wrap -mb-1">
@@ -12,17 +20,4 @@
     </div>
 </template>
 
-<script lang="ts">
-import { Link } from '@inertiajs/vue3'
-import { defineComponent } from 'vue';
 
-export default defineComponent({
-    name: 'Pagination',
-    components: {
-        Link,
-    },
-    props: {
-        links: Array,
-    },
-})
-</script>

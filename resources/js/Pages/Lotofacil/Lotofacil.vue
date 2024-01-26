@@ -11,7 +11,8 @@ import { ref } from 'vue';
 defineOptions({ layout: Layout });
 
 defineProps({
-    concursos: { type: Object }
+    concursos: { type: Object },
+    numeros: {type: Object}
 });
 
 const mostrarModal = ref(false);
@@ -37,7 +38,8 @@ const mostrarModal = ref(false);
         <div class="flex flex-wrap lg:flex-nowrap md:flex-nowrap justify-center p-4">
             <div class="flex-col lg:p-4 md:p-4">
                 <!-- Componente analisador de concursos -->
-                <Analisador />
+                {{ numeros }}
+                <Analisador :numeros="numeros" />
             </div>
             <!-- Are de Bilhetes -->
             <div class="flex-col w-full border border-roxo-light rounded p-4 mt-4">
