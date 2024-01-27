@@ -38,7 +38,6 @@ const mostrarModal = ref(false);
         <div class="flex flex-wrap lg:flex-nowrap md:flex-nowrap justify-center p-4">
             <div class="flex-col lg:p-4 md:p-4">
                 <!-- Componente analisador de concursos -->
-                {{ numeros }}
                 <Analisador :numeros="numeros" />
             </div>
             <!-- Are de Bilhetes -->
