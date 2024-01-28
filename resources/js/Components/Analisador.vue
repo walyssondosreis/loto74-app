@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, watchEffect } from 'vue';
+import { onMounted, onUpdated } from 'vue';
 
 
 const props = defineProps({
@@ -38,35 +38,36 @@ function percentual(qtd, total) {
 
 function colorizar() {
     let cardNums = document.querySelectorAll('[id^="cardNum"]');
-    /*
-    Todo 'cardNum'  tem um 'num' e um totalNum
-    */
     let cardLin = document.querySelectorAll('[id^="cardLin"]');
-    /*
-    Todo 'cardLin'  tem um 'totalLin'
-    */
 
+
+    // Colore os cards de números
+    let numColor = [];
+    let aux = [];
+    cardNums.forEach(function (el,idx) {
+        aux.push(el.querySelector('[id^="totalNum"]').innerHTML);
+        if(idx == 4 || idx == 4 || idx == 9|| idx == 14|| idx == 19|| idx == 24){
+            numColor =[...numColor,...corGradiente(aux)];
+            aux = [];
+        }
+    });
+
+    cardNums.forEach(function (el,idx) {
+        el.classList.add(numColor[idx]['background'],numColor[idx]['color'],numColor[idx]['border']);
+    });
 
     // Colore os indicadores de linha
-    let vet = [];
-
+    var vet = [];
     cardLin.forEach(function (el) {
         vet.push(el.querySelector('#totalLin').innerHTML)
     });
-    console.log(vet);
-
 
     var indColor = corGradiente(vet);
-    console.log(indColor);
 
     cardLin.forEach(function (el,idx) {
-        vet.push(el.querySelector('#totalLin').innerHTML)
-        el.style.background = indColor[idx]['background'];
-        el.style.textColor = indColor[idx]['blue'];
+        el.classList.add(indColor[idx]['background'],indColor[idx]['color'],indColor[idx]['border']);
     });
-    // for (let i = 0; i < 5; i++) {
-    //         vet.push($('#cardLin'+i).css('background-color', indColor[i]));
-    // }
+
 }
 
 // Função que recebe vetor calcula cor e retorna vetor de cores
@@ -74,32 +75,39 @@ function corGradiente(valores, tema = null) {
     if (tema == null) {
         var tema = [
             { // 1
-                'background': '#ff0000',
-                'color': 'white',
+                'background': 'bg-red-400',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
             { // 2
-                'background': '#ff7f00',
-                'color': 'black',
+                'background': 'bg-orange-400',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
             { // 3
-                'background': '#ffaa00',
-                'color': 'black',
+                'background': 'bg-orange-300',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
             { // 4
-                'background': '#ffff00',
-                'color': 'black',
+                'background': 'bg-yellow-200',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
             { // 5
-                'background': '#bfdf00',
-                'color': 'black',
+                'background': 'bg-yellow-300',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
             { // 6
-                'background': '#7fbf00',
-                'color': 'black',
+                'background': 'bg-green-300',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
             { // 7
-                'background': '#3f9f00',
-                'color': 'black',
+                'background': 'bg-green-400',
+                'color': 'text-black',
+                'border': 'border-gray-500'
             },
         ];
     }
@@ -126,19 +134,17 @@ function corGradiente(valores, tema = null) {
         else if ((e / total) * 100 >= 0 && (e / total) * 100 < 14.30) coresVal.push(tema[0]);
 
     });
-    // console.log(coresVal);
+
     return coresVal;
 }
 
-watchEffect(() => {
-    colorizar()
-});
-
 onMounted(() => colorizar());
+onUpdated(()=> colorizar())
+
 </script>
 
 <template>
-    {{ corGradiente([1, 2, 10, 15, 20]) }}
+
     <!-- Card Geral -->
     <div class="flex-col w-max border-gray-500 border rounded p-2">
         <!-- <div class="flex justify-center pb-4 pt-2">
@@ -146,19 +152,19 @@ onMounted(() => colorizar());
     </div> -->
         <!-- Linha -->
         <div :id="'cardLin' + idx_lin" v-for="idx_lin in 5" :key="idx_lin"
-            class="flex items-center border border-gray-500 py-1 gap-1">
+            class="flex items-center border py-1 gap-1">
             <!-- Indicador 1 de Linha -->
             <div class="flex p-1">
                 <span class="flex text-xs writing-mode-vertical-left">{{ percentual(total(idx_lin), total()) }} %</span>
             </div>
             <!-- Grupo de Numero -->
             <div :id="'cardNum' + numero(idx_lin, idx_col)" v-for="idx_col in 5" :key="idx_col"
-                class="flex-col border border-gray-500 p-1 rounded-md">
+                class="flex-col border p-1 rounded-md">
                 <span class="flex text-xs justify-center
              ">{{ percentual(numeros[numero(idx_lin, idx_col)], total()) }} %</span>
-                <span id="num" class="flex justify-center border border-gray-500 rounded-full w-10 h-10 items-center">{{
+                <span id="num" class="flex justify-center border rounded-full w-10 h-10 items-center">{{
                     numero(idx_lin, idx_col) }}</span>
-                <span id="totalNum" class="flex text-xs justify-center">{{ numeros[numero(idx_lin, idx_col)] }}</span>
+                <span :id="'totalNum'+numero(idx_lin,idx_col)" class="flex text-xs justify-center">{{ numeros[numero(idx_lin, idx_col)] }}</span>
             </div>
             <!-- Indicardor 2 de Linha -->
             <div class="flex p-1">
