@@ -53,7 +53,14 @@ function colorizar() {
     });
 
     cardNums.forEach(function (el,idx) {
-        el.classList.add(numColor[idx]['background'],numColor[idx]['color'],numColor[idx]['border']);
+        // Remove classes antigas
+        let classes = el.classList;
+        for(let i = 0; i < classes.length; i++){
+            let classe = classes[i];
+            if(classe.startsWith('bg-')) el.classList.remove(classe);
+        }
+        // Adiciona novas classes
+        el.classList.add(numColor[idx]['background']);
     });
 
     // Colore os indicadores de linha
@@ -65,7 +72,14 @@ function colorizar() {
     var indColor = corGradiente(vet);
 
     cardLin.forEach(function (el,idx) {
-        el.classList.add(indColor[idx]['background'],indColor[idx]['color'],indColor[idx]['border']);
+        // Remove classes antigas
+        let classes = el.classList;
+        for(let i = 0; i < classes.length; i++){
+            let classe = classes[i];
+            if(classe.startsWith('bg-')) el.classList.remove(classe);
+        }
+        // Adiciona novas classes
+        el.classList.add(indColor[idx]['background']);
     });
 
 }
@@ -146,7 +160,7 @@ onUpdated(()=> colorizar())
 <template>
 
     <!-- Card Geral -->
-    <div class="flex-col w-max border-gray-500 border rounded p-2">
+    <div class="flex-col w-max border-gray-500 border rounded p-1 bg-white">
         <!-- <div class="flex justify-center pb-4 pt-2">
         <span class="font-medium">A N A L I S A D O R</span>
     </div> -->
@@ -159,10 +173,10 @@ onUpdated(()=> colorizar())
             </div>
             <!-- Grupo de Numero -->
             <div :id="'cardNum' + numero(idx_lin, idx_col)" v-for="idx_col in 5" :key="idx_col"
-                class="flex-col border p-1 rounded-md">
+                class="flex-col border-2 p-1 rounded-md border-white">
                 <span class="flex text-xs justify-center
              ">{{ percentual(numeros[numero(idx_lin, idx_col)], total()) }} %</span>
-                <span id="num" class="flex justify-center border rounded-full w-10 h-10 items-center">{{
+                <span id="num" class="flex justify-center border-2 rounded-full w-10 h-10 items-center border-white bg-roxo-light text-white text-2xl">{{
                     numero(idx_lin, idx_col) }}</span>
                 <span :id="'totalNum'+numero(idx_lin,idx_col)" class="flex text-xs justify-center">{{ numeros[numero(idx_lin, idx_col)] }}</span>
             </div>

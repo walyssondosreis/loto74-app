@@ -27,8 +27,8 @@ const mostrarModal = ref(false);
 
     <div class="inset-0 flex items-center justify-center">
         <button type="button" @click="mostrarModal = true"
-            class="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
-            B U S C A R
+            class="rounded-md rounded-t-none bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+            F I L T R A R
         </button>
     </div>
     <ModalForm v-bind:show-modal="mostrarModal" @fechar-modal="mostrarModal = false" />

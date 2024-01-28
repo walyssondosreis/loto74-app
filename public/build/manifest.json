@@ -24,7 +24,7 @@
     "src": "public/images/pika.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-d4ae8415.css",
+    "file": "assets/app-33a6042d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -33,7 +33,7 @@
       "assets/logo-loto-0-414ec7d5.png",
       "assets/pika-071070ef.jpg"
     ],
-    "file": "assets/app-02dd2954.js",
+    "file": "assets/app-5b39dae1.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
