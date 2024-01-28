@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('concurso_id');
             $table->unsignedBigInteger('jogo_id');
 
-            $table->foreign('concurso_id')->references('id')->on('concursos');
-            $table->foreign('jogo_id')->references('id')->on('jogos');
+            // $table->foreign('concurso_id')->references('id')->on('concursos');
+            // $table->foreign('jogo_id')->references('id')->on('jogos');
         });
     }
 
