@@ -8,7 +8,7 @@ import { ref } from 'vue';
 const form = ref(
         router.form({
         email: 'johndoe@example.com',
-        password: 'secret',
+        password: '',
         remember: false,
     })
 );
