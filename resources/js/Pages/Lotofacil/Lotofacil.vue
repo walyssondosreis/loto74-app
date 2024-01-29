@@ -34,12 +34,48 @@ const mostrarModal = ref(false);
     <ModalForm v-bind:show-modal="mostrarModal" @fechar-modal="mostrarModal = false" />
 
 
-    <div class="flex flex-wrap">
-        <div class="flex flex-wrap lg:flex-nowrap md:flex-nowrap justify-center p-4">
-            <div class="flex-col lg:p-4 md:p-4">
-                <!-- Componente analisador de concursos -->
+    <div class="flex-col">
+        <div class="flex flex-wrap container sm:border border-gray-500 mx-auto lg:p-4 md:p-4 justify-center bg-black">
+            <!-- Componente analisador de concursos -->
+            <div class="flex-col">
+
                 <Analisador :numeros="numeros" />
             </div>
+
+            <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg min-w-96">
+                <div class="flex-col">
+                    <span class="flex mb-4 text-xl font-nexah">Analisador</span>
+                    <ul class="flex-col font-medium ">
+                        <li>O número 10 é o que mais sai</li>
+                        <li>O número 24 é o que menos sai</li>
+                        <li>Existem 2456 concursos sendo analisados</li>
+                        <li>Existem 35 sequências sendo analisadas</li>
+                    </ul>
+                </div>
+                <div class="flex-col">
+                    <span class="flex my-4 text-xl font-nexah">Filtros Aplicados</span>
+                    <ul>
+                        <li>Data Inicio: 10/1/2004</li>
+                        <li>Data Fim: 4/2/2004</li>
+                        <li>Concursos: 3,60,42,56</li>
+                        <li>Sequências: 33333,33243</li>
+                    </ul>
+                </div>
+                <div class="flex-col">
+                    <span class="flex my-4 text-xl font-nexah">Ranking de Sequências</span>
+                    <ul>
+                        <li>33333 é a sequência que mais sai</li>
+                        <li>Foram sorteadas as novas sequências 14354,13566</li>
+                        <li>Este periodo somou para as 10 primeiras sequências de todos os tempos 5 vezes</li>
+                        <li>Este periodo alterou o ranking das 10 primeiras sequência de todos os tempos 2 vezes</li>
+                        <li> A quantidade de sequências do ano é de 20</li>
+                        <li>Foram 23 sequências repetidas em relação ao período</li>
+                        <li>Foram 13 sequências inéditas em relação ao período</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap lg:flex-nowrap md:flex-nowrap justify-center p-4">
             <!-- Are de Bilhetes -->
             <div class="flex-col w-full border border-roxo-light rounded p-4 mt-4">
                 <div class="flex flex-wrap justify-center gap-2">
