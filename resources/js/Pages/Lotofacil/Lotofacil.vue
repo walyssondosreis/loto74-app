@@ -35,7 +35,7 @@ const mostrarModal = ref(false);
 
 
     <div class="flex-col">
-        <div class="flex flex-wrap container sm:border border-gray-500 mx-auto lg:p-4 md:p-4 justify-center bg-black">
+        <div class="flex gap-2 flex-wrap sm:border mx-auto lg:p-4 md:p-4 justify-center">
             <!-- Componente analisador de concursos -->
             <div class="flex-col">
 

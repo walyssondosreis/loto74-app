@@ -21,6 +21,7 @@
         "@heroicons/vue": "^2.0.18",
         "@inertiajs/vue3": "^1.0.14",
         "lodash": "^4.17.21",
+        "pinia": "^2.1.7",
         "uuid": "^9.0.1"
     }
 }

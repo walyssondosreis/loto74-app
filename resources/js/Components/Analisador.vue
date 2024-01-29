@@ -160,7 +160,7 @@ onUpdated(()=> colorizar())
 <template>
 
     <!-- Card Geral -->
-    <div class="flex-col w-max border-gray-500 border rounded p-1 bg-white">
+    <div class="flex-col w-max border-gray-500 border rounded p-1 bg-roxo-escuro">
         <!-- <div class="flex justify-center pb-4 pt-2">
         <span class="font-medium">A N A L I S A D O R</span>
     </div> -->
