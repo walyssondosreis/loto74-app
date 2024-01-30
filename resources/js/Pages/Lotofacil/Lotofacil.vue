@@ -6,7 +6,6 @@ import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Pagination from '../../Shared/Pagination.vue';
 import ModalForm from '../../Shared/ModalForm.vue';
-import { ref } from 'vue';
 
 defineOptions({ layout: Layout });
 
@@ -15,7 +14,6 @@ defineProps({
     numeros: {type: Object}
 });
 
-const mostrarModal = ref(false);
 
 </script>
 
@@ -25,13 +23,7 @@ const mostrarModal = ref(false);
 
     <!-- <FormularioBusca /> -->
 
-    <div class="inset-0 flex items-center justify-center">
-        <button type="button" @click="mostrarModal = true"
-            class="rounded-md rounded-t-none bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
-            F I L T R A R
-        </button>
-    </div>
-    <ModalForm v-bind:show-modal="mostrarModal" @fechar-modal="mostrarModal = false" />
+    <ModalForm />
 
 
     <div class="flex-col">

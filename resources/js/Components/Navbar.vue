@@ -5,7 +5,9 @@ import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon, MagnifyingGlassIcon } 
 import { Link } from '@inertiajs/vue3';
 import { INavigationItem } from '../Interfaces/INavigationItem';
 import Logo from '../Shared/Logo.vue';
+import { useModalStore } from '../Store/ModalStore';
 
+const modalStore = useModalStore();
 
 const props = defineProps({
         navigation: { type: Array<INavigationItem>, default: navigationItens },
@@ -127,7 +129,7 @@ export default {}
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <!-- Busca Icone -->
-                    <button type="button"
+                    <button type="button" @click="modalStore.abrirModal"
                         class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none ">
                         <span class="absolute -inset-1.5" />
                         <span class="sr-only">Modal de busca</span>

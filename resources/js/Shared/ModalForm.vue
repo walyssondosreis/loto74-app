@@ -9,16 +9,15 @@ import {
 } from '@headlessui/vue';
 import FormularioBusca from '../Components/FormularioBusca.vue';
 import { XMarkIcon } from '@heroicons/vue/24/outline';
+import { useModalStore } from '../Store/ModalStore';
 
-defineProps(['showModal']);
-defineEmits(['fecharModal']);
-
+const modalStore = useModalStore();
 
 </script>
 
 <template>
-    <TransitionRoot appear :show="showModal" as="template">
-        <Dialog as="div" @close="$emit('fecharModal')" class="relative z-10">
+    <TransitionRoot appear :show="modalStore.exibirModal" as="template">
+        <Dialog as="div" @close="modalStore.fecharModal" class="relative z-10">
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
                 leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-black/25" />
@@ -38,7 +37,7 @@ defineEmits(['fecharModal']);
                                     </DialogTitle>
                                 </div>
                                 <div class="flex justify-end ">
-                                    <button type="button" @click="$emit('fecharModal')">
+                                    <button type="button" @click="modalStore.fecharModal">
                                         <XMarkIcon class="w-5 hover:text-red-500" />
                                     </button>
                                 </div>
