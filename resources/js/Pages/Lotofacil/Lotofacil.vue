@@ -36,7 +36,7 @@ defineProps({
 
             <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg min-w-96">
                 <div class="flex-col">
-                    <span class="flex mb-4 text-xl font-nexah">Analisador</span>
+                    <span class="flex mb-4 text-xl ">Analisador</span>
                     <ul class="flex-col font-medium ">
                         <li>O número 10 é o que mais sai</li>
                         <li>O número 24 é o que menos sai</li>
@@ -45,7 +45,7 @@ defineProps({
                     </ul>
                 </div>
                 <div class="flex-col">
-                    <span class="flex my-4 text-xl font-nexah">Filtros Aplicados</span>
+                    <span class="flex my-4 text-xl">Filtros Aplicados</span>
                     <ul>
                         <li>Data Inicio: 10/1/2004</li>
                         <li>Data Fim: 4/2/2004</li>
@@ -54,7 +54,7 @@ defineProps({
                     </ul>
                 </div>
                 <div class="flex-col">
-                    <span class="flex my-4 text-xl font-nexah">Ranking de Sequências</span>
+                    <span class="flex my-4 text-xl ">Ranking de Sequências</span>
                     <ul>
                         <li>33333 é a sequência que mais sai</li>
                         <li>Foram sorteadas as novas sequências 14354,13566</li>

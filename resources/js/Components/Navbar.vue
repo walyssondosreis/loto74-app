@@ -22,6 +22,18 @@ const props = defineProps({
 const navigationItens: INavigationItem[] = [
     { name: 'Inicio', href: '/', current: false},
 
+
+    {
+        name: 'Lotofácil',
+        href: '#',
+        current: false,
+        subitems: [
+            { name: 'Registrar Jogos e Apostas', href: '#', current: false },
+            { name: 'Conferir Apostas', href: '#', current: false },
+            { name: 'Conferir Números e Jogos', href: '/conferidor', current: false },
+            { name: 'Acessar base de Jogos', href: '#', current: false },
+        ]
+    },
     {
         name: 'Atualizar',
         href: '#',
@@ -29,25 +41,6 @@ const navigationItens: INavigationItem[] = [
         subitems: [
             { name: 'Atualizar Online (API)', href: '/atualizar?modo=api', current: false },
             { name: 'Atualizar Offline (CSV)', href: '/atualizar?modo=csv', current: false },
-        ]
-    },
-    {
-        name: 'Apostar',
-        href: '#',
-        current: false,
-        subitems: [
-            { name: 'Registrar Aposta', href: '#', current: false },
-            { name: 'Conferir Aposta', href: '#', current: false },
-            { name: 'Conferir Números e Jogos', href: '/conferidor', current: false },
-        ]
-    },
-    {
-        name: 'Jogar',
-        href: '#',
-        current: false,
-        subitems: [
-            { name: 'Criar Jogos', href: '#', current: false },
-            { name: 'Base de Jogos', href: '#', current: false },
         ]
     },
     { name: 'Configurar', href: '#', current: false },

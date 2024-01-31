@@ -2,13 +2,9 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use function App\Helpers\limparFiltros;
 use App\Http\Controllers\LotoController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\ApostaController;
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\AuthSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,58 +20,35 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // Route::get('/bilhete',fn()=> Inertia::render('Bilhete',[ 'title' => 'Olá teste']));
 // Route::get('/login',fn()=> Inertia::render('Login',[ 'title' => 'Olá teste']));
 
-Route::get('/',function(){
+Route::get('/', function () {
     return redirect('login');
 });
 
-
-// // Login Controller
-// Route::get('/login',[LoginController::class,'login'])->name('login');
-// Route::get('/logout',[LoginController::class,'logout'])->name('logout');
-// Route::post('/logar',[LoginController::class,'logar'])->name('logar');
-
-// // Usuário Controller
-// Route::get('/criarusuario',[UsuarioController::class,'criar_usuario']);
-
-// Route::get('/cargateste',[LotoController::class,'cargateste']);
-Route::middleware('auth')->group(function(){
-    // Route::get('/loto',[LotoController::class,'index'])->name('loto');
-
-    // Route::get('/loto/limparFiltros/{redirect}/{nomeFiltro}',function($redirect,$nomeFiltro){
-    //     return limparFiltros(redirect: $redirect, nomeFiltro: $nomeFiltro);
-    // })->name('limparFiltros');
-
-    // Route::post('/loto',[LotoController::class,'index']);
-    Route::get('/atualizar',[LotoController::class,'atualizarBase'])->name('atualizar');
-
-});
-
-// Route::middleware('auth')->group(function(){
-//     Route::get('/conferidor',[ApostaController::class,'conferidor'])->name('conferidor');
-//     Route::post('/conferidor',[ApostaController::class,'conferidor'])->name('conferidor');
-// });
-
-
 // Auth
 
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
+Route::get('login', [AuthSessionController::class, 'create'])
     ->name('login')
     ->middleware('guest');
 
-Route::post('login', [AuthenticatedSessionController::class, 'store'])
+Route::post('login', [AuthSessionController::class, 'store'])
     ->name('login.store')
     ->middleware('guest');
 
-Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
+Route::delete('logout', [AuthSessionController::class, 'destroy'])
     ->name('logout');
 
 // Lotofacil
-    Route::get('/', [LotoController::class, 'index'])
+Route::get('/', [LotoController::class, 'index'])
     ->name('loto')
     ->middleware('auth');
 
-    Route::get('/conferidor', [ApostaController::class, 'conferidor'])
+Route::get('/conferidor', [LotoController::class, 'conferidor'])
     ->name('conferidor')
+    ->middleware('auth');
+
+// Atualizador
+Route::get('/atualizar', [LotoController::class, 'atualizarBase'])
+    ->name('atualizar')
     ->middleware('auth');
 
 
@@ -108,5 +81,3 @@ Route::delete('users/{user}', [UsersController::class, 'destroy'])
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
-
-

@@ -126,9 +126,6 @@ class Numero extends Model
     public function scopeFilter($query, array $filters)
     {
 
-
-
-
         $query
             ->when($filters['concursos'] ?? null, function ($query, $concursos) {
 

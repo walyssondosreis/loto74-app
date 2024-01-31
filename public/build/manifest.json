@@ -1,12 +1,4 @@
 {
-  "public/fonts/Nexa-ExtraLight.ttf": {
-    "file": "assets/Nexa-ExtraLight-d24aa311.ttf",
-    "src": "public/fonts/Nexa-ExtraLight.ttf"
-  },
-  "public/fonts/Nexa-Heavy.ttf": {
-    "file": "assets/Nexa-Heavy-8bd502de.ttf",
-    "src": "public/fonts/Nexa-Heavy.ttf"
-  },
   "public/fonts/barcade-bold.ttf": {
     "file": "assets/barcade-bold-0351726e.ttf",
     "src": "public/fonts/barcade-bold.ttf"
@@ -20,7 +12,7 @@
     "src": "public/images/pika.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-e7996a1d.css",
+    "file": "assets/app-b2523831.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -28,7 +20,7 @@
     "assets": [
       "assets/pika-071070ef.jpg"
     ],
-    "file": "assets/app-392ea7d4.js",
+    "file": "assets/app-3957b365.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
