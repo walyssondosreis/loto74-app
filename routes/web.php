@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AtualizadorController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LotoController;
@@ -42,12 +43,16 @@ Route::get('/', [LotoController::class, 'index'])
     ->name('loto')
     ->middleware('auth');
 
-Route::get('/conferidor', [LotoController::class, 'conferidor'])
-    ->name('conferidor')
+Route::get('/lotofacil/jogar', [LotoController::class, 'jogar'])
+    ->name('lotofacilJogar')
+    ->middleware('auth');
+
+Route::get('/lotofacil/conferir', [LotoController::class, 'conferir'])
+    ->name('lotofacilConferir')
     ->middleware('auth');
 
 // Atualizador
-Route::get('/atualizar', [LotoController::class, 'atualizarBase'])
+Route::get('/atualizar', [AtualizadorController::class, 'index'])
     ->name('atualizar')
     ->middleware('auth');
 

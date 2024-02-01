@@ -32,7 +32,7 @@ class LotoController extends Controller
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->filter(Request::only('concursos', 'sequencias', 'data_ini', 'data_fim'))
             ->orderBy('concursos.id', 'desc')
-            ->paginate(6)
+            ->paginate(1)
             ->withQueryString()
             ->through(fn ($concurso) => [
                 'id' => $concurso->cc,
@@ -179,7 +179,11 @@ class LotoController extends Controller
         // return Inertia::render('Lotofacil/Lotofacil',$toView);
     }
 
-    public function conferidor(LotoRequest $request)
+    public function jogar(){
+        return Inertia::render('Lotofacil/LotofacilJogar');
+    }
+
+    public function conferir(LotoRequest $request)
     {
 
         /*
@@ -361,18 +365,5 @@ class LotoController extends Controller
 
     }
 
-    public function atualizarBase(LotoRequest $request)
-    {
-
-        $atualizador = new LotoService();
-        if ($request->get('modo') == 'api') {
-            $update_retorno = $atualizador->carregarDBViaApi();
-        }
-        if ($request->get('modo') == 'csv') {
-            $update_retorno = $atualizador->carregarDBViaCSV();
-        }
-        return redirect()->route('loto')
-            ->with($update_retorno['status'], $update_retorno['mensagem']);
-    }
 
 }

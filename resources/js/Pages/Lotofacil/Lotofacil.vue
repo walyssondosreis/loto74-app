@@ -5,7 +5,6 @@ import Layout from '../../Components/Layout.vue';
 import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Pagination from '../../Shared/Pagination.vue';
-import ModalForm from '../../Shared/ModalForm.vue';
 
 defineOptions({ layout: Layout });
 
@@ -23,7 +22,6 @@ defineProps({
 
     <!-- <FormularioBusca /> -->
 
-    <ModalForm />
 
 
     <div class="flex-col">

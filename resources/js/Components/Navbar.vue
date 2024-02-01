@@ -28,9 +28,9 @@ const navigationItens: INavigationItem[] = [
         href: '#',
         current: false,
         subitems: [
-            { name: 'Registrar Jogos e Apostas', href: '#', current: false },
+            { name: 'Registrar Jogos e Apostas', href: '/lotofacil/jogar', current: false },
             { name: 'Conferir Apostas', href: '#', current: false },
-            { name: 'Conferir Números e Jogos', href: '/conferidor', current: false },
+            { name: 'Conferir Números e Jogos', href: '/lotofacil/conferir', current: false },
             { name: 'Acessar base de Jogos', href: '#', current: false },
         ]
     },
