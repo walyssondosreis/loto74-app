@@ -6,16 +6,28 @@ import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Pagination from '../../Shared/Pagination.vue';
 import Ranking from '../../Components/Ranking.vue';
-
+import { ref } from 'vue';
 
 defineOptions({ layout: Layout });
 
-defineProps({
+const props = defineProps({
     concursos: { type: Object },
     numeros: {type: Object},
     sequencias: {type: Object}
 });
 
+const sequenciasList = ref(props.sequencias);
+const buscaEmRankingInput = ref('');
+
+function buscaEmRanking(){
+    let sequencias = props.sequencias
+    sequenciasList.value = sequencias.filter(function(e){
+        // console.log(e.sequencia);
+        return e.sequencia == buscaEmRankingInput;
+    });
+    console.log(sequenciasList.value);
+    console.log('Executou função');
+}
 
 </script>
 
@@ -24,7 +36,6 @@ defineProps({
     <Head title="Lotofacil" />
 
     <!-- <FormularioBusca /> -->
-
 
 
     <div class="flex-col">
@@ -37,12 +48,12 @@ defineProps({
             <!-- Card de Ranking -->
             <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg min-w-96 text-center">
                 <div class="flex justify-center">
-                    <Ranking :sequencias="sequencias"/>
+                    <Ranking :sequencias="sequenciasList"/>
                 </div>
                 <!-- Campo de filtro de Sequencia -->
                 <div class="flex justify-center p-4">
 
-                    <input placeholder="Encontrar sequência" class="text-black p-2 rounded-md" type="text">
+                    <input v-model="buscaEmRankingInput" @keyup="buscaEmRanking" placeholder="Encontrar sequência" class="text-black p-2 rounded-md text-sm" type="text">
                 </div>
             </div>
             <!-- Card de Informações -->
