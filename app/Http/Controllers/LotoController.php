@@ -180,7 +180,7 @@ class LotoController extends Controller
     }
 
     public function jogar(){
-        return Inertia::render('Lotofacil/LotofacilJogar');
+        return Inertia::render('Lotofacil/JogarLoto');
     }
 
     public function conferir(LotoRequest $request)
@@ -358,7 +358,7 @@ class LotoController extends Controller
             'filtros' => $filtros,
             'nomeFiltro' => 'inputConferidor',
         ];
-        return Inertia::render('Lotofacil/LotofacilConferidor',$toView);
+        return Inertia::render('Lotofacil/Conferidor',$toView);
         // return view('conferidor', $toView);
         // $aposta = new Aposta();
         // var_dump($numero->registrar());

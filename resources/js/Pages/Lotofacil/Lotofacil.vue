@@ -5,12 +5,15 @@ import Layout from '../../Components/Layout.vue';
 import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Pagination from '../../Shared/Pagination.vue';
+import Ranking from '../../Components/Ranking.vue';
+
 
 defineOptions({ layout: Layout });
 
 defineProps({
     concursos: { type: Object },
-    numeros: {type: Object}
+    numeros: {type: Object},
+    sequencias: {type: Object}
 });
 
 
@@ -31,7 +34,18 @@ defineProps({
 
                 <Analisador :numeros="numeros" />
             </div>
+            <!-- Card de Ranking -->
+            <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg min-w-96 text-center">
+                <div class="flex justify-center">
+                    <Ranking :sequencias="sequencias"/>
+                </div>
+                <!-- Campo de filtro de Sequencia -->
+                <div class="flex justify-center p-4">
 
+                    <input placeholder="Encontrar sequência" class="text-black p-2 rounded-md" type="text">
+                </div>
+            </div>
+            <!-- Card de Informações -->
             <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg min-w-96">
                 <div class="flex-col">
                     <span class="flex mb-4 text-xl ">Analisador</span>
