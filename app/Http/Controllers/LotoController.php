@@ -32,7 +32,7 @@ class LotoController extends Controller
             ->select(['concursos.id as cc', 'data_apuracao', 'numeros', 'sequencia'])
             ->filter(Request::only('concursos', 'sequencias', 'data_ini', 'data_fim'))
             ->orderBy('concursos.id', 'desc')
-            ->paginate(1)
+            ->paginate(6)
             ->withQueryString()
             ->through(fn ($concurso) => [
                 'id' => $concurso->cc,
@@ -73,6 +73,11 @@ class LotoController extends Controller
         usort($sequencias, function ($a, $b) {
             return $b['qtd'] - $a['qtd'];
         });
+
+
+        for($i=0; $i < count($sequencias); $i++){
+            $sequencias[$i]['posicao'] = $i+1;
+        }
 
 
         return Inertia::render('Lotofacil/Lotofacil', [

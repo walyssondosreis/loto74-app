@@ -6,7 +6,7 @@ import Analisador from '../../Components/Analisador.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Pagination from '../../Shared/Pagination.vue';
 import Ranking from '../../Components/Ranking.vue';
-import { ref } from 'vue';
+import { onMounted, onUpdated,watchEffect, ref, watch } from 'vue';
 
 defineOptions({ layout: Layout });
 
@@ -19,11 +19,19 @@ const props = defineProps({
 const sequenciasList = ref(props.sequencias);
 const buscaEmRankingInput = ref('');
 
+function comparaParteDaString(stringOriginal, parteComparada) {
+    const escapedPart = parteComparada.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escapedPart, 'i');
+    return regex.test(stringOriginal);
+}
+
 function buscaEmRanking() {
     let sequencias = props.sequencias
     if (buscaEmRankingInput.value != '') {
         sequenciasList.value = sequencias.filter(function (e) {
-            return e.sequencia == buscaEmRankingInput.value;
+            let seq = e.sequencia.replace(/,/g,'');
+            // return seq == buscaEmRankingInput.value;
+            return comparaParteDaString(seq,buscaEmRankingInput.value.replace(/,/g,''));
 
         });
     } else {
@@ -31,6 +39,9 @@ function buscaEmRanking() {
     }
 
 }
+
+watch(props,()=>buscaEmRanking());
+
 
 </script>
 
@@ -49,12 +60,12 @@ function buscaEmRanking() {
                 <Analisador :numeros="numeros" />
             </div>
             <!-- Card de Ranking -->
-            <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg min-w-96 text-center">
-                <div class="flex justify-center">
+            <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg h-96 text-center">
+                <div class="flex justify-center bg-red-500 h-full">
                     <Ranking :sequencias="sequenciasList" />
                 </div>
                 <!-- Campo de filtro de Sequencia -->
-                <div class="flex justify-center p-4">
+                <div class="flex justify-center p-2 bg-roxo-claro rounded-md ">
 
                     <input v-model="buscaEmRankingInput" @keyup="buscaEmRanking" placeholder="Encontrar sequência"
                         class="text-black p-2 rounded-md text-sm" type="text">
