@@ -19,7 +19,7 @@ function verificaNumero(numero: String) {
 
 <template>
     <!-- Card Geral Modo SHOW-->
-    <div v-if="modo == 'show'" class="flex-col w-max border-gray-500 border rounded p-4 bg-roxo-escuro">
+    <div v-if="modo == 'show'" class="flex-col w-max border-gray-500 border rounded p-4 bg-roxo-escuro h-fit">
         <!-- Informações do Bilhete -->
         <div class="flex-col justify-center text-white bg-black rounded-xl border border-gray-300 mb-2">
             <span class="flex font-medium justify-center text-xl p-2 uppercase tracking-widest pb-0">{{ data }}</span>
@@ -44,7 +44,7 @@ function verificaNumero(numero: String) {
     </div>
 
     <!-- Card Geral Modo EDIT -->
-    <div v-if="modo == 'edit'" class="flex-col w-max border-gray-500 border rounded p-4 bg-roxo-escuro">
+    <div v-if="modo == 'edit'" class="flex-col w-max border-gray-500 border rounded p-4 bg-roxo-escuro h-fit">
         <!-- Informações do Bilhete -->
         <div class="flex-col justify-center text-white bg-black rounded-xl border border-gray-300 mb-2">
             <span class="flex font-medium justify-center text-xl p-2 uppercase tracking-widest pb-0">{{ data }}</span>

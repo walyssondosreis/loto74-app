@@ -7,6 +7,12 @@ export default {
     ],
     theme: {
         extend: {
+            height: {
+                'bilhete':'32rem'
+            },
+            maxHeight: {
+                'bilhete':'32rem'
+            },
             colors: {
                 roxo: {
                     claro: '#6b4866',

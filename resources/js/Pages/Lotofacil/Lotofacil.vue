@@ -60,8 +60,8 @@ watch(props,()=>buscaEmRanking());
                 <Analisador :numeros="numeros" />
             </div>
             <!-- Card de Ranking -->
-            <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg h-96 text-center">
-                <div class="flex justify-center bg-red-500 h-full">
+            <div class="flex-col p-4 bg-roxo-escuro text-white border border-gray-500 rounded-r-lg text-center">
+                <div class="flex justify-center bg-red-500">
                     <Ranking :sequencias="sequenciasList" />
                 </div>
                 <!-- Campo de filtro de Sequencia -->
