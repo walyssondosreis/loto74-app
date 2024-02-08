@@ -10,12 +10,12 @@ const numeros = ref([
 <template>
     <div class="flex-col">
         <!-- Área de Inclusão -->
-        <div class="flex-col border border-gray-500 p-4 space-y-3 overflow-y-auto custom-scrollbar h-bilhete">
+        <div class="flex-col border border-gray-500 border-b-0 p-4 space-y-3 overflow-y-auto custom-scrollbar h-bilhete bg-roxo-escuro">
             <!-- Área de Item Jogo -->
-            <div v-for="(item, idx) in 100" :key="idx" class="flex border border-gray-500 rounded-md">
+            <div v-for="(item, idx) in 100" :key="idx" class="flex border border-gray-500 rounded-md bg-white">
                 <!-- Indicador de Quantidade de Números -->
                 <div class="flex items-center">
-                    <span class="flex  border border-gray-500 border-l-0 px-1 text-xs">15</span>
+                    <span class="flex  border border-gray-500 border-l-0 px-1 text-xs bg-roxo-light">15</span>
                 </div>
                 <!-- Área central de Nome|Jogo|Sequencia -->
                 <div class="flex-col w-full">
@@ -29,7 +29,7 @@ const numeros = ref([
                     </div>
                     <!-- Sequencia do Jogo -->
                     <div class="flex justify-center">
-                        <span class=" border border-gray-500 border-b-0 px-4 text-xs">3 3 3 3</span>
+                        <span class=" border border-gray-500 border-b-0 px-4 text-xs bg-roxo-light">3 3 3 3</span>
                     </div>
 
 
