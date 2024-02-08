@@ -14,7 +14,7 @@ defineOptions({
 
 <div class="flex justify-center">
     <Head title="Jogar"/>
-    <div class="flex container mx-auto p-4 gap-4 max-h-fit">
+    <div class="flex container mx-auto p-4 gap-4">
         <div>
             <Bilhete modo="edit"/>
         </div>
