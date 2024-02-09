@@ -46,14 +46,17 @@ function verificaNumero(numero: String) {
     </div>
 
     <!-- Card Geral Modo EDIT -->
-    <div v-if="modo == 'edit'" class="flex-col  h-fit space-y-4">
-        <div class="flex-col bg-roxo-escuro p-4 border-gray-500 border rounded">
+    <div v-if="modo == 'edit'" class="flex-col  h-fit">
+        <div class="flex-col bg-roxo-escuro p-4 border-gray-500 border rounded-t-md">
 
             <!-- Informações do Bilhete -->
             <div class="flex-col justify-center text-white bg-black rounded-xl border border-gray-300 mb-2">
-                <span class="flex font-medium justify-center text-xl p-2 uppercase tracking-widest pb-0">{{ data }}</span>
-                <span class="flex font-medium justify-center text-xl p-2 uppercase tracking-widest">{{ titulo }}
-                    BILHETAO</span>
+                <!-- Nome do Jogo :: Entrada -->
+                <div class="flex justify-center text-sm p-4">
+
+                    <input type="text" placeholder="*opcional: digite nome do jogo" class="px-2 py-1 tracking-wider uppercase bg-black text-center w-full"/>
+                </div>
+                <!-- Sequencia Calculada -->
                 <div class="flex justify-center gap-2 pb-4">
                     <span v-for="(nseq, idx_seq) in [0, 0, 0, 0, 0]" :key="idx_seq"
                         class="flex border boder-white px-1 rounded-md text-xl justify-center">{{ nseq }}</span>
@@ -72,10 +75,10 @@ function verificaNumero(numero: String) {
 
             </div>
         </div>
-        <div class="flex-col justify-center px-2 bg-gray-500 p-4 space-y-2 rounded-xl">
+        <div class="flex-col justify-center px-2 bg-gray-500 p-4 space-y-2 rounded-b-xl">
             <!-- Input de números -->
             <div class="flex">
-                <input readonly class="w-full px-2 py-1 text-sm" type="text" name="" id="">
+                <input class="w-full px-2 py-1 text-sm" type="text" name="" id="">
             </div>
             <!-- Áre de botões -->
             <div class="flex justify-center text-center gap-2 text-xs px-2 text-white">

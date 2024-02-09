@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { InertiaHead } from '@inertiajs/vue3/types/head';
+import { Head } from '@inertiajs/vue3';
 import Layout from '../../Components/Layout.vue';
 import Bilhete from '../../Components/Bilhete.vue';
 import Carrinho from '../../Components/Carrinho.vue';
@@ -11,17 +11,15 @@ defineOptions({
 </script>
 
 <template>
-
-<div class="flex justify-center">
-    <Head title="Jogar"/>
-    <div class="flex container mx-auto p-4 gap-4">
-        <div>
-            <Bilhete modo="edit"/>
-        </div>
-        <div>
-            <Carrinho/>
+    <Head title="Jogar" />
+    <div class="flex justify-center">
+        <div class="flex justify-center p-4 space-x-4">
+            <div>
+                <Bilhete modo="edit" />
+            </div>
+            <div>
+                <Carrinho />
+            </div>
         </div>
     </div>
-</div>
-
 </template>
