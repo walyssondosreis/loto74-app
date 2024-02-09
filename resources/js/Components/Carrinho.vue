@@ -2,30 +2,40 @@
 import { XCircleIcon, RectangleGroupIcon, CheckCircleIcon, CurrencyDollarIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 
-const numeros = ref([
-    [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-]);
+const jogos = ref({
+
+    'jogo teste1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+);
+function calcSeq(jogo: Array<Number>){
+    let seq = [0,0,0,0,0];
+
+}
 </script>
 
 <template>
     <div class="flex-col">
         <!-- Área de Inclusão -->
-        <div class="flex-col border border-gray-500 border-b-0 p-4 space-y-3 overflow-y-auto custom-scrollbar h-bilhete bg-roxo-escuro">
+        <div
+            class="flex-col border-4 border-roxo-light border-b-0 p-4 space-y-3 overflow-y-auto custom-scrollbar h-bilhete bg-roxo-escuro">
             <!-- Área de Item Jogo -->
-            <div v-for="(item, idx) in 100" :key="idx" class="flex border border-gray-500 rounded-md bg-white">
+            <div v-for="(val, idx) in jogos" :key="idx"
+                class="flex border-2 border-yellow-300 rounded-md bg-roxo-escuro text-white">
                 <!-- Indicador de Quantidade de Números -->
-                <div class="flex items-center">
-                    <span class="flex  border border-gray-500 border-l-0 px-1 text-xs bg-roxo-light">15</span>
+                <div class="flex items-end">
+                    <span
+                        class="flex  border-2 border-yellow-300 border-l-0 border-b-0 p-1 rounded-tr-lg text-xs italic">15</span>
                 </div>
                 <!-- Área central de Nome|Jogo|Sequencia -->
                 <div class="flex-col w-full">
                     <!-- Nome do Jogo -->
-                    <div class="flex justify-center p-1 text-sm">
-                        <span>Nome do jogo</span>
+                    <div class="flex justify-center p-1 text-xs uppercase">
+                        <span>{{ idx }}</span>
                     </div>
                     <!-- Numeros do Jogo -->
-                    <div v-for="(val,idx) in numeros" :key="idx" class="flex px-6 pb-2 justify-center text-sm">
-                        <span>1-2-3-4-5-6-7-8-9-10-11-12-13-14-15</span>
+                    <div class="flex px-6 pb-2 justify-center text-sm">
+
+                        <span>{{ val.toString() }}</span>
                     </div>
                     <!-- Sequencia do Jogo -->
                     <div class="flex justify-center">
@@ -36,7 +46,9 @@ const numeros = ref([
                 </div>
                 <!-- Icone de Remoção do  Jogo -->
                 <div class="flex p-2">
-                    <span class=" w-4"><XMarkIcon/></span>
+                    <span class=" w-4">
+                        <XMarkIcon />
+                    </span>
                 </div>
             </div>
         </div>
@@ -56,28 +68,34 @@ const numeros = ref([
             <!-- Área de Ações do Carrinho -->
             <div class="flex justify-center text-center gap-2 text-xs px-2">
                 <div class="flex border border-gray-500 p-1 rounded-md items-center gap-1 px-2">
-                    <span class="w-5"><XCircleIcon/></span>
+                    <span class="w-5">
+                        <XCircleIcon />
+                    </span>
                     <span>Limpar</span>
                 </div>
                 <div class="flex border border-gray-500 p-1 rounded-md items-center gap-1 px-2">
-                    <span class="w-5"><RectangleGroupIcon/></span>
+                    <span class="w-5">
+                        <RectangleGroupIcon />
+                    </span>
                     <span>Grupo</span>
                 </div>
                 <div class="flex border border-gray-500 p-1 rounded-md items-center gap-1 px-2">
-                    <span class="w-5"><CheckCircleIcon/></span>
+                    <span class="w-5">
+                        <CheckCircleIcon />
+                    </span>
                     <span>Salvar</span>
                 </div>
                 <div class="flex border border-gray-500 p-1 rounded-md items-center gap-1 px-2">
-                    <span class="w-5"><CurrencyDollarIcon/></span>
+                    <span class="w-5">
+                        <CurrencyDollarIcon />
+                    </span>
                     <span>Apostar</span>
-                </div>
             </div>
         </div>
     </div>
-</template>
+</div></template>
 
-<style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 0;  /* Oculta a barra de rolagem lateral */
-}
-</style>
+<style scoped>.custom-scrollbar::-webkit-scrollbar {
+    width: 0;
+    /* Oculta a barra de rolagem lateral */
+}</style>
