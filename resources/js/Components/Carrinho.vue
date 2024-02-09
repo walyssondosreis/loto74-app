@@ -4,7 +4,8 @@ import { ref } from 'vue';
 
 const jogos = ref({
 
-    'jogo teste1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    'jogo teste1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    'jogo teste2': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 }
 );
 function calcSeq(jogo: Array<Number>){
@@ -29,31 +30,31 @@ function calcSeq(jogo: Array<Number>){
                 <!-- Área central de Nome|Jogo|Sequencia -->
                 <div class="flex-col w-full">
                     <!-- Nome do Jogo -->
-                    <div class="flex justify-center p-1 text-xs uppercase">
-                        <span>{{ idx }}</span>
+                    <div class="flex justify-center text-xs uppercase">
+                        <span class="bg-yellow-300 text-roxo-escuro px-4 rounded-b-full mb-2 font-semibold">{{ idx }}</span>
                     </div>
                     <!-- Numeros do Jogo -->
-                    <div class="flex px-6 pb-2 justify-center text-sm">
+                    <div class="flex px-6 pb-2 justify-center text-md">
 
-                        <span>{{ val.toString() }}</span>
+                        <span class="font-semibold">{{ val.toString() }}</span>
                     </div>
                     <!-- Sequencia do Jogo -->
-                    <div class="flex justify-center">
-                        <span class=" border border-gray-500 border-b-0 px-4 text-xs bg-roxo-light">3 3 3 3</span>
+                    <div class="flex justify-center ">
+                        <span class="px-4 text-xs border border-yellow-300 border-b-0 bg-yellow-300 text-roxo-escuro font-semibold rounded-t-full">33333</span>
                     </div>
 
 
                 </div>
                 <!-- Icone de Remoção do  Jogo -->
                 <div class="flex p-2">
-                    <span class=" w-4">
+                    <span class=" w-4 h-4 text-yellow-300">
                         <XMarkIcon />
                     </span>
                 </div>
             </div>
         </div>
         <!-- Área de Totais -->
-        <div class="flex-col space-y-2 border border-gray-500 p-2 text-sm">
+        <div class="flex-col space-y-2 border border-gray-500 bg-roxo-light p-2 text-sm">
             <!-- Área de Informações do Carrinho -->
             <div class="flex w-full text-xs px-2 justify-center">
 
