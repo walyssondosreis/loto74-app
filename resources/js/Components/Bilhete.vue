@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { XCircleIcon, SparklesIcon, ShoppingCartIcon } from '@heroicons/vue/24/outline';
+import { XCircleIcon, SparklesIcon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps({
     modo: { type: String, default: 'show' }, // show | edit
@@ -47,14 +47,14 @@ function verificaNumero(numero: String) {
 
     <!-- Card Geral Modo EDIT -->
     <div v-if="modo == 'edit'" class="flex-col  h-fit">
-        <div class="flex-col bg-roxo-escuro p-4 border-gray-500 border rounded-t-md">
+        <div class="flex-col bg-roxo-escuro p-4 border-gray-500 border rounded-t-lg">
 
             <!-- Informações do Bilhete -->
-            <div class="flex-col justify-center text-white bg-black rounded-xl border border-gray-300 mb-2">
+            <div class="flex-col justify-center text-white bg-roxo-claro rounded-xl border border-gray-300 mb-2">
                 <!-- Nome do Jogo :: Entrada -->
                 <div class="flex justify-center text-sm p-4">
 
-                    <input type="text" placeholder="*opcional: digite nome do jogo" class="px-2 py-1 tracking-wider uppercase bg-black text-center w-full"/>
+                    <input type="text" placeholder="#minha_aposta" class="px-2 py-1 tracking-wider bg-white text-black text-center w-full" title="Opcional: Digite o nome do jogo"/>
                 </div>
                 <!-- Sequencia Calculada -->
                 <div class="flex justify-center gap-2 pb-4">
@@ -75,30 +75,36 @@ function verificaNumero(numero: String) {
 
             </div>
         </div>
-        <div class="flex-col justify-center px-2 bg-gray-500 p-4 space-y-2 rounded-b-xl">
+        <div class="flex-col justify-center px-2 bg-roxo-claro text-white p-4 space-y-2 rounded-b-xl">
             <!-- Input de números -->
             <div class="flex">
-                <input class="w-full px-2 py-1 text-sm" type="text" name="" id="">
+                <input class="w-full px-2 py-1 text-sm rounded-md border-2 focus:outline-none focus:ring-roxo-claro ring-2 ring-transparent" type="text" placeholder="Marque o bilhete ou digite seu jogo aqui ...">
             </div>
             <!-- Áre de botões -->
-            <div class="flex justify-center text-center gap-2 text-xs px-2 text-white">
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2">
+            <div class="flex justify-center text-center gap-2 text-xs px-2">
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2" title="Limpar Bilhete">
                     <span class="w-5">
-                        <XCircleIcon />
+                        <XMarkIcon />
                     </span>
-                    <span>Limpar</span>
+                    <!-- <span>Limpar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2">
-                    <span class="w-5">
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Completar Jogo">
+                    <span class="w-5 ">
                         <SparklesIcon/>
                     </span>
-                    <span>Completar</span>
+                    <!-- <span>Completar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2">
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2" title="Buscar Jogo">
+                    <span class="w-5">
+                        <MagnifyingGlassIcon/>
+                    </span>
+                    <!-- <span>Procurar</span> -->
+                </div>
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2" title="Adicionar ao Carrinho">
                     <span class="w-5">
                         <ShoppingCartIcon/>
                     </span>
-                    <span>Adicionar</span>
+                    <!-- <span>Adicionar</span> -->
                 </div>
             </div>
 
