@@ -11,7 +11,7 @@ const props = defineProps({
 
 <template>
 
-<div class="flex-col justify-center items-center max-h-bilhete overflow-y-scroll custom-scrollbar bg-gradient-to-b from-roxo-claro to-transparent  w-full">
+<div class="flex-col justify-center items-center max-h-ranking overflow-y-scroll custom-scrollbar bg-gradient-to-b from-roxo-claro to-transparent  w-full">
     <div v-for="(val, idx) in sequencias" :key="idx" class="flex gap-2 border border-white p-1 text-sm" >
         <span>{{ val.posicao }}º</span>
         <span class="w-full">{{ val.sequencia }}</span>

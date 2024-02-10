@@ -13,11 +13,11 @@ defineOptions({
 <template>
     <Head title="Jogar" />
     <div class="flex justify-center">
-        <div class="flex justify-center p-4 space-x-4">
-            <div>
+        <div class="flex flex-wrap justify-center py-4 gap-4">
+            <div class="flex">
                 <Bilhete modo="edit" />
             </div>
-            <div>
+            <div class="flex">
                 <Carrinho />
             </div>
         </div>

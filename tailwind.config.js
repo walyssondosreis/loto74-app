@@ -8,10 +8,10 @@ export default {
     theme: {
         extend: {
             height: {
-                'bilhete':'26.8rem'
+                'bilhete':'29.8rem'
             },
             maxHeight: {
-                'bilhete':'26.8rem'
+                'ranking':'24.5rem'
             },
             colors: {
                 roxo: {

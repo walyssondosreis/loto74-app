@@ -27,7 +27,7 @@ class Aposta extends Model
         if (!empty($numeros)) {
             foreach ($numeros as $num) {
 
-                // Se for do tipo NUMEROS
+                // Se for do tipo NUMEROS: jogo temporário
                 if(get_class($num) === 'App\Models\Numero'){
                     $numArray = explode(',', $num->numeros);
                     $nomeQualificado = '(T'.date('ymdHms').mt_rand(10,99).') @'. Auth::user()->username;
@@ -35,7 +35,7 @@ class Aposta extends Model
 
                 }
 
-                // Se for do tipo JOGO
+                // Se for do tipo JOGO: jogo em base
                 if(get_class($num) === 'App\Models\Jogo'){
                     $numArray = explode(',', $num->numero->numeros);
                     $nomeQualificado = "({$num->id}) @{$num->nome}";

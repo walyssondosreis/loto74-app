@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { XCircleIcon, RectangleGroupIcon, CheckCircleIcon, CurrencyDollarIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-import { ref } from 'vue';
+import { XCircleIcon, RectangleGroupIcon, CheckCircleIcon, CurrencyDollarIcon, XMarkIcon, ShoppingCartIcon } from '@heroicons/vue/24/outline';
+import { cloneVNode, ref } from 'vue';
 
 const jogos = ref({
 
@@ -32,7 +32,9 @@ function calcSeq(jogo: Array<Number>) {
         <div
             class="flex-col border-2 rounded-t-lg border-roxo-escuro border-b-0 p-2 space-y-1 overflow-y-auto custom-scrollbar h-bilhete bg-white">
             <!-- Área de Item Jogo -->
-            <div v-for="(val, idx) in jogos" :key="idx"
+            <div
+                v-show="Object.keys(jogos).length!==0"
+                 v-for="(val, idx) in jogos" :key="idx"
                 class="flex border-2 border-roxo-escuro rounded-md bg-gradient-to-tr from-black to-roxo-escuro  text-white">
                 <!-- Indicador de Quantidade de Números -->
                 <div class="flex items-end">
@@ -63,6 +65,16 @@ function calcSeq(jogo: Array<Number>) {
                     <span class=" w-4 h-4 text-yellow-300 cursor-pointer">
                         <XMarkIcon />
                     </span>
+                </div>
+            </div>
+            <!-- Caso Carrinho Vazio -->
+            <div
+            v-show="Object.keys(jogos).length === 0"
+            class="flex justify-center w-full h-full items-center">
+                <!-- Icone de Carrinho -->
+                <div class="text-gray-200 w-40 animate-balanco">
+
+                    <ShoppingCartIcon/>
                 </div>
             </div>
         </div>
