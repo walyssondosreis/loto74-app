@@ -1,29 +1,10 @@
 <script lang="ts" setup>
 import { XCircleIcon, RectangleGroupIcon, CheckCircleIcon, CurrencyDollarIcon, XMarkIcon, ShoppingCartIcon } from '@heroicons/vue/24/outline';
 import { cloneVNode, ref } from 'vue';
+import { useCarrinhoStore } from '../Store/CarrinhoStore';
 
-const jogos = ref({
+const carrinho = useCarrinhoStore();
 
-    'jogo teste1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste2': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste3': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste4': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste5': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste6': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste7': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste8': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste9': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste12': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste13': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste14': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste16': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    'jogo teste17': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-}
-);
-function calcSeq(jogo: Array<Number>) {
-    let seq = [0, 0, 0, 0, 0];
-
-}
 </script>
 
 <template>
@@ -33,8 +14,8 @@ function calcSeq(jogo: Array<Number>) {
             class="flex-col border-2 rounded-t-lg border-roxo-escuro border-b-0 p-2 space-y-1 overflow-y-auto custom-scrollbar h-bilhete bg-white">
             <!-- Área de Item Jogo -->
             <div
-                v-show="Object.keys(jogos).length!==0"
-                 v-for="(val, idx) in jogos" :key="idx"
+                v-show="Object.keys(carrinho.itens).length!==0"
+                 v-for="(val, idx) in carrinho.itens" :key="idx"
                 class="flex border-2 border-roxo-escuro rounded-md bg-gradient-to-tr from-black to-roxo-escuro  text-white">
                 <!-- Indicador de Quantidade de Números -->
                 <div class="flex items-end">
@@ -62,14 +43,14 @@ function calcSeq(jogo: Array<Number>) {
                 </div>
                 <!-- Icone de Remoção do  Jogo -->
                 <div class="flex p-2">
-                    <span class=" w-4 h-4 text-yellow-300 cursor-pointer">
+                    <span @click="carrinho.removerItem(idx)" class=" w-4 h-4 text-yellow-300 cursor-pointer">
                         <XMarkIcon />
                     </span>
                 </div>
             </div>
             <!-- Caso Carrinho Vazio -->
             <div
-            v-show="Object.keys(jogos).length === 0"
+            v-show="Object.keys(carrinho.itens).length === 0"
             class="flex justify-center w-full h-full items-center">
                 <!-- Icone de Carrinho -->
                 <div class="text-gray-200 w-40 animate-balanco">

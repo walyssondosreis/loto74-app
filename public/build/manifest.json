@@ -12,12 +12,12 @@
     "src": "public/images/pika.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-4f572fb3.css",
+    "file": "assets/app-515a4361.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-b6546dbc.css",
+    "file": "assets/app-767bb17c.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -25,9 +25,9 @@
       "assets/pika-071070ef.jpg"
     ],
     "css": [
-      "assets/app-b6546dbc.css"
+      "assets/app-767bb17c.css"
     ],
-    "file": "assets/app-821037b4.js",
+    "file": "assets/app-fa0963d0.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
