@@ -21,6 +21,8 @@ use App\Http\Controllers\AuthSessionController;
 // Route::get('/bilhete',fn()=> Inertia::render('Bilhete',[ 'title' => 'Olá teste']));
 // Route::get('/login',fn()=> Inertia::render('Login',[ 'title' => 'Olá teste']));
 
+Route::get('/domino',fn()=> Inertia::render('wallgame/Domino',[ 'title' => 'Olá teste']));
+
 Route::get('/', function () {
     return redirect('login');
 });
