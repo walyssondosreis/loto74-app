@@ -100,7 +100,7 @@ function toggleNumero(numero: String){
             </div> -->
             <!-- Áre de botões -->
             <div class="flex justify-center text-center gap-2 text-xs px-2">
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2" title="Limpar Bilhete">
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Limpar Bilhete">
                     <span class="w-5">
                         <XMarkIcon />
                     </span>
@@ -112,13 +112,13 @@ function toggleNumero(numero: String){
                     </span>
                     <!-- <span>Completar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2" title="Buscar Jogo">
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Buscar Jogo">
                     <span class="w-5">
                         <MagnifyingGlassIcon/>
                     </span>
                     <!-- <span>Procurar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2" title="Adicionar ao Carrinho">
+                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Adicionar ao Carrinho">
                     <span class="w-5">
                         <ShoppingCartIcon/>
                     </span>
