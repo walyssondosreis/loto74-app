@@ -17,7 +17,8 @@ const gradeNumeros = ref({
     11: false,12: false,13: false, 14: false,15: false,
     16: false,17: false,18: false, 19: false,20: false,
     21: false,22: false,23: false, 24: false,25: false,
-})
+});
+
 function verificaNumero(numero: String) {
     if (props.sequencia && props.numeros && props.numeros.includes(String(numero))) {
         return true;
@@ -28,11 +29,31 @@ function verificaNumero(numero: String) {
 function toggleNumero(numero: String){
     // console.log(numero);
     // console.log(gradeNumeros.value[numero])
-    gradeNumeros.value[numero] = !gradeNumeros.value[numero]
     // console.log(gradeNumeros.value[numero])
 
     // gradeNumeros[numero] = !gradeNumeros[numero].val;
+    // console.log(gradeNumeros.value);
+    let contador = 0
+    for (const key in gradeNumeros.value){
+        if(gradeNumeros.value[key] === true) {
+            contador++;
+        }
+    }
+    // console.log(contador)
+    if(contador >= 15){
+        if(gradeNumeros.value[numero] === true){
+
+            gradeNumeros.value[numero] = !gradeNumeros.value[numero];
+        }
+    }else{
+        gradeNumeros.value[numero] = !gradeNumeros.value[numero]
+
+    }
+
+    // console.log(contador);
 }
+
+
 
 </script>
 
