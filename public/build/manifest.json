@@ -12,7 +12,7 @@
     "src": "public/images/pika.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-515a4361.css",
+    "file": "assets/app-1ef4442d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -27,7 +27,7 @@
     "css": [
       "assets/app-767bb17c.css"
     ],
-    "file": "assets/app-fa0963d0.js",
+    "file": "assets/app-5f2de950.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

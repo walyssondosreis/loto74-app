@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { XCircleIcon, SparklesIcon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
     modo: { type: String, default: 'show' }, // show | edit
@@ -12,11 +12,11 @@ const props = defineProps({
 });
 
 const gradeNumeros = ref({
-    1: false,2: false, 3: false, 4: false, 5: false,
-    6: false,7: false,8: false, 9: false,10: false,
-    11: false,12: false,13: false, 14: false,15: false,
-    16: false,17: false,18: false, 19: false,20: false,
-    21: false,22: false,23: false, 24: false,25: false,
+    1: false, 2: false, 3: false, 4: false, 5: false,
+    6: false, 7: false, 8: false, 9: false, 10: false,
+    11: false, 12: false, 13: false, 14: false, 15: false,
+    16: false, 17: false, 18: false, 19: false, 20: false,
+    21: false, 22: false, 23: false, 24: false, 25: false,
 })
 function verificaNumero(numero: String) {
     if (props.sequencia && props.numeros && props.numeros.includes(String(numero))) {
@@ -25,14 +25,48 @@ function verificaNumero(numero: String) {
     return false;
 }
 
-function toggleNumero(numero: String){
-    // console.log(numero);
-    // console.log(gradeNumeros.value[numero])
-    gradeNumeros.value[numero] = !gradeNumeros.value[numero]
-    // console.log(gradeNumeros.value[numero])
-
-    // gradeNumeros[numero] = !gradeNumeros[numero].val;
+function limparGradeNumeros() {
+    for (const key in gradeNumeros.value) {
+        gradeNumeros.value[key as keyof typeof gradeNumeros.value] = false;
+    }
 }
+
+function adicionarNoCarrinho() {
+    if (qtdMarcados.value >= 15) {
+
+        alert('Aqui irá adicionar no carrinho');
+    }
+
+}
+
+function toggleNumero(numero: String) {
+
+    // Verifica se esta adicionando numero
+    console.log('Aqui esta: ' + !gradeNumeros.value[numero]);
+    if (!gradeNumeros.value[numero] == true) {
+
+        if (qtdMarcados.value >= 15 && qtdMarcados.value <= 19) {
+            alert(`Voce já adicionou ${qtdMarcados.value} números, o valor deste jogo será afetado`);
+            gradeNumeros.value[numero] = !gradeNumeros.value[numero];
+        }
+        else if (qtdMarcados.value >= 20) {
+            alert(`Voce já adicionou ${qtdMarcados.value} números, é o limite de números, o valor desse jogo sera afetado`);
+        } else {
+            gradeNumeros.value[numero] = !gradeNumeros.value[numero];
+        }
+
+    } else {
+
+        gradeNumeros.value[numero] = !gradeNumeros.value[numero];
+    }
+
+
+
+}
+
+const qtdMarcados = computed(() => {
+    return Object.values(gradeNumeros.value).filter(Boolean).length;
+});
 
 </script>
 
@@ -64,14 +98,20 @@ function toggleNumero(numero: String){
 
     <!-- Card Geral Modo EDIT -->
     <div v-if="modo == 'edit'" class="flex-col  h-fit">
-        <div class="flex-col bg-roxo-escuro p-4 border-gray-500 border rounded-t-lg">
+        <div class="flex-col bg-roxo-escuro p-4 border-gray-500 border rounded-t-lg relative">
+
+            <span v-if="qtdMarcados > 0"
+                class="text-white bg-red-600 p-1 rounded-md absolute right-2 top-2 text-sm min-w-6 text-center">{{
+                    qtdMarcados }}</span>
 
             <!-- Informações do Bilhete -->
             <div class="flex-col justify-center text-white bg-roxo-claro rounded-xl border border-gray-300 mb-2">
                 <!-- Nome do Jogo :: Entrada -->
                 <div class="flex justify-center text-sm p-4">
 
-                    <input type="text" placeholder="@nome_jogo" class="px-2 py-1 tracking-wider bg-white text-black text-center w-full rounded-md" title="(Opcional) Digite o nome do jogo"/>
+                    <input type="text" placeholder="@nome_jogo"
+                        class="px-2 py-1 tracking-wider bg-white text-black text-center w-full rounded-md"
+                        title="(Opcional) Digite o nome do jogo" />
                 </div>
                 <!-- Sequencia Calculada -->
                 <div class="flex justify-center gap-2 pb-4">
@@ -83,11 +123,10 @@ function toggleNumero(numero: String){
             <div v-for="idx_col in 5" :key="idx_col" class="flex items-center p-2 gap-1">
 
                 <!-- Grupo de Numero -->
-                <div v-for="idx_ln in 5" :key="idx_ln"
-                    @click="toggleNumero((idx_col - 1) * 5 + idx_ln)"
+                <div v-for="idx_ln in 5" :key="idx_ln" @click="toggleNumero((idx_col - 1) * 5 + idx_ln)"
                     :class="[{ 'bg-yellow-600 border-yellow-300': gradeNumeros[(idx_col - 1) * 5 + idx_ln] }, 'flex-col border-2 border-gray-500 p-1 rounded-md text-gray-500 cursor-pointer transition-all']">
                     <span
-                        :class="[{ 'bg-gradient-to-b from-yellow-400 to-yellow-900 text-white border-white': gradeNumeros[(idx_col - 1) * 5 + idx_ln]}, 'flex justify-center border border-gray-500 rounded-full w-10 h-10 items-center text-2xl']">{{
+                        :class="[{ 'bg-gradient-to-b from-yellow-400 to-yellow-900 text-white border-white': gradeNumeros[(idx_col - 1) * 5 + idx_ln] }, 'flex justify-center border border-gray-500 rounded-full w-10 h-10 items-center text-2xl']">{{
                             (idx_col - 1) * 5 + idx_ln }}</span>
                 </div>
 
@@ -100,27 +139,31 @@ function toggleNumero(numero: String){
             </div> -->
             <!-- Áre de botões -->
             <div class="flex justify-center text-center gap-2 text-xs px-2">
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Limpar Bilhete">
+                <div :class="[{ 'text-white bg-roxo-light': qtdMarcados > 0 }, 'flex border border-gray-400 text-gray-400 p-1 rounded-md items-center gap-1 px-2 cursor-pointer']"
+                    title="Limpar Bilhete" @click="limparGradeNumeros()">
                     <span class="w-5">
                         <XMarkIcon />
                     </span>
                     <!-- <span>Limpar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Completar Jogo">
+                <div :class="[{ 'text-white bg-roxo-light': qtdMarcados < 15 }, 'flex border border-gray-400 text-gray-400 p-1 rounded-md items-center gap-1 px-2 cursor-pointer']"
+                    title="Completar Jogo">
                     <span class="w-5 ">
-                        <SparklesIcon/>
+                        <SparklesIcon />
                     </span>
                     <!-- <span>Completar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Buscar Jogo">
+                <div :class="[{ 'text-white bg-roxo-light': qtdMarcados == 0 }, 'flex border border-gray-400 text-gray-400 p-1 rounded-md items-center gap-1 px-2 cursor-pointer']"
+                    title="Buscar Jogo">
                     <span class="w-5">
-                        <MagnifyingGlassIcon/>
+                        <MagnifyingGlassIcon />
                     </span>
                     <!-- <span>Procurar</span> -->
                 </div>
-                <div class="flex border border-white p-1 rounded-md items-center gap-1 px-2 cursor-pointer" title="Adicionar ao Carrinho">
+                <div :class="[{ 'text-white bg-roxo-light': qtdMarcados >= 15 }, 'flex border border-gray-400 text-gray-400 p-1 rounded-md items-center gap-1 px-2 cursor-pointer']"
+                    title="Adicionar ao Carrinho" @click="adicionarNoCarrinho()">
                     <span class="w-5">
-                        <ShoppingCartIcon/>
+                        <ShoppingCartIcon />
                     </span>
                     <!-- <span>Adicionar</span> -->
                 </div>
