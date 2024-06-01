@@ -18,6 +18,9 @@ const gradeNumeros = ref({
     16: false, 17: false, 18: false, 19: false, 20: false,
     21: false, 22: false, 23: false, 24: false, 25: false,
 })
+
+const sequencia = ref([0,0,0,0,0]);
+
 function verificaNumero(numero: String) {
     if (props.sequencia && props.numeros && props.numeros.includes(String(numero))) {
         return true;
@@ -29,6 +32,7 @@ function limparGradeNumeros() {
     for (const key in gradeNumeros.value) {
         gradeNumeros.value[key as keyof typeof gradeNumeros.value] = false;
     }
+    sequencia.value=[0,0,0,0,0];
 }
 
 function adicionarNoCarrinho() {
@@ -61,10 +65,26 @@ function toggleNumero(numero: String) {
     }
 
 
+    sequencia.value[0] = Object.values(gradeNumeros.value).filter((val, idx) => {
+      return idx >= 0 && idx <= 4 && val === true;
+    }).length;
+    sequencia.value[1] = Object.values(gradeNumeros.value).filter((val, idx) => {
+      return idx >= 5 && idx <= 9 && val === true;
+    }).length;
+    sequencia.value[2] = Object.values(gradeNumeros.value).filter((val, idx) => {
+      return idx >= 10 && idx <= 14 && val === true;
+    }).length;
+    sequencia.value[3] = Object.values(gradeNumeros.value).filter((val, idx) => {
+      return idx >= 15 && idx <= 19 && val === true;
+    }).length;
+    sequencia.value[4] = Object.values(gradeNumeros.value).filter((val, idx) => {
+      return idx >= 20 && val === true;
+    }).length;
+
 
 }
 
-const qtdMarcados = computed(() => {
+const qtdMarcados = computed( () => {
     return Object.values(gradeNumeros.value).filter(Boolean).length;
 });
 
@@ -115,7 +135,7 @@ const qtdMarcados = computed(() => {
                 </div>
                 <!-- Sequencia Calculada -->
                 <div class="flex justify-center gap-2 pb-4">
-                    <span v-for="(nseq, idx_seq) in [0, 0, 0, 0, 0]" :key="idx_seq"
+                    <span v-for="(nseq, idx_seq) in sequencia" :key="idx_seq"
                         class="flex border boder-white px-1 rounded-md text-xl justify-center">{{ nseq }}</span>
                 </div>
             </div>
