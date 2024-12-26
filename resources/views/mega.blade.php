@@ -7,7 +7,7 @@
     <title>Bolão da Mega</title>
 
    {{-- @vite(['resources/css/app.css']) --}}
-    <link rel="stylesheet" href="{{ asset('build/assets/app-4e6b4c65.css') }}">
+    <link rel="stylesheet" href="https://mega74-9fc3a9e75da4.herokuapp.com/build/assets/app-4e6b4c65.css">
 
 </head>
 
@@ -179,7 +179,7 @@
             }
         });
     </script>
-     <script src="{{ asset('build/assets/app-1ca61c52.js') }}"></script>
+     <script src="http://mega74-9fc3a9e75da4.herokuapp.com/build/assets/app-1ca61c52.js"></script>
 </body>
 
 
