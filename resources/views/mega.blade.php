@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolão da Mega</title>
 
-    @vite(['resources/css/app.css'])
+   {{-- @vite(['resources/css/app.css']) --}}
     <link rel="stylesheet" href="{{ asset('build/assets/app-4e6b4c65.css') }}">
 
 </head>
