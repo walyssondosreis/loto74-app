@@ -2,9 +2,6 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
-    server: {
-        https: true, // Adicione esta linha para forçar HTTPS  
-    },
     plugins: [
         laravel({
             input: [
