@@ -22,7 +22,7 @@ use function App\Helpers\limparFiltros;
 
 Route::get('/', function () {
     // return view('welcome');
-    return to_route('loto');
+    return to_route('bolaodamega');
 });
 
 Route::get('/inov4dev',[TesteController::class,'inov4dev'])->name('inov');
