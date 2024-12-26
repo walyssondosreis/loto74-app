@@ -8,7 +8,7 @@
         "dev": "vite",
         "build": "vite build",
         "serve": "vite preview",
-        "heroku-postbuild": "npm install && npm run build"
+        "heroku-postbuild": "npm run build"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
