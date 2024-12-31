@@ -20,7 +20,7 @@
     <div class=" flex-col justify-center">
         {{-- Titulo --}}
         <div class="flex justify-center bg-green-600 border-b border-green-800 ">
-            <span class="flex text-2xl p-4 font-nexah text-center py-4 text-red text-semibold">!!! ÚLTIMO !!! <br>
+            <span class="flex text-2xl p-4 font-nexah text-center py-4 text-red">!!! ÚLTIMO !!! </span><br>
             <span class="flex text-2xl p-4 font-nexah text-center py-4 text-white">BOLÃO DA MEGA 2024/2025 <br>
                 Concurso 2810</span>
         </div>
