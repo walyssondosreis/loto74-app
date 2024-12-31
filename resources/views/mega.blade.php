@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bolão da Mega</title>
+    <title>
+<p class="text-red"> ÚLTIMO </p><br>
+Bolão da Mega
+</title>
 
    {{-- @vite(['resources/css/app.css']) --}}
     <link rel="stylesheet" href="https://mega74-9fc3a9e75da4.herokuapp.com/build/assets/app-4e6b4c65.css">
