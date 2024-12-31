@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ÚLTIMO Bolão da Mega </title>
+    <title> Bolão da Mega </title>
 
    {{-- @vite(['resources/css/app.css']) --}}
     <link rel="stylesheet" href="https://mega74-9fc3a9e75da4.herokuapp.com/build/assets/app-4e6b4c65.css">
@@ -20,6 +20,7 @@
     <div class=" flex-col justify-center">
         {{-- Titulo --}}
         <div class="flex justify-center bg-green-600 border-b border-green-800 ">
+            <span class="flex text-2xl p-4 font-nexah text-center py-4 text-red text-semibold">!!! ÚLTIMO !!! <br>
             <span class="flex text-2xl p-4 font-nexah text-center py-4 text-white">BOLÃO DA MEGA 2024/2025 <br>
                 Concurso 2810</span>
         </div>
